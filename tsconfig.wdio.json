@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "types": ["node", "webdriverio/sync", "@wdio/jasmine-framework"]
+  },
+  "include": ["test-browser/**/*.ts", "wdio.conf.ts"]
+}

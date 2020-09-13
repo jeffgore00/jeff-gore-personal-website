@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "types": [
+      "node",
+      "express",
+      "react",
+      "react-dom",
+      "styled-components",
+      "jest",
+      "webdriverio/sync"
+    ]
+  },
+  "include": [
+    "src",
+    "test-api",
+    "test-utils",
+    "jest.config.ts",
+    "webpack.config.ts",
+    "test-browser",
+    ".eslintrc.js"
+  ]
+}
