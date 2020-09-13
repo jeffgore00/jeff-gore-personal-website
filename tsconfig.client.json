@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig",
+  "compilerOptions": {
+    "types": ["node", "react", "react-dom", "styled-components", "jest"],
+    "target": "es5",
+    "typeRoots": ["./node_modules", "./src/client"]
+  },
+  "include": ["src/client", "src/shared"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "node_modules"]
+}

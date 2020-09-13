@@ -1,0 +1,5 @@
+{
+  "backendUrl": "http://localhost:1337",
+  "frontendUrl": "http://localhost:8080",
+  "corsWhitelist": ["http://localhost:1337", "http://localhost:8080"]
+}
