@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { Navigator } from '../navigator';
 
 import logger from '../../utils/logger';
 
@@ -19,7 +20,9 @@ export const Homepage = (): React.ReactElement => {
 
   return (
     <HomepageStylingContainer>
-      <h1>Homepage</h1>
+      <header>
+        <Navigator />
+      </header>
     </HomepageStylingContainer>
   );
 };
