@@ -16,6 +16,24 @@ describe('The homepage', () => {
       it('should display a heading', () => {
         expect(homepage.heading.isDisplayed()).toBe(true);
       });
+      describe('Footer', () => {
+        /* These icons are also links that open in a new tab, but this aspect
+        is already handled by unit tests and turned out to be unreliable in browser
+        tests due to varying behavior when a link is accessed. */
+        it('should display a GitHub icon', () => {
+          expect(homepage.githubFooterIcon.isDisplayed()).toEqual(true);
+        });
+        it('should display a LinkedIn icon', () => {
+          expect(homepage.linkedinFooterIcon.isDisplayed()).toEqual(true);
+        });
+        it('should display a Twitter icon', () => {
+          expect(homepage.twitterFooterIcon.isDisplayed()).toEqual(true);
+        });
+        it('should display a Instagram icon', () => {
+          expect(homepage.instagramFooterIcon.isDisplayed()).toEqual(true);
+        });
+      });
+
       if (screenSize === 'desktop') {
         it('should display an "About Me" link', () => {
           expect(homepage.aboutMeLink.isDisplayed()).toBe(true);
