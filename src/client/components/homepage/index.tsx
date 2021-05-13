@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Navigator } from '../navigator';
+import { Footer } from '../footer';
 
 import logger from '../../utils/logger';
 
@@ -23,6 +24,7 @@ export const Homepage = (): React.ReactElement => {
       <header>
         <Navigator />
       </header>
+      <Footer />
     </HomepageStylingContainer>
   );
 };

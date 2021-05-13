@@ -22,6 +22,22 @@ class Homepage extends Page {
     return $('[data-testid="mobile-nav-menu"]');
   }
 
+  get githubFooterIcon(): WebdriverIO.Element {
+    return $('[data-testid="footer-github"]');
+  }
+
+  get linkedinFooterIcon(): WebdriverIO.Element {
+    return $('[data-testid="footer-linkedin"]');
+  }
+
+  get twitterFooterIcon(): WebdriverIO.Element {
+    return $('[data-testid="footer-twitter"]');
+  }
+
+  get instagramFooterIcon(): WebdriverIO.Element {
+    return $('[data-testid="footer-instagram"]');
+  }
+
   open(): void {
     return super.open();
   }
