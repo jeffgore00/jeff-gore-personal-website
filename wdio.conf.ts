@@ -82,7 +82,7 @@ const {
 
 const environmentMap = {
   dev: 'http://localhost:8080',
-  prod: 'https://ts-react-node-project-skeleton.herokuapp.com',
+  prod: 'https://jeff-gore-personal-website.herokuapp.com',
 };
 
 const baseUrl = environmentMap[environment];

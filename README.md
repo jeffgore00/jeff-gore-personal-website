@@ -1,158 +1,9 @@
-# 💀 TypeScript-React-Node Project Skeleton 💀
+# Jeff Gore's Personal Website
 
-[![CircleCI](https://circleci.com/gh/jeffgore00/ts-react-node-project-skeleton.svg?style=shield)](https://app.circleci.com/pipelines/github/jeffgore00/ts-react-node-project-skeleton?branch=main)
-[![Codecov](https://img.shields.io/codecov/c/gh/jeffgore00/ts-react-node-project-skeleton)](https://app.codecov.io/gh/jeffgore00/ts-react-node-project-skeleton/)
+[![CircleCI](https://circleci.com/gh/jeffgore00/jeff-gore-personal-website.svg?style=shield)](https://app.circleci.com/pipelines/github/jeffgore00/jeff-gore-personal-website?branch=main)
+[![Codecov](https://img.shields.io/codecov/c/gh/jeffgore00/jeff-gore-personal-website)](https://app.codecov.io/gh/jeffgore00/jeff-gore-personal-website/)
 
-This is a boilerplate for a [Node][node]-[Express][express] backend, [React][react] frontend web application which utilizes unit, API, and browser tests.
-
-Everything possible, from functional code to tests to config files, is written in [TypeScript][typescript].
-
-It also contains the configuration for a simple [CircleCI][circleci] pipeline that runs the unit and API tests, then deploys a build to [Heroku][heroku].
-
-- [Part 1. About This Boilerplate (Delete After You Clone)](#part-1-about-this-boilerplate-delete-after-you-clone)
-  - [User-facing functionality and public APIs](#user-facing-functionality-and-public-apis)
-  - [Non-user-facing functionality](#non-user-facing-functionality)
-    - [Development experience / QA](#development-experience--qa)
-    - [Testing](#testing)
-    - [Client Bundle Optimization](#client-bundle-optimization)
-    - [Production Tools](#production-tools)
-    - [Security](#security)
-    - [Miscellaneous](#miscellaneous)
-  - [Not Handled by This Boilerplate](#not-handled-by-this-boilerplate)
-  - [Contributing](#contributing)
-  - [Post-clone to-do list](#post-clone-to-do-list)
-    - [Conditional to-do list](#conditional-to-do-list)
-    - [The final item](#the-final-item)
-- [Part 2. Operating Instructions (Keep These After You Clone)](#part-2-operating-instructions-keep-these-after-you-clone)
-  - [Usage](#usage)
-  - [Build](#build)
-  - [Logging](#logging)
-    - [Core Functionality](#core-functionality)
-    - [Logging Caveats](#logging-caveats)
-    - [Error Logging](#error-logging)
-    - [Logging in Development](#logging-in-development)
-    - [Passing Logs from Client to Server via API](#passing-logs-from-client-to-server-via-api)
-  - [Testing](#testing-1)
-    - [Test Structure](#test-structure)
-    - [Unit Tests](#unit-tests)
-    - [API Tests](#api-tests)
-    - [Browser Tests](#browser-tests)
-
-# Part 1. About This Boilerplate (Delete After You Clone)
-
-## User-facing functionality and public APIs
-
-Since this is a boilerplate, the user-facing functionality out-of-the-box is minimal.
-
-- A very simple homepage at `GET /`:
-
-  ![Homepage Screenshot](/public/readme-boilerplate-homepage.png 'Homepage Screenshot')
-
-* A `GET /api/health` route which returns JSON of the `package.json` version, server uptime, and the currently deployed commit (Heroku only).
-* A `PUT /api/logs` route for logging events from the front-end.
-
-You can see this in practice at https://ts-react-node-project-skeleton.herokuapp.com.
-
-## Non-user-facing functionality
-
-Despite the limited functionality from a user's perspective, there's a lot to offer the developer who cares deeply about quality, but still wants to start writing feature code right away.
-
-Here is some marketing for what this project skeleton provides:
-
-### Development experience / QA
-
-- Pre-commit hooks implemented with [Husky][husky] to encourage committing clean code:
-  - [ESLint][eslint] with an [Airbnb configuration][airbnb configuration] running with a `--fix` flag
-  - [prettier][prettier] running with a `--write` flag
-  - [commitlint][commitlint] running with a conventional config
-- Auto-reloading with [webpack-dev-server][webpack-dev-server] and [nodemon][nodemon] to ensure you won't have to manually rebuild or restart anything in development.
-- A development logger with color coded log levels (see [Logging in Development](#logging-in-development) for more details)
-- Use of [styled-components][styled-components] in conjunction with [typescript-plugin-styled-components][typescript-plugin-styled-components] to see styled component names rather than compiled hashes in [React Developer Tools][react developer tools]
-
-### Testing
-
-- Unit testing with [Jest][jest], utilizing its code coverage reporter
-  - ...in conjunction with [React Testing Library][react testing library] for the frontend...
-  - ...and [SuperTest][supertest] for API tests on the backend.
-- Automation with [WebdriverIO][webdriverio] and [Jasmine][jasmine] with one passing test out of the box
-  - WebdriverIO CLI extended with custom flags to facilitate ease of use
-  - Runnable on your local machine in Chrome with [Chromedriver][chromedriver], or in headless mode in Chrome or Firefox with [selenium-standalone][selenium-standalone]
-  - Has the option to save screenshots of tests at the point of failing or of completion
-  - Whenever WebdriverIO loads a new URL, logs the URL to the console
-
-### Client Bundle Optimization
-
-- [Webpack][webpack] with React loaded externally to minimize build size; option to bundle if offline
-- A [gzip][gzip]-compressed client-side bundle
-- A report from [webpack-bundle-analyzer][webpack-bundle-analyzer] to help manage dependency size
-- Source maps for debugging in the browser
-
-### Production Tools
-
-- Proper CHANGELOG generation and updates with [standard-version][standard-version]
-- Logging for every HTTP request/response with [Morgan][morgan]
-- Arbitrary logging with [Winston][winston]
-- Boilerplate for CI with CircleCI, including an upload of code coverage to [Codecov][codecov]
-- A health check API (as described in [User-facing functionality and public APIs](#user-facing-functionality-and-public-apis))
-- Top level React error boundary to catch and log front-end errors
-
-### Security
-
-- [Helmet][helmet] applied with nearly default settings to server
-- [CORS][cors] applicable on a route level, with ability to block or allow requests from tools like [Postman][postman]
-
-### Miscellaneous
-
-- Icons for social media links in `/public`
-
-> Note from Jeff:
->
-> Is this boilerplate itself based on any boilerplate? Yes, a very light one with no backend. I started with a blog post on the TypeScript website that seems to have disappeared from the internet. It outlined a very simple Webpack configuration for a TypeScript page with no backend. That is where the idea of excluding React from the client bundle comes from, and I still have a quote from that boilerplate in the Webpack config.
->
-> I tried create-react-app, but I found it was a nightmare to try to compile TypeScript that didn't live in `src`, such as the browser tests.
->
-> Granted, this is a pretty opinionated boilerplate as well....
-
-## Not Handled by This Boilerplate
-
-1. This does not include any client-side routing.
-2. This does not include any logic for authentication, session management or persistent storage.
-3. The Node server is a simple HTTP server which relies on [Heroku routing magic][heroku routing magic] to allow for HTTPS in production. There is no logic for creating an HTTPS server with certs.
-4. There is no logic for server-side rendering.
-
-## Post-clone to-do list
-
-This list assumes you would like all the features of this boilerplate and are using CircleCI with Codecov.
-
-- [ ] Fork or clone this repo. The `main` branch contains the single commit that can serve as the boilerplate.
-- [ ] Replace all instances of `ts-react-node-project-skeleton` with your application name.
-- [ ] Update the `<title>` and `<meta>` tags in `public/index-template.html` with your project info.
-- [ ] Delete `public/favicon.ico` or overwrite with your app's icon.
-- [ ] Make sure the `chromedriver` dev dependency matches your local version of Chrome.
-- [ ] If you are using Codecov, sure your `CODECOV_TOKEN` environment variable is set in your CircleCI
-
-### Conditional to-do list
-
-This list is for those who may not want to use CircleCI, Heroku, or Codecov.
-
-- [ ] If you don't intend to integrate this with a CircleCI pipeline:
-  - [ ] Delete the `.circleci` folder
-- [ ] If you don't intend to integrate this repo with Codecov:
-  - [ ] Delete the `scripts` folder
-  - [ ] Delete the `send-codecov-report` npm script from `package.json`.
-        project settings (assumes you've integrated your app with Codecov).
-- [ ] If you don't intend to deploy this to Heroku:
-  - [ ] Delete the `view-prod-logs` npm script
-  - [ ] Alter the `src/server/utils/get-server-status.ts` file to use a different method (currently a Heroku-specific environment variable) to get the SHA hash of the currently deployed git commit.
-- [ ] If your app is deployed somewhere other than Heroku:
-  - [ ] Update the production URL in `src/shared/config/production.json`
-  - [ ] Update the production URL in `wdio.conf.ts`.
-
-### The final item
-
-- [ ] After all other items are complete, delete this to-do list along with all the content above it (i.e. Part 1 of this README).
-
-# Part 2. Operating Instructions (Keep These After You Clone)
+## Operating Instructions
 
 All shell commands listed below need to be run from a Unix shell.
 
@@ -268,7 +119,7 @@ Production output:
   "error": {
     "name": "Error",
     "message": "Access denied",
-    "stack": "Error: Access denied\n    at /Users/bobross/Desktop/ts-react-node-project-skeleton/src/server/app.ts:29:11\n    at Layer.handle [as handle_request] (/Users/bobross/Desktop/ts-react-node-project-skeleton/node_modules/express/lib/router/layer.js:95:5)"
+    "stack": "Error: Access denied\n    at /Users/bobross/Desktop/jeff-gore-personal-website/src/server/app.ts:29:11\n    at Layer.handle [as handle_request] (/Users/bobross/Desktop/jeff-gore-personal-website/node_modules/express/lib/router/layer.js:95:5)"
   },
   "level": "error",
   "message": "Could not remove CIA secret agent",

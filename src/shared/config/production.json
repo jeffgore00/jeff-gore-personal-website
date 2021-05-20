@@ -1,5 +1,5 @@
 {
-  "backendUrl": "https://ts-react-node-project-skeleton.herokuapp.com",
-  "frontendUrl": "https://ts-react-node-project-skeleton.herokuapp.com",
-  "corsWhitelist": ["https://ts-react-node-project-skeleton.herokuapp.com"]
+  "backendUrl": "https://jeff-gore-personal-website.herokuapp.com",
+  "frontendUrl": "https://jeff-gore-personal-website.herokuapp.com",
+  "corsWhitelist": ["https://jeff-gore-personal-website.herokuapp.com"]
 }
