@@ -111,7 +111,7 @@
     "lint-staged": "11.0.0",
     "nodemon": "2.0.7",
     "prettier": "2.2.1",
-    "source-map-loader": "2.0.1",
+    "source-map-loader": "2.0.2",
     "spellchecker-cli": "4.4.0",
     "standard-version": "9.3.0",
     "supertest": "6.1.3",
