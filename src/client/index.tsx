@@ -10,7 +10,7 @@ export const PageStylingContainer = styled.div.attrs({
 })`
   max-width: 800px;
   margin: 0 auto;
-  padding: 40px 40px;
+  padding: 20px 40px;
   font-family: Helvetica, sans serif;
 `;
 
