@@ -36,6 +36,9 @@ const NavigatorContainer = styled.nav.attrs({
 })`
   display: flex;
   justify-content: space-between;
+  & * {
+    align-self: flex-end;
+  }
 `;
 
 export const Navigator = (): React.ReactElement => (
