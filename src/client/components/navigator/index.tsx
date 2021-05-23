@@ -50,7 +50,9 @@ export const Navigator = (): React.ReactElement => (
           {isDesktop ? (
             <DesktopNavMenu />
           ) : (
-            <div data-testid="mobile-nav-menu">|||</div>
+            <div data-testid="mobile-nav-menu" style={{ fontSize: '2em' }}>
+              ≡
+            </div>
           )}
         </>
       )}
