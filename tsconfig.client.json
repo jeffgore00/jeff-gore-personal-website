@@ -5,6 +5,6 @@
     "target": "es5",
     "typeRoots": ["./node_modules", "./src/client"]
   },
-  "include": ["src/client", "src/shared"],
+  "include": ["src/client", "src/shared", "test-utils/components"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx", "node_modules"]
 }

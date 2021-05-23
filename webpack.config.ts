@@ -59,6 +59,7 @@ module.exports = {
         include: [
           path.resolve(__dirname, 'src/client'),
           path.resolve(__dirname, 'src/shared'),
+          path.resolve(__dirname, 'test-utils'),
         ],
         loader: 'ts-loader',
         options: {
