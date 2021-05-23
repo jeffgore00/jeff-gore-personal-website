@@ -4,6 +4,7 @@ import { Navigator } from '../navigator';
 import { Footer } from '../footer';
 
 import logger from '../../utils/logger';
+import { ErrorBoundary } from '../error-boundary';
 
 export const HomepageStylingContainer = styled.div.attrs({
   id: 'home',
@@ -22,6 +23,9 @@ export const Homepage = (): React.ReactElement => {
       <header>
         <Navigator />
       </header>
+      <ErrorBoundary boundaryLocation="within-header-and-footer">
+        <div id="main-content" />
+      </ErrorBoundary>
       <Footer />
     </HomepageStylingContainer>
   );
