@@ -24,7 +24,7 @@ describe('root', () => {
     const { PageStylingContainer } = await import('.');
     expect(reactDOMRenderSpy).toHaveBeenCalledWith(
       <PageStylingContainer>
-        <ErrorBoundary>
+        <ErrorBoundary boundaryLocation="top-level">
           <Homepage />
         </ErrorBoundary>
       </PageStylingContainer>,

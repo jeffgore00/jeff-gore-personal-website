@@ -25,7 +25,7 @@ describe('Error boundary', () => {
       // @ts-ignore
       loggerSpy = jest.spyOn(logger, 'error').mockImplementation(jest.fn());
       render(
-        <ErrorBoundary>
+        <ErrorBoundary boundaryLocation="top-level">
           <FaultyComponent />
         </ErrorBoundary>,
       );
@@ -36,6 +36,7 @@ describe('Error boundary', () => {
       expect(loggerSpy).toHaveBeenCalledWith(
         'Error Caught by React Error Boundary: unique error',
         {
+          boundaryLocation: 'top-level',
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           errorComponentStack: expect.any(String),
           // stack trace will include file location, so it would be tough to do an exact match
@@ -53,7 +54,7 @@ describe('Error boundary', () => {
 
     beforeAll(() => {
       render(
-        <ErrorBoundary>
+        <ErrorBoundary boundaryLocation="top-level">
           <div data-testid="healthy-component" />
         </ErrorBoundary>,
       );

@@ -16,7 +16,7 @@ export const PageStylingContainer = styled.div.attrs({
 
 ReactDOM.render(
   <PageStylingContainer>
-    <ErrorBoundary>
+    <ErrorBoundary boundaryLocation="top-level">
       <Homepage />
     </ErrorBoundary>
   </PageStylingContainer>,

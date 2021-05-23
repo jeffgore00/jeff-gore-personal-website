@@ -7,10 +7,11 @@ import logger from '../../utils/logger';
 
 type Props = {
   children: React.ReactNode;
+  boundaryLocation: string;
 };
 
 export class ErrorBoundary extends React.Component<
-  Record<string, unknown>,
+  Props,
   { hasError: boolean }
 > {
   constructor(props: Props) {
@@ -24,6 +25,7 @@ export class ErrorBoundary extends React.Component<
       `Error Caught by React Error Boundary: ${error.message}`,
       {
         errorComponentStack: info.componentStack,
+        boundaryLocation: this.props.boundaryLocation,
       },
     );
   }
