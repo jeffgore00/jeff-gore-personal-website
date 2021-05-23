@@ -6,7 +6,23 @@ import { DesktopNavMenu } from './desktop-menu';
 const DESKTOP_MEDIA_QUERY = '(min-width: 700px)';
 
 const StyledHeader = styled.h1`
+  @font-face {
+    font-family: JetBrainsMono;
+    src: local('JetBrains Mono Italic'), url('JetBrainsMono-Italic.woff2');
+    font-weight: normal;
+    font-style: italic;
+  }
+  font-family: JetBrainsMono;
+  font-style: italic;
+  font-size: 2em;
   margin: 0;
+  color: inherit;
+  text-decoration: none !important;
+
+  & a:-webkit-any-link {
+    color: inherit;
+    text-decoration: none !important;
+  }
 `;
 
 const NameHeader = (): React.ReactElement => (
