@@ -8,9 +8,7 @@ import logger from '../../utils/logger';
 export const HomepageStylingContainer = styled.div.attrs({
   id: 'home',
   'data-testid': 'home',
-})`
-  font-family: Helvetica, sans serif;
-`;
+})``;
 
 export const HOMEPAGE_RENDERED_LOG = 'Homepage Rendered';
 

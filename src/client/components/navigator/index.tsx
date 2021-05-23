@@ -19,9 +19,6 @@ const NavigatorContainer = styled.nav.attrs({
   'data-testid': 'navigator',
 })`
   display: flex;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 40px;
   justify-content: space-between;
 `;
 

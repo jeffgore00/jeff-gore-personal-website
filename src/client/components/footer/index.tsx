@@ -8,9 +8,6 @@ const FooterContainer = styled.footer.attrs({
   role: 'contentinfo',
 })`
   display: flex;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 40px;
   justify-content: flex-end;
 `;
 

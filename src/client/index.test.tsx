@@ -21,11 +21,13 @@ describe('root', () => {
   });
 
   it('injects the <Homepage> element into <div id="root">', async () => {
-    await import('.');
+    const { PageStylingContainer } = await import('.');
     expect(reactDOMRenderSpy).toHaveBeenCalledWith(
-      <ErrorBoundary>
-        <Homepage />
-      </ErrorBoundary>,
+      <PageStylingContainer>
+        <ErrorBoundary>
+          <Homepage />
+        </ErrorBoundary>
+      </PageStylingContainer>,
       root,
     );
   });
