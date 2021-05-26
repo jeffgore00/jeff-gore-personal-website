@@ -12,7 +12,7 @@ const StyledHeader = styled.h1`
     font-weight: normal;
     font-style: italic;
   }
-  font-family: JetBrainsMono;
+  font-family: JetBrainsMono, monospace;
   font-style: italic;
   font-size: 2em;
   margin: 0;
