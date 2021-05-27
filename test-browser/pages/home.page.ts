@@ -10,6 +10,10 @@ class Homepage extends Page {
     return $('a*=About');
   }
 
+  get blogLink(): WebdriverIO.Element {
+    return $('a*=Blog');
+  }
+
   get projectsLink(): WebdriverIO.Element {
     return $('a*=Projects');
   }

@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ErrorBoundary } from './components/error-boundary';
-import { Homepage } from './components/homepage';
-
 const reactDOMRenderSpy = jest
   .spyOn(ReactDOM, 'render')
   .mockImplementation(jest.fn());
@@ -21,14 +18,7 @@ describe('root', () => {
   });
 
   it('injects the <Homepage> element into <div id="root">', async () => {
-    const { PageStylingContainer } = await import('.');
-    expect(reactDOMRenderSpy).toHaveBeenCalledWith(
-      <PageStylingContainer>
-        <ErrorBoundary boundaryLocation="top-level">
-          <Homepage />
-        </ErrorBoundary>
-      </PageStylingContainer>,
-      root,
-    );
+    const { TopLevelUserInterface } = await import('.');
+    expect(reactDOMRenderSpy).toHaveBeenCalledWith(TopLevelUserInterface, root);
   });
 });

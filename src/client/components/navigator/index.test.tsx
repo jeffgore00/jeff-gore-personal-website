@@ -6,6 +6,8 @@ import {
   queryByText,
   queryByTestId,
 } from '@testing-library/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { Navigator } from '.';
 import { setupReactMediaMock } from '../../../../test-utils/react-media';
 
@@ -20,7 +22,11 @@ describe('The Navigator component', () => {
     let navbar: HTMLElement;
 
     beforeAll(() => {
-      render(<Navigator />);
+      render(
+        <Router>
+          <Navigator />
+        </Router>,
+      );
       navbar = screen.getByRole('navigation');
     });
 
@@ -42,7 +48,11 @@ describe('The Navigator component', () => {
 
       beforeAll(() => {
         simulateMobileScreenWidth();
-        render(<Navigator />);
+        render(
+          <Router>
+            <Navigator />
+          </Router>,
+        );
         navbar = screen.getByRole('navigation');
       });
 
@@ -60,7 +70,11 @@ describe('The Navigator component', () => {
 
       beforeAll(() => {
         simulateDesktopScreenWidth();
-        render(<Navigator />);
+        render(
+          <Router>
+            <Navigator />
+          </Router>,
+        );
         navbar = screen.getByRole('navigation');
       });
 

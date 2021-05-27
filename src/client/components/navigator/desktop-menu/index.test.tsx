@@ -1,4 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 import { screen, render, getByText } from '@testing-library/react';
 import { DesktopNavMenu } from '.';
 
@@ -22,7 +24,11 @@ describe('Desktop Nav Menu', () => {
   };
 
   beforeAll(() => {
-    render(<DesktopNavMenu />);
+    render(
+      <Router>
+        <DesktopNavMenu />
+      </Router>,
+    );
     desktopNavMenu = screen.getByTestId('desktop-nav-menu'); // </nav>
   });
   it('displays the expected list of words as hyperlinks', () => {
