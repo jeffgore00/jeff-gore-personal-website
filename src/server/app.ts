@@ -1,11 +1,13 @@
 import path from 'path';
 
-import express, { RequestHandler, ErrorRequestHandler } from 'express';
+import express, { ErrorRequestHandler } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 
 import apiRouter from './routers/api';
 import logger from './utils/logger';
+import { sendHtmlForEnabledRoutes } from './utils/send-html-for-enabled-routes';
+import { sendResourceNotFound } from './utils/send-resource-not-found';
 
 const app = express();
 
@@ -62,31 +64,15 @@ if (process.env.NODE_ENV === 'production') {
   publicRelativePath = `../${publicRelativePath}`;
 }
 
+// This only works when the static files are requested from the root route (/).
 app.use(express.static(path.join(__dirname, publicRelativePath)));
+
+/* ...Therefore if we want to allow users to go directly to routes (e.g. /projects) without going
+through the home page, we need to configure the app to send index.html for those routes as well. */
+sendHtmlForEnabledRoutes(app, path.join(__dirname, publicRelativePath));
 
 // If request is JSON, it will be available as `request.body`
 app.use(express.json());
-
-export const sendResourceNotFound: RequestHandler = (req, res) => {
-  const fileRegex = new RegExp(/^.*\.(html|js|ico|gz|map|jpg|gif|png|pdf)$/i);
-  if (req.method === 'GET') {
-    if (req.path === '/') {
-      logger.error('Static file request error: index.html file not found!');
-      return res.sendStatus(404);
-    }
-    if (fileRegex.exec(req.path)) {
-      logger.error(
-        `Static file request error: ${req.path.slice(1)} not found!`,
-      );
-      return res.sendStatus(404);
-    }
-  }
-  return res
-    .status(404)
-    .send(
-      `Operation "${req.method} ${req.path}" not recognized on this server.`,
-    );
-};
 
 /* This needs to be defined with four arguments in order to satisfy Express's definition of
 an error request hander, hence the unused `next` argument is necessary */

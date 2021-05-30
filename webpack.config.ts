@@ -6,6 +6,7 @@ import { DefinePlugin } from 'webpack';
 import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
 import { Application } from 'express';
 import morgan from 'morgan';
+import { sendHtmlForEnabledRoutes } from './src/server/utils/send-html-for-enabled-routes';
 
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
@@ -36,6 +37,7 @@ module.exports = {
     contentBase: 'public',
     before(app: Application) {
       app.use(morgan('dev'));
+      sendHtmlForEnabledRoutes(app, path.join(__dirname, './public'));
     },
   },
   resolve: {
