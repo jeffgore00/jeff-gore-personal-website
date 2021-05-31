@@ -5,6 +5,7 @@ export enum NavMenuLinkText {
   Projects = 'Projects',
   ThingsILike = 'Things I Like',
   Blog = 'Blog',
+  Crazytown = 'Crazytown', // will never be enabled, just for test coverage
 }
 
 export enum NavMenuLinkRoute {
@@ -12,6 +13,7 @@ export enum NavMenuLinkRoute {
   Projects = '/projects',
   ThingsILike = '/things-i-like',
   Blog = '/blog',
+  Crazytown = '/crazytown',
 }
 
 /* Using a Map since it allows non-string keys. */
@@ -22,6 +24,7 @@ export const navMenuAllLinks: NavMenuMap = new Map([
   [NavMenuLinkText.Blog, NavMenuLinkRoute.Blog],
   [NavMenuLinkText.Projects, NavMenuLinkRoute.Projects],
   [NavMenuLinkText.ThingsILike, NavMenuLinkRoute.ThingsILike],
+  [NavMenuLinkText.Crazytown, NavMenuLinkRoute.Crazytown],
 ]);
 
 export const enabledPageRoutes = [
