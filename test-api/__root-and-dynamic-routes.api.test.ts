@@ -5,7 +5,7 @@ import zlib from 'zlib';
 
 import app from '../src/server/app';
 import logger from '../src/server/utils/logger';
-import { enabledPageRoutes } from '../src/constants';
+import { enabledPageRoutes } from '../src/shared/constants';
 
 ['/', ...enabledPageRoutes].forEach((pageRoute) => {
   describe(`GET ${pageRoute}`, () => {

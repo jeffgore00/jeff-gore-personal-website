@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { enabledPageRoutes } from '../../../constants';
+import { enabledPageRoutes } from '../../../shared/constants';
 
 import logger from '../logger';
 

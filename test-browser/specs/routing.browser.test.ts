@@ -4,6 +4,19 @@ import blogPage from '../pages/blog.page';
 import projectsPage from '../pages/projects.page';
 import thingsIlikePage from '../pages/things-i-like.page';
 
+import {
+  navMenuEnabledLinks,
+  navMenuDisabledLinks,
+  NavMenuLinkText,
+} from '../../src/shared/constants';
+
+const pageMap = new Map([
+  [NavMenuLinkText.About, aboutMePage],
+  [NavMenuLinkText.Blog, blogPage],
+  [NavMenuLinkText.Projects, projectsPage],
+  [NavMenuLinkText.ThingsILike, thingsIlikePage],
+]);
+
 // This global is injected before the tests begin (see wdio.conf.ts):
 declare let wdioBaseUrl: string;
 
@@ -14,108 +27,79 @@ describe('URL routes', () => {
     homepage.open();
   });
   describe(`When the user accesses the homepage ("/" base route)`, () => {
-    describe('When the user clicks the "About Me" link', () => {
-      beforeAll(() => {
-        homepage.aboutMeLink.click();
-        /* Implicit test that the route changes to the expected route. */
-        browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/about`);
-      });
+    let homepageLinkMap: Map<NavMenuLinkText, WebdriverIO.Element>;
 
-      it('Displays the "About Me" page', () => {
-        expect(aboutMePage.aboutMeHeading.isDisplayed()).toEqual(true);
-      });
+    beforeAll(() => {
+      // Needs to be set within a test hook, after `homepage` is initialized
+      homepageLinkMap = new Map([
+        [NavMenuLinkText.About, homepage.aboutMeLink],
+        [NavMenuLinkText.Blog, homepage.blogLink],
+        [NavMenuLinkText.Projects, homepage.projectsLink],
+        [NavMenuLinkText.ThingsILike, homepage.thingsILikeLink],
+        [NavMenuLinkText.Crazytown, homepage.crazytownLink],
+      ]);
+    });
 
-      describe('When the user clicks on my name in the header', () => {
+    navMenuEnabledLinks.forEach((route, pageName) => {
+      describe(`When the user clicks the "${pageName}" link`, () => {
         beforeAll(() => {
-          homepage.heading.click();
-          browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/`);
+          homepageLinkMap.get(pageName).click();
+          /* Implicit test that the route changes to the expected route. */
+          browser.waitUntil(
+            () => browser.getUrl() === `${wdioBaseUrl}${route}`,
+          );
         });
 
-        /* Only one test needed to check that the user returnss to the homepage after being at a 
-        different route. Nothing significant about the below being located in the "About Me" test block. */
+        it(`Displays the "${pageName}" page`, () => {
+          expect(pageMap.get(pageName).heading.isDisplayed()).toEqual(true);
+        });
 
-        // eslint-disable-next-line jest/expect-expect
-        it('Returns to the homepage', () => {
-          /* TODO: once the homepage has a unique identity (about + blog), then test that.
-          Currently the only test is the implicit test above that it gets back to the / base route */
+        describe('When the user clicks on my name in the header', () => {
+          beforeAll(() => {
+            homepage.heading.click();
+            browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/`);
+          });
+
+          /* Only one test needed to check that the user returns to the homepage after being at a 
+          different route. Nothing significant about the below being located in the "About Me" test block. */
+
+          // eslint-disable-next-line jest/expect-expect
+          it('Returns to the homepage', () => {
+            /* TODO: once the homepage has a unique identity (about + blog), then test that.
+            Currently the only test is the implicit test above that it gets back to the / base route */
+          });
         });
       });
     });
-
-    describe('When the user clicks the "Blog" link', () => {
-      beforeAll(() => {
-        homepage.blogLink.click();
-        browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/blog`);
-      });
-
-      afterAll(() => {
-        // Return the user to the homepage for the next test.
-        homepage.heading.click();
-      });
-
-      it('Displays the "Blog" page', () => {
-        expect(blogPage.blogHeading.isDisplayed()).toEqual(true);
+    navMenuDisabledLinks.forEach((route, pageName) => {
+      it(`Should not display the disabled "${pageName}" link`, () => {
+        expect(homepageLinkMap.get(pageName).isDisplayed()).toEqual(false);
       });
     });
-
-    describe('When the user clicks the "Projects" link', () => {
+  });
+  navMenuEnabledLinks.forEach((route, pageName) => {
+    describe(`When the user accesses the ${route} URL directly`, () => {
       beforeAll(() => {
-        homepage.projectsLink.click();
-        browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/projects`);
+        browser.url(`${wdioBaseUrl}${route}`);
       });
 
-      it('Displays the "Projects" page', () => {
-        expect(projectsPage.projectsHeading.isDisplayed()).toEqual(true);
+      it(`Displays the "${pageName}" page`, () => {
+        expect(pageMap.get(pageName).heading.isDisplayed()).toEqual(true);
       });
     });
+  });
 
-    describe('When the user clicks the "Things I Like" link', () => {
+  navMenuDisabledLinks.forEach((route) => {
+    describe(`When the user accesses the disabled ${route} URL directly`, () => {
       beforeAll(() => {
-        homepage.thingsILikeLink.click();
-        browser.waitUntil(
-          () => browser.getUrl() === `${wdioBaseUrl}/things-i-like`,
+        browser.url(`${wdioBaseUrl}${route}`);
+      });
+
+      it('Displays the plain text 404 response for an unrecognized route', () => {
+        expect($('body').getText()).toEqual(
+          `Operation "GET ${route}" not recognized on this server.`,
         );
       });
-
-      it('Displays the "Things I Like" page', () => {
-        expect(thingsIlikePage.thingsILikeHeading.isDisplayed()).toEqual(true);
-      });
-    });
-  });
-  describe(`When the user accesses the /about URL directly`, () => {
-    beforeAll(() => {
-      browser.url(`${wdioBaseUrl}/about`);
-    });
-
-    it('Displays the "About Me" page', () => {
-      expect(aboutMePage.aboutMeHeading.isDisplayed()).toEqual(true);
-    });
-  });
-  describe(`When the user accesses the /blog URL directly`, () => {
-    beforeAll(() => {
-      browser.url(`${wdioBaseUrl}/blog`);
-    });
-
-    it('Displays the "Blog" page', () => {
-      expect(blogPage.blogHeading.isDisplayed()).toEqual(true);
-    });
-  });
-  describe(`When the user accesses the /projects URL directly`, () => {
-    beforeAll(() => {
-      browser.url(`${wdioBaseUrl}/projects`);
-    });
-
-    it('Displays the "Projects" page', () => {
-      expect(projectsPage.projectsHeading.isDisplayed()).toEqual(true);
-    });
-  });
-  describe(`When the user accesses the /things-i-like URL directly`, () => {
-    beforeAll(() => {
-      browser.url(`${wdioBaseUrl}/things-i-like`);
-    });
-
-    it('Displays the "Things I Like" page', () => {
-      expect(thingsIlikePage.thingsILikeHeading.isDisplayed()).toEqual(true);
     });
   });
 });

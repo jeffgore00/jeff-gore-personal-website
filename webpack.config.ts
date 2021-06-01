@@ -7,6 +7,7 @@ import createStyledComponentsTransformer from 'typescript-plugin-styled-componen
 import { Application } from 'express';
 import morgan from 'morgan';
 import { sendHtmlForEnabledRoutes } from './src/server/utils/send-html-for-enabled-routes';
+import { sendResourceNotFound } from './src/server/utils/send-resource-not-found';
 
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
@@ -38,6 +39,9 @@ module.exports = {
     before(app: Application) {
       app.use(morgan('dev'));
       sendHtmlForEnabledRoutes(app, path.join(__dirname, './public'));
+    },
+    after(app: Application) {
+      app.use(sendResourceNotFound);
     },
   },
   resolve: {

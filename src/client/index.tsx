@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { PageWrapper } from './components/page-wrapper';
 import { ErrorBoundary } from './components/error-boundary';
 import { Homepage } from './components/homepage';
+import { navMenuEnabledLinks, NavMenuLinkText } from '../shared/constants';
 
 const PageStylingContainer = styled.div.attrs({
   id: 'page-styling-container',
@@ -16,6 +17,13 @@ const PageStylingContainer = styled.div.attrs({
   font-family: Helvetica, sans serif;
 `;
 
+const pageMap = new Map([
+  [NavMenuLinkText.About, <h2>About Me</h2>],
+  [NavMenuLinkText.Blog, <h2>Blog</h2>],
+  [NavMenuLinkText.Projects, <h2>Projects</h2>],
+  [NavMenuLinkText.ThingsILike, <h2>Things I Like</h2>],
+]);
+
 export const TopLevelUserInterface = (
   <Router>
     <PageStylingContainer>
@@ -24,18 +32,13 @@ export const TopLevelUserInterface = (
           <Route exact path="/">
             <Homepage />
           </Route>
-          <Route exact path="/about">
-            <h2>About Me</h2>
-          </Route>
-          <Route exact path="/blog">
-            <h2>Blog</h2>
-          </Route>
-          <Route exact path="/projects">
-            <h2>Projects</h2>
-          </Route>
-          <Route exact path="/things-i-like">
-            <h2>Things I Like</h2>
-          </Route>
+          <>
+            {Array.from(navMenuEnabledLinks).map(([pageName, route]) => (
+              <Route exact path={route} key={pageName}>
+                {pageMap.get(pageName)}
+              </Route>
+            ))}
+          </>
         </PageWrapper>
       </ErrorBoundary>
     </PageStylingContainer>

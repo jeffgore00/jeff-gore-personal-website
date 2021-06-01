@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
+import { navMenuEnabledLinks } from '../../../../shared/constants';
 
 export const DesktopNavMenuContainer = styled.div.attrs({
   'data-testid': 'desktop-nav-menu',
@@ -16,16 +17,17 @@ const NonFirstHyperlink = styled.div`
 export function DesktopNavMenu(): React.ReactElement {
   return (
     <DesktopNavMenuContainer>
-      <Link to="/about">About</Link>
-      <NonFirstHyperlink>
-        <Link to="/blog">Blog</Link>
-      </NonFirstHyperlink>
-      <NonFirstHyperlink>
-        <Link to="/projects">Projects</Link>
-      </NonFirstHyperlink>
-      <NonFirstHyperlink>
-        <Link to="/things-i-like">Things I Like</Link>
-      </NonFirstHyperlink>
+      {Array.from(navMenuEnabledLinks).map(([title, path], index) => {
+        const link = (
+          <Link to={path} key={title}>
+            {title}
+          </Link>
+        );
+        if (index === 0) {
+          return link;
+        }
+        return <NonFirstHyperlink key={title}>{link}</NonFirstHyperlink>;
+      })}
     </DesktopNavMenuContainer>
   );
 }

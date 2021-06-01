@@ -1,6 +1,6 @@
 import { Application, Request, Response } from 'express';
 
-import { enabledPageRoutes } from '../../../constants';
+import { enabledPageRoutes } from '../../../shared/constants';
 import { sendResourceNotFound } from '../send-resource-not-found';
 
 export function sendHtmlForEnabledRoutes(

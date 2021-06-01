@@ -2,7 +2,7 @@
 import Page from './page';
 
 class AboutMePage extends Page {
-  get aboutMeHeading(): WebdriverIO.Element {
+  get heading(): WebdriverIO.Element {
     return $('h2=About Me');
   }
 

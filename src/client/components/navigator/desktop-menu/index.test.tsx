@@ -7,7 +7,7 @@ import {
   navMenuEnabledLinks,
   NavMenuLinkRoute,
   NavMenuLinkText,
-} from '../../../../constants';
+} from '../../../../shared/constants';
 
 describe('Desktop Nav Menu', () => {
   let desktopNavMenu: HTMLElement;

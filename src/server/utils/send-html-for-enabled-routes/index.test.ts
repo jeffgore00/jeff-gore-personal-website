@@ -1,9 +1,9 @@
 import express from 'express';
 
-import { enabledPageRoutes } from '../../../constants';
+import { enabledPageRoutes } from '../../../shared/constants';
 import { sendHtmlForEnabledRoutes } from '.';
 
-jest.mock('../../../constants', () => ({
+jest.mock('../../../shared/constants', () => ({
   enabledPageRoutes: ['/about', '/blog', '/projects'],
 }));
 

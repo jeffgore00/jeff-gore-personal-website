@@ -1,5 +1,9 @@
 import homepage from '../pages/home.page';
 import { footerLinks } from '../../src/client/components/footer';
+import {
+  navMenuEnabledLinks,
+  NavMenuLinkText,
+} from '../../src/shared/constants';
 
 const viewportScenarios = {
   WIDE: 'the viewport width is greater than or equal to 700px',
@@ -59,8 +63,17 @@ describe('The homepage', () => {
       (viewportScenario) => {
         describe(`When ${viewportScenario}`, () => {
           let originalWindowSize: { width: number; height: number };
+          let homepageLinkMap: Map<NavMenuLinkText, WebdriverIO.Element>;
 
           beforeAll(() => {
+            homepageLinkMap = new Map([
+              [NavMenuLinkText.About, homepage.aboutMeLink],
+              [NavMenuLinkText.Blog, homepage.blogLink],
+              [NavMenuLinkText.Projects, homepage.projectsLink],
+              [NavMenuLinkText.ThingsILike, homepage.thingsILikeLink],
+              [NavMenuLinkText.Crazytown, homepage.crazytownLink],
+            ]);
+
             if (viewportScenario === viewportScenarios.NARROW) {
               /* TODO: only call setWindowSize if we know it's a non-mobile device. Resizing a 
               window isn't feasible or necessary on a mobile device. */
@@ -77,16 +90,10 @@ describe('The homepage', () => {
           });
 
           if (viewportScenario === viewportScenarios.WIDE) {
-            /* TODO: check with server first what links *should* be appearing. If a link is 
-            disabled, expect that it does **not** appear. */
-            it('should display an "About Me" link', () => {
-              expect(homepage.aboutMeLink.isDisplayed()).toBe(true);
-            });
-            it('should display a "Projects" link', () => {
-              expect(homepage.projectsLink.isDisplayed()).toBe(true);
-            });
-            it('should display a "Things I Like" link', () => {
-              expect(homepage.thingsILikeLink.isDisplayed()).toBe(true);
+            navMenuEnabledLinks.forEach((route, pageName) => {
+              it(`should display the "${pageName}" link`, () => {
+                expect(homepageLinkMap.get(pageName).isDisplayed()).toBe(true);
+              });
             });
             it('should not display a hamburger icon', () => {
               expect(homepage.mobileHamburgerMenuIcon.isDisplayed()).toBe(
@@ -95,13 +102,18 @@ describe('The homepage', () => {
             });
           }
           if (viewportScenario === viewportScenarios.NARROW) {
-            it('should not display the "About Me", "Projects", or "Things I Like" links', () => {
-              expect(homepage.aboutMeLink.isDisplayed()).toBe(false);
-              expect(homepage.projectsLink.isDisplayed()).toBe(false);
-              expect(homepage.thingsILikeLink.isDisplayed()).toBe(false);
-            });
+            const enabledLinksText = Array.from(navMenuEnabledLinks.keys())
+              .map((val) => `"${val}"`)
+              .join(', ');
+
             it('should display a hamburger icon', () => {
               expect(homepage.mobileHamburgerMenuIcon.isDisplayed()).toBe(true);
+            });
+
+            it(`should not display the ${enabledLinksText} links`, () => {
+              navMenuEnabledLinks.forEach((route, pageName) => {
+                expect(homepageLinkMap.get(pageName).isDisplayed()).toBe(false);
+              });
             });
           }
         });

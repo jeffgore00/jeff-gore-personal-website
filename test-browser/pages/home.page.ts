@@ -22,6 +22,10 @@ class Homepage extends Page {
     return $('a*=Things I Like');
   }
 
+  get crazytownLink(): WebdriverIO.Element {
+    return $('a*=Crazytown');
+  }
+
   get mobileHamburgerMenuIcon(): WebdriverIO.Element {
     return $('[data-testid="mobile-nav-menu"]');
   }
