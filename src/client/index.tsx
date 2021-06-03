@@ -32,15 +32,16 @@ const StyledPageHeader = styled.h2`
   }
 `;
 
+function PlaceholderPage({ pageName }: { pageName: string }) {
+  return <StyledPageHeader>{pageName}</StyledPageHeader>;
+}
+
 const pageMap = new Map([
-  [NavMenuLinkText.About, <StyledPageHeader>About Me</StyledPageHeader>],
-  [NavMenuLinkText.Blog, <StyledPageHeader>Blog</StyledPageHeader>],
-  [NavMenuLinkText.Projects, <StyledPageHeader>Projects</StyledPageHeader>],
-  [
-    NavMenuLinkText.ThingsILike,
-    <StyledPageHeader>Things I Like</StyledPageHeader>,
-  ],
-  [NavMenuLinkText.Contact, <StyledPageHeader>Contact Me</StyledPageHeader>],
+  [NavMenuLinkText.About, <PlaceholderPage pageName="About Me" />],
+  [NavMenuLinkText.Blog, <PlaceholderPage pageName="Blog" />],
+  [NavMenuLinkText.Projects, <PlaceholderPage pageName="Projects" />],
+  [NavMenuLinkText.ThingsILike, <PlaceholderPage pageName="Things I Like" />],
+  [NavMenuLinkText.Contact, <PlaceholderPage pageName="Contact Me" />],
 ]);
 
 export const TopLevelUserInterface = (
