@@ -22,6 +22,7 @@ const pageMap = new Map([
   [NavMenuLinkText.Blog, <h2>Blog</h2>],
   [NavMenuLinkText.Projects, <h2>Projects</h2>],
   [NavMenuLinkText.ThingsILike, <h2>Things I Like</h2>],
+  [NavMenuLinkText.Contact, <h2>Contact Me</h2>],
 ]);
 
 export const TopLevelUserInterface = (

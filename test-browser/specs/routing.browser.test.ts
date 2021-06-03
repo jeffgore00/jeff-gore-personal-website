@@ -3,6 +3,7 @@ import aboutMePage from '../pages/about-me.page';
 import blogPage from '../pages/blog.page';
 import projectsPage from '../pages/projects.page';
 import thingsIlikePage from '../pages/things-i-like.page';
+import contactPage from '../pages/contact.page';
 
 import {
   navMenuEnabledLinks,
@@ -15,6 +16,7 @@ const pageMap = new Map([
   [NavMenuLinkText.Blog, blogPage],
   [NavMenuLinkText.Projects, projectsPage],
   [NavMenuLinkText.ThingsILike, thingsIlikePage],
+  [NavMenuLinkText.Contact, contactPage],
 ]);
 
 // This global is injected before the tests begin (see wdio.conf.ts):
@@ -36,6 +38,7 @@ describe('URL routes', () => {
         [NavMenuLinkText.Blog, homepage.blogLink],
         [NavMenuLinkText.Projects, homepage.projectsLink],
         [NavMenuLinkText.ThingsILike, homepage.thingsILikeLink],
+        [NavMenuLinkText.Contact, homepage.contactLink],
         [NavMenuLinkText.Crazytown, homepage.crazytownLink],
       ]);
     });

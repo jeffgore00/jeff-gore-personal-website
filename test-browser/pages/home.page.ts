@@ -22,6 +22,10 @@ class Homepage extends Page {
     return $('a*=Things I Like');
   }
 
+  get contactLink(): WebdriverIO.Element {
+    return $('a*=Contact');
+  }
+
   get crazytownLink(): WebdriverIO.Element {
     return $('a*=Crazytown');
   }

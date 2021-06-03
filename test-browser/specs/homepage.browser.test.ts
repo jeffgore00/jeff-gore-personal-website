@@ -71,6 +71,7 @@ describe('The homepage', () => {
               [NavMenuLinkText.Blog, homepage.blogLink],
               [NavMenuLinkText.Projects, homepage.projectsLink],
               [NavMenuLinkText.ThingsILike, homepage.thingsILikeLink],
+              [NavMenuLinkText.Contact, homepage.contactLink],
               [NavMenuLinkText.Crazytown, homepage.crazytownLink],
             ]);
 

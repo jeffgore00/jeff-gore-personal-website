@@ -5,6 +5,7 @@ export enum NavMenuLinkText {
   Projects = 'Projects',
   ThingsILike = 'Things I Like',
   Blog = 'Blog',
+  Contact = 'Contact',
   Crazytown = 'Crazytown', // will never be enabled, just for test coverage of disabled route
 }
 
@@ -13,6 +14,7 @@ export enum NavMenuLinkRoute {
   Projects = '/projects',
   ThingsILike = '/things-i-like',
   Blog = '/blog',
+  Contact = '/contact',
   Crazytown = '/crazytown', // will never be enabled, just for test coverage of disabled route
 }
 
@@ -24,6 +26,7 @@ export const navMenuAllLinks: NavMenuMap = new Map([
   [NavMenuLinkText.Blog, NavMenuLinkRoute.Blog],
   [NavMenuLinkText.Projects, NavMenuLinkRoute.Projects],
   [NavMenuLinkText.ThingsILike, NavMenuLinkRoute.ThingsILike],
+  [NavMenuLinkText.Contact, NavMenuLinkRoute.Contact],
   [NavMenuLinkText.Crazytown, NavMenuLinkRoute.Crazytown], // will never be enabled, just for test coverage of disabled route
 ]);
 
@@ -32,6 +35,7 @@ export const enabledPageRoutes = [
   NavMenuLinkRoute.Blog,
   NavMenuLinkRoute.Projects,
   NavMenuLinkRoute.ThingsILike,
+  NavMenuLinkRoute.Contact,
 ];
 
 enum LinkStatus {
