@@ -30,6 +30,15 @@ export const navMenuAllLinks: NavMenuMap = new Map([
   [NavMenuLinkText.Crazytown, NavMenuLinkRoute.Crazytown], // will never be enabled, just for test coverage of disabled route
 ]);
 
+export const navMenuAllLinksByPathname = new Map([
+  [NavMenuLinkRoute.About, NavMenuLinkText.About],
+  [NavMenuLinkRoute.Blog, NavMenuLinkText.Blog],
+  [NavMenuLinkRoute.Projects, NavMenuLinkText.Projects],
+  [NavMenuLinkRoute.ThingsILike, NavMenuLinkText.ThingsILike],
+  [NavMenuLinkRoute.Contact, NavMenuLinkText.Contact],
+  [NavMenuLinkRoute.Crazytown, NavMenuLinkText.Crazytown], // will never be enabled, just for test coverage of disabled route
+]);
+
 export const enabledPageRoutes = [
   NavMenuLinkRoute.About,
   NavMenuLinkRoute.Blog,

@@ -1,34 +1,56 @@
-/*
-It renders children within an error boundary and a <main>
-
-It renders the navigator within a <header>
-
-It renders the footer
-*/
-
 import React from 'react';
-import { queryByTestId, render, screen } from '@testing-library/react';
+import { render, queryByTestId, screen } from '@testing-library/react';
 
 import { setupReactMediaMock } from '../../../../test-utils/react-media';
 import { PageWrapper } from '.';
 import * as NavigatorModule from '../navigator';
+import * as useSetPageTitleModule from '../../hooks/use-set-page-title';
+import {
+  navMenuAllLinksByPathname,
+  NavMenuLinkRoute,
+} from '../../../shared/constants';
+
+const mockPathname = '/projects';
+const mockPathnameEnum = mockPathname as NavMenuLinkRoute;
+
+// Can't use spyOn for this library for some reason. Get "TypeError: Cannot redefine property: useLocation"
+jest.mock('react-router', () => ({
+  useLocation: () => ({
+    pathname: mockPathname,
+    search: '',
+    hash: '',
+    state: {},
+  }),
+}));
 
 jest.mock('react-media', () => jest.fn());
 setupReactMediaMock();
 
 describe('Page Wrapper', () => {
   let pageWrapper: HTMLElement;
+  let useSetPageTitle: jest.SpyInstance;
 
   beforeAll(() => {
     jest
       .spyOn(NavigatorModule, 'Navigator')
       .mockImplementation(() => <div data-testid="mocked-navigator" />);
+
+    useSetPageTitle = jest
+      .spyOn(useSetPageTitleModule, 'useSetPageTitle')
+      .mockImplementation(jest.fn());
+
     render(
       <PageWrapper>
         <div data-testid="child-of-page-wrapper" />
       </PageWrapper>,
     );
     pageWrapper = screen.getByTestId('page-wrapper');
+  });
+
+  it('calls the useSetPageTitle hook with the enum corresponding to the pathname', () => {
+    expect(useSetPageTitle).toBeCalledWith(
+      navMenuAllLinksByPathname.get(mockPathnameEnum),
+    );
   });
 
   it('renders the Navigator', () => {
