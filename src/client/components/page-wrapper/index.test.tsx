@@ -16,7 +16,7 @@ import * as NavigatorModule from '../navigator';
 jest.mock('react-media', () => jest.fn());
 setupReactMediaMock();
 
-describe('Homepage', () => {
+describe('Page Wrapper', () => {
   let pageWrapper: HTMLElement;
 
   beforeAll(() => {
