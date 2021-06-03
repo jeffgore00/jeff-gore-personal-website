@@ -17,12 +17,30 @@ const PageStylingContainer = styled.div.attrs({
   font-family: Helvetica, sans serif;
 `;
 
+/* Possible refactor: use styled-components injectGlobal to make font-face 
+available to all components.
+https://stackoverflow.com/questions/42675725/isolated-styled-components-with-font-face */
+const StyledPageHeader = styled.h2`
+  font-family: JetBrainsMono, monospace;
+  font-style: normal;
+  font-size: 1.5em;
+  @font-face {
+    font-family: JetBrainsMono;
+    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
+
 const pageMap = new Map([
-  [NavMenuLinkText.About, <h2>About Me</h2>],
-  [NavMenuLinkText.Blog, <h2>Blog</h2>],
-  [NavMenuLinkText.Projects, <h2>Projects</h2>],
-  [NavMenuLinkText.ThingsILike, <h2>Things I Like</h2>],
-  [NavMenuLinkText.Contact, <h2>Contact Me</h2>],
+  [NavMenuLinkText.About, <StyledPageHeader>About Me</StyledPageHeader>],
+  [NavMenuLinkText.Blog, <StyledPageHeader>Blog</StyledPageHeader>],
+  [NavMenuLinkText.Projects, <StyledPageHeader>Projects</StyledPageHeader>],
+  [
+    NavMenuLinkText.ThingsILike,
+    <StyledPageHeader>Things I Like</StyledPageHeader>,
+  ],
+  [NavMenuLinkText.Contact, <StyledPageHeader>Contact Me</StyledPageHeader>],
 ]);
 
 export const TopLevelUserInterface = (
