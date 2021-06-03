@@ -1,6 +1,8 @@
 import React from 'react';
 import Media from 'react-media';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import { DesktopNavMenu } from './desktop-menu';
 
 const DESKTOP_MEDIA_QUERY = '(min-width: 700px)';
@@ -27,7 +29,7 @@ const StyledHeader = styled.h1`
 
 const NameHeader = (): React.ReactElement => (
   <StyledHeader>
-    <a href="/">Jeff Gore</a>
+    <Link to="/">Jeff Gore</Link>
   </StyledHeader>
 );
 
