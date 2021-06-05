@@ -53,24 +53,38 @@ enum LinkStatus {
 }
 
 function getNavMenuLinksFilteredToEnabledOrDisabled(desiredStatus: LinkStatus) {
-  const filteredMap = new Map();
+  let filteredMap: NavMenuMap;
+
+  function addValueToMap(key: NavMenuLinkText, value: NavMenuLinkRoute) {
+    if (!filteredMap) {
+      filteredMap = new Map([[key, value]]);
+    }
+    filteredMap.set(key, value);
+  }
+
   navMenuAllLinks.forEach((value, key) => {
     const pageIsEnabled = enabledPageRoutes.includes(value);
     if (desiredStatus === LinkStatus.Enabled && pageIsEnabled) {
-      filteredMap.set(key, value);
+      addValueToMap(key, value);
     }
     if (desiredStatus === LinkStatus.Disabled && !pageIsEnabled) {
-      filteredMap.set(key, value);
+      addValueToMap(key, value);
     }
   });
-  // This assumes that the map will have at least one entry.
-  return <NavMenuMap>filteredMap;
+  // istanbul ignore next for the || new Map() case.
+  return filteredMap || new Map();
 }
 
-export const navMenuEnabledLinks = (function generateNavMenuEnabledLinks(): NavMenuMap {
+export const navMenuEnabledLinks = (function generateNavMenuEnabledLinks():
+  | NavMenuMap
+  | Map<undefined, undefined> {
+  //  Undefined is for the empty map case.
   return getNavMenuLinksFilteredToEnabledOrDisabled(LinkStatus.Enabled);
 })();
 
-export const navMenuDisabledLinks = (function generateNavMenuEnabledLinks(): NavMenuMap {
+export const navMenuDisabledLinks = (function generateNavMenuEnabledLinks():
+  | NavMenuMap
+  | Map<undefined, undefined> {
+  //  Undefined is for the empty map case.
   return getNavMenuLinksFilteredToEnabledOrDisabled(LinkStatus.Disabled);
 })();
