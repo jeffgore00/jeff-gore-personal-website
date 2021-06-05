@@ -6,10 +6,6 @@ import {
   getByAltText,
 } from '@testing-library/react';
 import { Footer, footerLinks } from '.';
-import { setupReactMediaMock } from '../../../../test-utils/react-media';
-
-jest.mock('react-media', () => jest.fn());
-setupReactMediaMock();
 
 describe('Footer', () => {
   let footer: HTMLElement;

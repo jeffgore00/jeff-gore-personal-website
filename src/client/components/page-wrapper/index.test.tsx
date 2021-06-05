@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, queryByTestId, screen } from '@testing-library/react';
 
-import { setupReactMediaMock } from '../../../../test-utils/react-media';
 import { PageWrapper } from '.';
 import * as NavigatorModule from '../navigator';
 import * as useSetPageTitleModule from '../../hooks/use-set-page-title';
@@ -22,9 +21,6 @@ jest.mock('react-router', () => ({
     state: {},
   }),
 }));
-
-jest.mock('react-media', () => jest.fn());
-setupReactMediaMock();
 
 describe('Page Wrapper', () => {
   let pageWrapper: HTMLElement;

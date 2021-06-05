@@ -1,12 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { setupReactMediaMock } from '../../../../test-utils/react-media';
 import { Homepage, HOMEPAGE_RENDERED_LOG } from '.';
 import logger from '../../utils/logger';
-
-jest.mock('react-media', () => jest.fn());
-setupReactMediaMock();
 
 describe('Homepage', () => {
   let loggerSpy: jest.SpyInstance;
