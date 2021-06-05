@@ -23,6 +23,7 @@
     "test-api",
     "test-utils",
     "jest.config.ts",
+    "jest.unit.config.ts",
     "webpack.config.ts",
     "test-browser",
     ".eslintrc.js"
