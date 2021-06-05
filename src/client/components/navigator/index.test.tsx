@@ -11,7 +11,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Navigator } from '.';
 import { setupReactMediaMock } from '../../../../test-utils/react-media';
 
-jest.mock('react-media', () => jest.fn());
 const {
   simulateMobileScreenWidth,
   simulateDesktopScreenWidth,
