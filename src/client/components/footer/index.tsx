@@ -11,13 +11,15 @@ const FooterContainer = styled.footer.attrs({
   justify-content: flex-end;
 `;
 
+/* The images are natively sized to 48x48px, but explicit width and height is still recommended by
+Lighthouse: https://web.dev/optimize-cls/?utm_source=lighthouse&utm_medium=lr#images-without-dimensions */
 const FooterIcon = ({ name }: { name: string }) => (
   <img
-    src={`/icon_${name.toLowerCase()}.png`}
+    src={`/icon_${name.toLowerCase()}.webp`}
     alt={`Link to my ${name} page`}
-    height="25"
-    width="25"
-    style={{ marginLeft: '5px' }}
+    style={{ marginLeft: '15px' }}
+    width="48px"
+    height="48px"
   />
 );
 
