@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import * as TopLevelUserInterfaceModule from './components/top-level-user-interface';
+import { generateSpiedReactComponent } from '../../test-utils/generate-spied-react-component';
+
 const reactDOMRenderSpy = jest
   .spyOn(ReactDOM, 'render')
   .mockImplementation(jest.fn());
-jest.mock('./components/homepage', () => ({
-  Homepage: (): React.ReactElement => <div id="homepage" />,
-}));
+
+const TopLevelUserInterfaceSpy = generateSpiedReactComponent({
+  module: TopLevelUserInterfaceModule,
+  exportName: 'TopLevelUserInterface',
+  implementation: () => <div />,
+});
 
 describe('root', () => {
   let root: HTMLElement;
@@ -17,8 +23,11 @@ describe('root', () => {
     document.body.appendChild(root);
   });
 
-  it('injects the <Homepage> element into <div id="root">', async () => {
-    const { TopLevelUserInterface } = await import('.');
-    expect(reactDOMRenderSpy).toHaveBeenCalledWith(TopLevelUserInterface, root);
+  it('injects the <TopLevelUserInterface> component into <div id="root">', async () => {
+    await import('.');
+    expect(reactDOMRenderSpy).toHaveBeenCalledWith(
+      <TopLevelUserInterfaceSpy />,
+      root,
+    );
   });
 });
