@@ -13,6 +13,7 @@ const StyledHeader = styled.h1`
     src: local('JetBrains Mono Italic'), url('JetBrainsMono-Italic.woff2');
     font-weight: normal;
     font-style: italic;
+    font-display: swap;
   }
   font-family: JetBrainsMono, monospace;
   font-style: italic;

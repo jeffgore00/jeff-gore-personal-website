@@ -21,5 +21,6 @@ export const StyledPageHeader = styled.h2`
     src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
   }
 `;
