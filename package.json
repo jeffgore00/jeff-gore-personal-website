@@ -47,7 +47,7 @@
     "test:browser": "sh scripts/test-browser.sh",
     "test:spellcheck": "spellchecker -d .spellcheck-ignore.js --files \"**/*.md\" \"!CHANGELOG.md\" --no-suggestions",
     "test:full:local": "npm run test:browser -- -c --headless && npm run test",
-    "test:full:prod": "npm run test:browser -- -c --headless -e prod && npm run test",
+    "test:browser:prod": "npm run test:browser -- -c --headless -e prod",
     "view-prod-logs": "heroku logs --tail -a jeff-gore-personal-website",
     "postinstall": "husky install",
     "posttest:unit-and-api": "if [ \"$CI\" = \"true\" ]; then npm run send-codecov-report; fi",
