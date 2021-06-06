@@ -5,6 +5,7 @@ import {
   getByRole,
   queryByText,
   queryByTestId,
+  cleanup,
 } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -28,6 +29,8 @@ describe('The Navigator component', () => {
       );
       navbar = screen.getByRole('navigation');
     });
+
+    afterAll(cleanup);
 
     it('should display my name', () => {
       const nameElement = getByRole(navbar, 'heading');
@@ -55,6 +58,8 @@ describe('The Navigator component', () => {
         navbar = screen.getByRole('navigation');
       });
 
+      afterAll(cleanup);
+
       it('should display the hamburger nav', () => {
         expect(queryByTestId(navbar, 'mobile-nav-menu')).toBeTruthy();
       });
@@ -76,6 +81,8 @@ describe('The Navigator component', () => {
         );
         navbar = screen.getByRole('navigation');
       });
+
+      afterAll(cleanup);
 
       it('should display the desktop nav', () => {
         expect(queryByTestId(navbar, 'desktop-nav-menu')).toBeTruthy();

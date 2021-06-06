@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment, no-underscore-dangle, no-console */
 import React, { useEffect } from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 
 import { ErrorBoundary } from '.';
 import logger from '../../utils/logger';
@@ -32,6 +32,8 @@ describe('Error boundary', () => {
       fallbackUi = screen.queryByTestId('react-error-fallback-ui');
     });
 
+    afterAll(cleanup);
+
     it('logs the error', () => {
       expect(loggerSpy).toHaveBeenCalledWith(
         'Error Caught by React Error Boundary: unique error',
@@ -61,6 +63,8 @@ describe('Error boundary', () => {
       healthyComponent = screen.queryByTestId('healthy-component');
       fallbackUi = screen.queryByTestId('react-error-fallback-ui');
     });
+
+    afterAll(cleanup);
 
     it('renders the children', () => {
       expect(fallbackUi).not.toBeTruthy();

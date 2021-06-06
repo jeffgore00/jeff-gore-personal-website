@@ -11,7 +11,10 @@ const config: Config.InitialOptions = {
   ],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   testPathIgnorePatterns: ['<rootDir>/test-browser/'],
-  setupFiles: ['<rootDir>/test-utils/jest-setup.ts'],
+  setupFiles: [
+    '<rootDir>/test-utils/jest-setup.ts',
+    '@testing-library/react/dont-cleanup-after-each', // see https://testing-library.com/docs/react-testing-library/setup/#skipping-auto-cleanup
+  ],
   rootDir: '.',
   maxWorkers: '75%', // for some reason, this is required in InitialOptions
 };
