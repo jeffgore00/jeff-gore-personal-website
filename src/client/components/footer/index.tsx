@@ -1,11 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-/* TODO: Remove role="contentinfo" when react-testing-library is fixed. The <footer>
-should innately have this role, but RTL doesn't detect it. */
 const FooterContainer = styled.footer.attrs({
   'data-testid': 'footer',
-  role: 'contentinfo',
 })`
   display: flex;
   justify-content: flex-end;
