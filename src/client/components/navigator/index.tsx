@@ -4,10 +4,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { DesktopNavMenu } from './desktop-menu';
+import { MobileNavMenu } from './mobile-menu';
 
 const DESKTOP_MEDIA_QUERY = '(min-width: 700px)';
 
-const StyledHeader = styled.h1`
+const StyledHeader = styled.h1.attrs({
+  'data-testid': 'name-header',
+})`
   @font-face {
     font-family: JetBrainsMono;
     src: local('JetBrains Mono Italic'), url('JetBrainsMono-Italic.woff2');
@@ -46,19 +49,11 @@ const NavigatorContainer = styled.nav.attrs({
 
 export const Navigator = (): React.ReactElement => (
   <NavigatorContainer>
+    <NameHeader />
     <Media query={DESKTOP_MEDIA_QUERY}>
-      {(isDesktop): React.ReactElement => (
-        <>
-          <NameHeader />
-          {isDesktop ? (
-            <DesktopNavMenu />
-          ) : (
-            <div data-testid="mobile-nav-menu" style={{ fontSize: '2em' }}>
-              ≡
-            </div>
-          )}
-        </>
-      )}
+      {(isDesktop): React.ReactElement =>
+        isDesktop ? <DesktopNavMenu /> : <MobileNavMenu />
+      }
     </Media>
   </NavigatorContainer>
 );

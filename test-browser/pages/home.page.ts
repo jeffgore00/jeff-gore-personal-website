@@ -31,7 +31,15 @@ class Homepage extends Page {
   }
 
   get mobileHamburgerMenuIcon(): WebdriverIO.Element {
-    return $('[data-testid="mobile-nav-menu"]');
+    return $('button*=≡');
+  }
+
+  get mobileSideDrawerMenu(): WebdriverIO.Element {
+    return $('.jg-drawer-open');
+  }
+
+  get mobileSideDrawerMenuLinks(): WebdriverIO.Element[] {
+    return $$('.jg-drawer-open a');
   }
 
   get githubFooterIcon(): WebdriverIO.Element {

@@ -16,6 +16,7 @@ jest.mock('react-router-dom', () => ({
   Route: ({ path, children }: { path: string; children: React.ReactChild }) => (
     <div id={`route-to-${path}`}>{children}</div>
   ),
+  Link: jest.fn(),
 }));
 
 generateSpiedReactComponent({

@@ -116,6 +116,89 @@ describe('The homepage', () => {
                 expect(homepageLinkMap.get(pageName).isDisplayed()).toBe(false);
               });
             });
+
+            describe('When the hamburger menu icon is clicked', () => {
+              beforeAll(() => {
+                homepage.mobileHamburgerMenuIcon.click();
+              });
+
+              it('displays a "drawer" menu from the right side', () => {
+                expect(homepage.mobileSideDrawerMenu.isDisplayed()).toBe(true);
+              });
+              navMenuEnabledLinks.forEach((route, pageName) => {
+                it(`In that menu, it should display the "${pageName}" link`, () => {
+                  expect(
+                    homepage.mobileSideDrawerMenu
+                      .$(`a*=${pageName}`)
+                      .isDisplayed(),
+                  ).toBe(true);
+                });
+              });
+
+              describe('When any of the link panels are clicked', () => {
+                let originalUrl: string;
+
+                beforeAll(() => {
+                  originalUrl = browser.getUrl();
+                  if (homepage.mobileHamburgerMenuIcon.isClickable()) {
+                    homepage.mobileHamburgerMenuIcon.click();
+                    browser.pause(1000);
+                  }
+                  const keys = Array.from(navMenuEnabledLinks.keys());
+                  const randomIndex = Math.floor(
+                    Math.random() * navMenuEnabledLinks.size,
+                  );
+                  const randomPageName = keys[randomIndex];
+                  homepage.mobileSideDrawerMenu
+                    .$(`[data-testid="link-panel"]*=${randomPageName}`)
+                    .click({ x: 1 });
+                });
+
+                afterAll(() => {
+                  // restore the homepage for the next test
+                  homepage.open();
+                });
+
+                it('The drawer closes to the right', () => {
+                  // wait one second for the drawer closing animation to complete
+                  browser.pause(1000);
+                  expect(homepage.mobileSideDrawerMenu.isDisplayed()).toBe(
+                    false,
+                  );
+                });
+
+                it('Should result in navigation to another URL', () => {
+                  expect(browser.getUrl()).not.toEqual(originalUrl);
+                });
+              });
+
+              describe('When the greyed out area outside of the drawer is clicked', () => {
+                let originalUrl: string;
+
+                beforeAll(() => {
+                  originalUrl = browser.getUrl();
+
+                  if (homepage.mobileHamburgerMenuIcon.isClickable()) {
+                    homepage.mobileHamburgerMenuIcon.click();
+                    browser.pause(1000);
+                  }
+                  // x = -100[px] to signify click at the left-hand side of the screen, which is where the greyed-out area is.
+                  $('[role="presentation"]').click({ x: -100 });
+                });
+
+                it('The drawer closes to the right', () => {
+                  // wait one second for the drawer closing animation to complete
+                  browser.pause(1000);
+                  expect(homepage.mobileSideDrawerMenu.isDisplayed()).toBe(
+                    false,
+                  );
+                });
+
+                it('The user should be on the same page', () => {
+                  expect(browser.getUrl()).toEqual(originalUrl);
+                });
+              });
+            });
           }
         });
       },
