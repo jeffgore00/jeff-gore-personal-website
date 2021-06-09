@@ -134,13 +134,7 @@ const config: Options.Testrunner = {
       project: 'tsconfig.wdio.json',
     },
   },
-  before(capabilities, specs) {
-    // This is used by test-browser/pages/page.ts for logging
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    global.wdioBaseUrl = baseUrl;
-    const specFilepathSegments = specs[0].split('/');
-    global.specFilename = specFilepathSegments[specFilepathSegments.length - 1];
-
+  onPrepare() {
     const createEmptyScreenshotDirectory = () => {
       const directoryPath = './test-result-screenshots';
       if (fs.existsSync(directoryPath)) {
@@ -152,6 +146,13 @@ const config: Options.Testrunner = {
     if (screenshot !== ScreenshotModes.never) {
       createEmptyScreenshotDirectory();
     }
+  },
+  beforeSession(conf, capabilities, specs) {
+    // This is used by test-browser/pages/page.ts for logging
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    global.wdioBaseUrl = baseUrl;
+    const specFilepathSegments = specs[0].split('/');
+    global.specFilename = specFilepathSegments[specFilepathSegments.length - 1];
   },
   afterTest(test, context, { passed }) {
     const generateScreenshotName = (testPassed?: boolean) => {
