@@ -19,6 +19,10 @@ export function sendResourceNotFound(req: Request, res: Response): Response {
       );
       return res.sendStatus(404);
     }
+    if (req.params.contentId) {
+      logger.error(`Content with ID "${req.params.contentId}" not found.`);
+      return res.sendStatus(404);
+    }
   }
   return res
     .status(404)
