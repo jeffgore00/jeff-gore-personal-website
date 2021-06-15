@@ -17,17 +17,20 @@
       "**/*.test.ts"
     ],
     "watch": [
-      "src/server"
+      "src/server",
+      "src/shared",
+      "content"
     ],
     "ext": "js,ts,json",
     "exec": "node -r ts-node/register --unhandled-rejections=strict"
   },
   "scripts": {
-    "build": "npm run build:client && npm run build:server",
+    "build": "npm run build:client && npm run build:server && npm run build:content",
     "build:dev": "NODE_ENV=development npm run build:client",
     "build:dev:offline": "BUILD_OFFLINE=true npm run build:dev",
+    "build:content": "rm -rf dist/content && npm run write-blog-preview-files",
     "build:client": "webpack",
-    "build:server": "rm -rf dist && tsc --project tsconfig.server.json && if [ \"$NODE_ENV\" = \"production\" ]; then node dist/src/server/utils/server-status/edit-server-status-file.js; fi",
+    "build:server": "rm -rf dist/server && tsc --project tsconfig.server.json && node dist/src/server/utils/build/edit-server-status-file/index.js",
     "lint": "eslint \"**\"",
     "prettier": "prettier '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' '**/*.md' '**/*.html'",
     "prettier:fix": "npm run prettier -- --write",
@@ -50,6 +53,8 @@
     "test:full:local": "npm run test:browser -- -c --headless && npm test",
     "test:browser:prod": "npm run test:browser -- -c --headless -e prod",
     "view-prod-logs": "heroku logs --tail -a jeff-gore-personal-website",
+    "write-single-blog-entry-files": "node -r ts-node/register src/server/utils/build/write-single-blog-entry-files/index.ts",
+    "write-blog-preview-files": "node -r ts-node/register src/server/utils/build/write-blog-preview-files/index.ts",
     "postinstall": "husky install",
     "posttest:unit-and-api": "if [ \"$CI\" = \"true\" ]; then npm run send-codecov-report; fi",
     "pretest:browser": "tsc wdio.conf.ts --typeRoots ./node_modules/@types/wdio --resolveJsonModule --esModuleInterop"
@@ -118,6 +123,7 @@
     "html-webpack-plugin": "5.3.2",
     "husky": "7.0.0",
     "jest": "^27.0.6",
+    "jest-styled-components": "^7.0.5",
     "lint-staged": "11.0.0",
     "nodemon": "2.0.9",
     "prettier": "2.3.2",

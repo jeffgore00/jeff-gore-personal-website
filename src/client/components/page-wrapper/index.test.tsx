@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { render, queryByTestId, screen } from '@testing-library/react';
 
 import { PageWrapper } from '.';
 import * as NavigatorModule from '../navigator';
+import * as FooterModule from '../footer';
+import * as ErrorBoundaryModule from '../error-boundary';
+
 import * as useSetPageTitleModule from '../../hooks/use-set-page-title';
 import {
   navMenuAllLinksByPathname,
@@ -13,7 +17,8 @@ const mockPathname = '/projects';
 const mockPathnameEnum = mockPathname as NavMenuLinkRoute;
 
 // Can't use spyOn for this library for some reason. Get "TypeError: Cannot redefine property: useLocation"
-jest.mock('react-router', () => ({
+jest.mock('react-router-dom', () => ({
+  Link: () => <div />, // only needed because the source file still imports the actual Navigator, even though it spies on it immediately after
   useLocation: () => ({
     pathname: mockPathname,
     search: '',
@@ -30,6 +35,17 @@ describe('Page Wrapper', () => {
     jest
       .spyOn(NavigatorModule, 'Navigator')
       .mockImplementation(() => <div data-testid="mocked-navigator" />);
+
+    jest
+      .spyOn(FooterModule, 'Footer')
+      .mockImplementation(() => <footer data-testid="mocked-footer" />);
+
+    jest
+      .spyOn(ErrorBoundaryModule, 'ErrorBoundary')
+      // @ts-ignore. This is valid
+      .mockImplementation(({ children }: { children: React.ReactChild }) => (
+        <>{children}</>
+      ));
 
     useSetPageTitle = jest
       .spyOn(useSetPageTitleModule, 'useSetPageTitle')

@@ -4,11 +4,12 @@ import { render } from '@testing-library/react';
 import { TopLevelUserInterface } from '.';
 import * as PageWrapperModule from '../page-wrapper';
 import * as ErrorBoundaryModule from '../error-boundary';
-import * as HomepageModule from '../homepage';
+import * as HomepageModule from '../../pages/home';
+import * as BlogModule from '../../pages/blog';
 import { generateSpiedReactComponent } from '../../../../test-utils/generate-spied-react-component';
 import { navMenuEnabledLinks } from '../../../shared/constants';
 
-// Can't use spyOn for this library for some reason. Get "TypeError: Cannot redefine property: useLocation"
+// Can't use spyOn for this library for some reason. Get "TypeError: Cannot redefine property"
 jest.mock('react-router-dom', () => ({
   BrowserRouter: ({ children }: { children: React.ReactChild }) => (
     <div id="router">{children}</div>
@@ -39,6 +40,12 @@ generateSpiedReactComponent({
   object: HomepageModule,
   method: 'Homepage',
   implementation: () => <div id="homepage" />,
+});
+
+generateSpiedReactComponent({
+  object: BlogModule,
+  method: 'Blog',
+  implementation: () => <div id="blog" />,
 });
 
 describe('The <TopLevelUserInterface> component', () => {

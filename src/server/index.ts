@@ -2,7 +2,7 @@ import http from 'http';
 import { Application } from 'express';
 
 import app from './app';
-import logger from './utils/logger';
+import logger from './utils/runtime/logger';
 
 function createServer(expressApp: Application): http.Server {
   /* Heroku magically takes care making this an HTTPS server, but

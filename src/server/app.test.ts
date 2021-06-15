@@ -33,7 +33,7 @@ res.send = sendMock;
 const headerMock = jest.fn();
 res.header = headerMock;
 
-jest.mock('./utils/logger', () => ({
+jest.mock('./utils/runtime/logger', () => ({
   info: jest.fn(),
   debug: jest.fn(),
   warn: jest.fn(),
@@ -47,8 +47,8 @@ jest.mock(
   },
 );
 jest.mock('./routers/api', () => Router());
-jest.mock('./utils/send-html-for-enabled-routes');
-jest.mock('./utils/send-resource-not-found');
+jest.mock('./utils/runtime/send-html-for-enabled-routes');
+jest.mock('./middleware/send-resource-not-found');
 
 describe('Logging', () => {
   /* This test requires isolated module loading, because the logging
