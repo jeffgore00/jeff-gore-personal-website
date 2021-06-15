@@ -5,9 +5,9 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 
 import apiRouter from './routers/api';
-import logger from './utils/logger';
-import { sendHtmlForEnabledRoutes } from './utils/send-html-for-enabled-routes';
-import { sendResourceNotFound } from './utils/send-resource-not-found';
+import logger from './utils/runtime/logger';
+import { sendHtmlForEnabledRoutes } from './utils/runtime/send-html-for-enabled-routes';
+import { sendResourceNotFound } from './middleware/send-resource-not-found';
 
 const app = express();
 
@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', '*');
   res.header('Access-Control-Allow-Headers', '*');
+  res.set('Cache-Control', 'no-store');
   next();
 });
 

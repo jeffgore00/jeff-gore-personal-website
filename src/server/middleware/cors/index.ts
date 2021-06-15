@@ -1,6 +1,6 @@
 import cors, { CorsOptionsDelegate } from 'cors';
 import { RequestHandler, Response, Request } from 'express';
-import logger from '../../utils/logger';
+import logger from '../../utils/runtime/logger';
 import { getConfig } from '../../../shared/config';
 
 const { corsWhitelist } = getConfig(process.env.PRODLIKE && 'prodlike');

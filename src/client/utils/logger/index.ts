@@ -2,7 +2,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import { serializeError } from 'serialize-error';
 
 import { LogType, Metadata } from '../../../shared/types/logging';
-import { getConfig } from '../../../shared/config';
+import { apiUrl } from '../../constants';
 
 type SendLogToServer = (
   logType: LogType,
@@ -47,7 +47,7 @@ export class Logger implements ClientSideLogger {
       );
 
     return axios
-      .put(`${getConfig(appEnvironment).backendUrl}/api/logs`, {
+      .put(`${apiUrl}/logs`, {
         logType,
         logSource: 'UI',
         message,

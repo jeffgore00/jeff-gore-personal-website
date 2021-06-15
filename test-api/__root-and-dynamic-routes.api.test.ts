@@ -4,7 +4,7 @@ import path from 'path';
 import zlib from 'zlib';
 
 import app from '../src/server/app';
-import logger from '../src/server/utils/logger';
+import logger from '../src/server/utils/runtime/logger';
 import { enabledPageRoutes } from '../src/shared/constants';
 
 ['/', ...enabledPageRoutes].forEach((pageRoute) => {

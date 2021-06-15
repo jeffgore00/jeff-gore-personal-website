@@ -25,7 +25,7 @@ describe('CORS Strict same origin', () => {
       };
 
       jest.isolateModules(() => {
-        // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
         const configExport = require('../../../shared/config');
 
         jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
@@ -94,7 +94,7 @@ describe('CORS Strict same origin', () => {
           }));
 
           // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-          const logger = require('../../utils/logger').default;
+          const logger = require('../../utils/runtime/logger').default;
           loggerSpy = jest.spyOn(logger, 'warn').mockImplementation(jest.fn());
 
           ({ corsAllowWhitelistOnly } = require('.'));
