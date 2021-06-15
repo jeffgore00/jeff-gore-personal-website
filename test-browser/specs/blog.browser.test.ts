@@ -1,5 +1,8 @@
 import blogPage from '../pages/blog.page';
 
+// This global is injected before the tests begin (see wdio.conf.ts):
+declare let wdioBaseUrl: string;
+
 describe('The Blogs page', () => {
   beforeAll(() => {
     blogPage.open();
@@ -72,6 +75,37 @@ describe('The Blogs page', () => {
         expect(blogPreviews[7].subtitle).toEqual(
           'A reflection on decades of making fart noises and bird calls.',
         );
+      });
+    });
+
+    describe('When the user clicks one of the blog links', () => {
+      beforeAll(() => {
+        blogPage.blogPreviews[0].$('.blog-preview-title-heading a').click();
+      });
+
+      // eslint-disable-next-line jest/expect-expect
+      it('should navigate to the URL for that blog', () => {
+        /* Implicit test that the route changes to the expected route. */
+        browser.waitUntil(
+          () =>
+            browser.getUrl() ===
+            `${wdioBaseUrl}/blog/20500402-DUMMY-the-algorithms-that-still-matter`,
+        );
+      });
+
+      it('should display that blogs content', () => {
+        expect($('h2*=The Algorithms That Still Matter').isDisplayed()).toEqual(
+          true,
+        );
+        expect(
+          $(
+            'h3*=A cheat sheet to some fundamentals that are older than me.',
+          ).isDisplayed(),
+        ).toEqual(true);
+        expect($('span*=April 2, 2050').isDisplayed()).toEqual(true);
+        expect(
+          $('p*=Here are some algos that will blow you away.').isDisplayed(),
+        ).toEqual(true);
       });
     });
   });

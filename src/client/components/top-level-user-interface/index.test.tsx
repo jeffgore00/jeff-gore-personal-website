@@ -6,6 +6,7 @@ import * as PageWrapperModule from '../page-wrapper';
 import * as ErrorBoundaryModule from '../error-boundary';
 import * as HomepageModule from '../../pages/home';
 import * as BlogModule from '../../pages/blog';
+import * as IndividualBlogModule from '../../pages/individual-blog';
 import { generateSpiedReactComponent } from '../../../../test-utils/generate-spied-react-component';
 import { navMenuEnabledLinks } from '../../../shared/constants';
 
@@ -52,6 +53,12 @@ generateSpiedReactComponent({
   implementation: () => <div id="blog" />,
 });
 
+generateSpiedReactComponent({
+  object: IndividualBlogModule,
+  method: 'IndividualBlog',
+  implementation: () => <div id="individual-blog" />,
+});
+
 describe('The <TopLevelUserInterface> component', () => {
   beforeAll(() => {
     const topLevelDiv = document.createElement('div');
@@ -89,6 +96,13 @@ describe('The <TopLevelUserInterface> component', () => {
     const homepageWithRoute = document.getElementById('route-to-/');
     expect(homepageWithRoute.closest('#page-wrapper')).toBeTruthy();
     expect(homepageWithRoute.innerHTML).toEqual(`<div id="homepage"></div>`);
+  });
+
+  it('renders a route to an individual blog within the page wrapper', () => {
+    const individualBlogRoute = document.getElementById(
+      'route-to-/blog/:contentId',
+    );
+    expect(individualBlogRoute.closest('#page-wrapper')).toBeTruthy();
   });
 
   navMenuEnabledLinks.forEach((route, pageName) => {

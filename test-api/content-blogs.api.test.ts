@@ -11,6 +11,97 @@ describe('Content API - Blogs', () => {
     jest.spyOn(logger, 'error').mockImplementation(jest.fn());
   });
 
+  describe('GET /api/content/blogs/:contentId (full content of single blog)', () => {
+    describe('When a valid contentType and contentId are supplied', () => {
+      it('responds with the corresponding HTML content and metadata', async () => {
+        const response = await request(app).get(
+          '/api/content/blogs/20500101-DUMMY-happy-half-millenium',
+        );
+        expect(response.status).toEqual(200);
+        expect(response.body).toEqual({
+          htmlContent:
+            '<h2 id="blog-title">Holy God, I\'m 64 Years Old</h2><h3 id="blog-subtitle">A reflection on decades of making fart noises and bird calls.</h3><span id="blog-publish-date">January 1, 2050</span><div id="blog-content"><p>This dude (me) is OLD!</p></div>',
+          publishDate: '2050-01-01T00:00:00.000Z',
+          subtitle:
+            'A reflection on decades of making fart noises and bird calls.',
+          title: "Holy God, I'm 64 Years Old",
+          draft: false,
+          dummy: true,
+          contentSubtype: 'COMMENTARY',
+          contentType: 'BLOG',
+        });
+      });
+
+      describe('When process.env.NODE_ENV is "production"', () => {
+        let originalProcessEnv: string;
+
+        beforeAll(() => {
+          originalProcessEnv = process.env.NODE_ENV;
+          process.env.NODE_ENV = 'production';
+        });
+
+        afterAll(() => {
+          process.env.NODE_ENV = originalProcessEnv;
+        });
+
+        describe('When content.json is present for the requested resource', () => {
+          /* Normally, the content.json file only exists in /dist/content, not /content, which has
+        content source code. But because this is testing source code, not compiled code, under a 
+        production like env (which normally is executed from /dist), then we need to pretend here 
+        that /content is /dist/content. Hence writing a .json file to that directory. */
+
+          const rawJson =
+            '{"htmlContent":"<h2>Holy God, I\'m 64 Years Old</h2><h3>A reflection on decades of making fart noises and bird calls.</h3><p><i>January 1, 2050</i></p>","contentSubtype":"TECH","contentType":"BLOG","publishDate":"2000-01-01T00:00:00.000Z","title":"Holy God, I\'m 64 Years Old"}';
+
+          const contentJsonPath = path.join(
+            __dirname,
+            '../content/blogs/20500101-DUMMY-happy-half-millenium/content.json',
+          );
+
+          beforeAll(() => {
+            fs.writeFileSync(contentJsonPath, rawJson);
+          });
+
+          afterAll(() => {
+            fs.unlinkSync(contentJsonPath);
+          });
+
+          it('responds with the content and metadata with "static" = true', async () => {
+            const response = await request(app).get(
+              '/api/content/blogs/20500101-DUMMY-happy-half-millenium',
+            );
+            expect(response.status).toEqual(200);
+            expect(response.body).toEqual({
+              ...JSON.parse(rawJson),
+              static: true,
+            });
+          });
+        });
+
+        describe('When content.json is NOT present for the requested resource', () => {
+          // No setup, it should never be present in /content.
+
+          it('responds with 404', async () => {
+            const response = await request(app).get(
+              '/api/content/blogs/20500101-DUMMY-happy-half-millenium',
+            );
+            expect(response.status).toEqual(404);
+          });
+        });
+      });
+    });
+
+    describe('When a valid contentId is not supplied', () => {
+      it('responds with 404', async () => {
+        const response = await request(app).get(
+          '/api/content/blogs/20121122-this-blog-does-not-exist',
+        );
+        expect(response.status).toEqual(404);
+        expect(response.body).toEqual({});
+      });
+    });
+  });
+
   describe('GET /api/content/blogs/previews (summaries of multiple blogs)', () => {
     describe.each([
       ['"true"', true, 'dummy-previews.json'],
@@ -134,11 +225,7 @@ describe('Content API - Blogs', () => {
             });
           });
 
-          // Skipping for now because this test times out despite working fine IRL. Someone here had
-          // the same problem and it appears to be an Express + Supertest issue:
-          // https://github.com/visionmedia/supertest/issues/529
-          // Strangely, adding the single blog route below this one in a subsequent commit will fix the problem.
-          describe.skip(`When ${contentFileName} is NOT present for the requested resource`, () => {
+          describe(`When ${contentFileName} is NOT present for the requested resource`, () => {
             // No setup, previews.json is a build file only and should never be present in /content.
 
             // Why 500 rather than 404? Because both previews.json and dummy-previews.json should always exist, even if it's an empty object.

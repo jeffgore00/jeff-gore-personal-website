@@ -89,6 +89,22 @@ describe('URL routes', () => {
     });
   });
 
+  describe(`When the user accesses an individual blog URL directly`, () => {
+    beforeAll(() => {
+      browser.url(
+        `${wdioBaseUrl}/blog/20500402-DUMMY-the-algorithms-that-still-matter`,
+      );
+      // This solves a mysterious issue with the below test occassionally failing.
+      browser.pause(1000);
+    });
+
+    it(`Displays that blog entry`, () => {
+      expect($('h2*=The Algorithms That Still Matter').isDisplayed()).toEqual(
+        true,
+      );
+    });
+  });
+
   navMenuDisabledLinks.forEach((route) => {
     describe(`When the user accesses the disabled ${route} URL directly`, () => {
       beforeAll(() => {
