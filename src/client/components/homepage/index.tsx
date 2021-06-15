@@ -1,42 +1,113 @@
-import React, { useEffect } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import React, { useEffect, useState, useRef } from 'react';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 import logger from '../../utils/logger';
+import { getConfig } from '../../../shared/config';
+import { Previews } from '../../../shared/types/content-metadata';
 
 export const HOMEPAGE_RENDERED_LOG = 'Homepage Rendered';
+export const HOMEPAGE_GOT_CONTENT_PREVIEWS_LOG =
+  'Homepage: Got content previews';
 
-export const Homepage = (): React.ReactElement => {
+function buildBlogPreviewsMarkup(content: Previews, contentSubtype: string) {
+  return (
+    <>
+      {Object.entries(content)
+        .filter(
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          ([contentId, contentItem]) =>
+            contentItem.contentSubtype === contentSubtype,
+        )
+        .sort(
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          ([contentId1, contentItem1], [contentId2, contentItem2]) =>
+            new Date(contentItem2.publishDate).valueOf() -
+            new Date(contentItem1.publishDate).valueOf(),
+        )
+        .map(([contentId, contentItem]) => {
+          const parsedContentPublishDate = new Date(contentItem.publishDate);
+          const formattedContentPublishDate = parsedContentPublishDate.toLocaleDateString(
+            'en-US',
+            {
+              timeZone: 'UTC',
+            },
+          );
+
+          return (
+            <div key={contentId}>
+              <strong>{`${contentItem.title} (${formattedContentPublishDate})`}</strong>
+              <br />
+              {contentItem.subtitle}
+              <br />
+              <br />
+            </div>
+          );
+        })}
+    </>
+  );
+}
+
+const loadingContentLinesMarkup = (
+  <>
+    {new Array(20).fill(null).map((_, index) => (
+      <Skeleton key={String.fromCharCode(index)} animation="wave" />
+    ))}
+  </>
+);
+
+export function Homepage(): React.ReactElement {
+  const techMarkup = useRef<JSX.Element>(null);
+  const nonTechMarkup = useRef<JSX.Element>(null);
+  const [contentLoaded, setContentLoaded] = useState(false);
+
+  const previewsUrl = `${
+    getConfig(appEnvironment).backendUrl
+  }/api/content/blogs/previews`;
+
   useEffect(() => {
     void logger.info(HOMEPAGE_RENDERED_LOG);
-  }, []);
+    void axios.get(previewsUrl).then((response: AxiosResponse<Previews>) => {
+      void logger.info(HOMEPAGE_GOT_CONTENT_PREVIEWS_LOG);
+
+      const techPreviewsMarkup = (
+        <>
+          <p>- - - - - - - - - - - - - - - - - - - -</p>
+          <h3>Latest From the Tech Blog</h3>
+          {buildBlogPreviewsMarkup(response.data, 'TECH')}
+        </>
+      );
+
+      const nonTechPreviewsMarkup = (
+        <>
+          <p>- - - - - - - - - - - - - - - - - - - -</p>
+          <h3>Latest From the Commentary Blog</h3>
+          {buildBlogPreviewsMarkup(response.data, 'COMMENTARY')}
+        </>
+      );
+
+      techMarkup.current = techPreviewsMarkup;
+      nonTechMarkup.current = nonTechPreviewsMarkup;
+      setContentLoaded(true);
+    });
+  }, [previewsUrl]);
 
   return (
-    <div id="homepage-content" data-testid="homepage-content">
-      <p>
-        My website is under construction. Until it&apos;s ready, enjoy these
-        quotes on journalism from one of my favorite writers,{' '}
-        <a href="https://en.wikipedia.org/wiki/Janet_Malcolm">Janet Malcolm</a>.
-      </p>
-      <aside style={{ marginLeft: '2em' }}>
-        <p>
-          “Every journalist who is not too stupid or full of himself to notice
-          what is going on knows that what he does is morally indefensible. He
-          is a kind of confidence man, preying on people&apos;s vanity,
-          ignorance, or loneliness, gaining their trust and betraying them
-          without remorse.”
-        </p>
-        <p>
-          “Something seems to happen to people when they meet a journalist, and
-          what happens is exactly the opposite of what one would expect. One
-          would think that extreme wariness and caution would be the order of
-          the day, but in fact childish trust and impetuosity are far more
-          common. The journalistic encounter seems to have the same regressive
-          effect on a subject as the psychoanalytic encounter. The subject
-          becomes a kind of child of the writer, regarding him as a permissive,
-          all-accepting, all-forgiving mother, and expecting that the book will
-          be written by her. Of course, the book is written by the strict,
-          all-noticing, unforgiving father.”
-        </p>
-      </aside>
-    </div>
+    <>
+      <h2>
+        <i>
+          Welcome to my site! I work full time as a web developer. I used to
+          work as a journalist. Peruse the blog!
+        </i>
+      </h2>
+      {!contentLoaded ? (
+        loadingContentLinesMarkup
+      ) : (
+        <>
+          {techMarkup.current}
+          {nonTechMarkup.current}
+        </>
+      )}
+    </>
   );
-};
+}
