@@ -8,17 +8,19 @@ import { Blog } from '../../pages/blog';
 import { PlaceholderPage } from '../../../../test-utils/components/placeholder-page';
 import { PageStylingContainer } from './styled-components';
 import {
-  navMenuEnabledLinks,
+  enabledRoutesByName,
   NavMenuLinkText,
 } from '../../../shared/constants';
+import { IndividualBlog } from '../../pages/individual-blog';
 
 export function TopLevelUserInterface(): JSX.Element {
   const pageMap = new Map([
     [NavMenuLinkText.About, <PlaceholderPage pageName="About Me" />],
-    [NavMenuLinkText.Blog, <Blog />],
     [NavMenuLinkText.Projects, <PlaceholderPage pageName="Projects" />],
     [NavMenuLinkText.ThingsILike, <PlaceholderPage pageName="Things I Like" />],
     [NavMenuLinkText.Contact, <PlaceholderPage pageName="Contact Me" />],
+    [NavMenuLinkText.Blog, <Blog />],
+    ['Individual Blog', <IndividualBlog />],
   ]);
 
   return (
@@ -28,7 +30,9 @@ export function TopLevelUserInterface(): JSX.Element {
           <PageWrapper>
             <Routes>
               <Route path="/" element={<Homepage />} />
-              {Array.from(navMenuEnabledLinks).map(([pageName, route]) => (
+              {/* All routes other than the homepage can be toggled to disabled.
+              Hence we set up only the enabled routes. */}
+              {Array.from(enabledRoutesByName).map(([pageName, route]) => (
                 <Route
                   path={route}
                   key={pageName}

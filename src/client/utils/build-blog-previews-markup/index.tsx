@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   BlogPreviewWrapper,
@@ -44,7 +45,12 @@ export function buildBlogPreviewsMarkup({
               {includeTypeHeading && (
                 <BlogPreviewTypeHeading blogType={contentItem.contentSubtype} />
               )}
-              <BlogPreviewTitleHeading>{`${contentItem.title} (${formattedBlogPublishDate})`}</BlogPreviewTitleHeading>
+              <BlogPreviewTitleHeading>
+                <Link to={`/blog/${contentId}`}>
+                  {`${contentItem.title} (${formattedBlogPublishDate})`}
+                </Link>
+              </BlogPreviewTitleHeading>
+
               <span className="blog-preview-subtitle">
                 {contentItem.subtitle}
               </span>

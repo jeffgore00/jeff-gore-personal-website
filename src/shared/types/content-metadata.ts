@@ -18,6 +18,10 @@ export interface ContentMetadata {
   [key: string]: unknown;
 }
 
+export interface ContentWithMetadata extends ContentMetadata {
+  htmlContent: string;
+}
+
 export interface SerializedContentMetadata {
   title: string;
   publishDate: string;
@@ -27,6 +31,11 @@ export interface SerializedContentMetadata {
   draft: boolean;
   dummy: boolean;
   [key: string]: unknown;
+}
+
+export interface SerializedContentAndMetadata
+  extends SerializedContentMetadata {
+  htmlContent: string;
 }
 
 export interface Previews {

@@ -26,9 +26,9 @@ describe('useSetPageTitle', () => {
     beforeAll(() => {
       render(<TestComponent pageName="Projects" />);
     });
-    it('Should change the page title to "Jeff Gore - <pageName>"', () => {
+    it('Should change the page title to "<pageName> | Jeff Gore"', () => {
       expect(document.head.querySelector('title').innerHTML).toEqual(
-        'Jeff Gore - Projects',
+        'Projects | Jeff Gore',
       );
     });
   });

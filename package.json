@@ -21,14 +21,14 @@
       "src/shared",
       "content"
     ],
-    "ext": "js,ts,json",
+    "ext": "js,ts,json,tsx",
     "exec": "node -r ts-node/register --unhandled-rejections=strict"
   },
   "scripts": {
     "build": "npm run build:client && npm run build:server && npm run build:content",
     "build:dev": "NODE_ENV=development npm run build:client",
     "build:dev:offline": "BUILD_OFFLINE=true npm run build:dev",
-    "build:content": "rm -rf dist/content && npm run write-blog-preview-files",
+    "build:content": "rm -rf dist/content && npm run write-single-blog-entry-files && npm run write-blog-preview-files",
     "build:client": "webpack",
     "build:server": "rm -rf dist/server && tsc --project tsconfig.server.json && node dist/src/server/utils/build/edit-server-status-file/index.js",
     "lint": "eslint \"**\"",
