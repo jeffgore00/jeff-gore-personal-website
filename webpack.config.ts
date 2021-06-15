@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call, import/no-extraneous-dependencies */
+
 import path from 'path';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CompressionPlugin from 'compression-webpack-plugin';
@@ -7,6 +9,7 @@ import { Configuration as WebpackDevServerConfig } from 'webpack-dev-server';
 import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
 import { Application } from 'express';
 import morgan from 'morgan';
+
 import { sendHtmlForEnabledRoutes } from './src/server/utils/send-html-for-enabled-routes';
 import { sendResourceNotFound } from './src/server/utils/send-resource-not-found';
 
@@ -125,3 +128,5 @@ const config: Config = {
     }),
   ],
 };
+
+module.exports = config;

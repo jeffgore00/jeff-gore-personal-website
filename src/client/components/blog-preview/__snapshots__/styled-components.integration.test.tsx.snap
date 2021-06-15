@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlogPreviewTitleHeading presentational component renders the wrapped content with the expected CSS styles and HTML attributes 1`] = `
+.c0 {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+<div
+  class="c0 blog-preview-title-heading"
+>
+  The Algorithms That Still Matter
+</div>
+`;
+
+exports[`BlogPreviewTypeHeading presentational component When the blog type is "TECH" renders the blogType with the expected CSS styles (incl. blue font) and HTML attributes 1`] = `
+.c0 {
+  margin-bottom: 0;
+}
+
+<div
+  class="c0 blog-preview-type-heading"
+>
+  <span
+    style="font-weight: bold; color: blue;"
+  >
+    TECH
+  </span>
+</div>
+`;
+
+exports[`BlogPreviewTypeHeading presentational component When the blog type is not "TECH" renders the blogType with the expected CSS styles (incl. purple font) and HTML attributes 1`] = `
+.c0 {
+  margin-bottom: 0;
+}
+
+<div
+  class="c0 blog-preview-type-heading"
+>
+  <span
+    style="font-weight: bold; color: purple;"
+  >
+    COMMENTARY
+  </span>
+</div>
+`;
+
+exports[`BlogPreviewWrapper presentational component renders the wrapped content with the expected CSS styles and HTML attributes 1`] = `
+.c0 {
+  margin-bottom: 1em;
+}
+
+<div
+  class="c0 single-blog-preview"
+  id="blog-preview-20500402-DUMMY-the-algorithms-that-still-matter"
+>
+  <div
+    class="blog-preview-title-heading"
+  >
+    The Algorithms That Still Matter
+  </div>
+  <span
+    class="blog-preview-subtitle"
+  >
+    A cheat sheet to some fundamentals that are older than me.
+  </span>
+</div>
+`;
