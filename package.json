@@ -17,17 +17,20 @@
       "**/*.test.ts"
     ],
     "watch": [
-      "src/server"
+      "src/server",
+      "src/shared",
+      "content"
     ],
     "ext": "js,ts,json",
     "exec": "node -r ts-node/register --unhandled-rejections=strict"
   },
   "scripts": {
-    "build": "npm run build:client && npm run build:server",
+    "build": "npm run build:client && npm run build:server && npm run build:content",
     "build:dev": "NODE_ENV=development npm run build:client",
     "build:dev:offline": "BUILD_OFFLINE=true npm run build:dev",
+    "build:content": "rm -rf dist/content && node -r ts-node/register src/server/utils/write-single-blog-entry-files/index.ts && node -r ts-node/register src/server/utils/write-blog-preview-files/index.ts",
     "build:client": "webpack",
-    "build:server": "rm -rf dist && tsc --project tsconfig.server.json && if [ \"$NODE_ENV\" = \"production\" ]; then node dist/src/server/utils/server-status/edit-server-status-file.js; fi",
+    "build:server": "rm -rf dist/server && tsc --project tsconfig.server.json && if [ \"$NODE_ENV\" = \"production\" ]; then node dist/src/server/utils/server-status/edit-server-status-file.js; fi",
     "lint": "eslint \"**\"",
     "prettier": "prettier '**/*.js' '**/*.ts' '**/*.tsx' '**/*.json' '**/*.md' '**/*.html'",
     "prettier:fix": "npm run prettier -- --write",
@@ -117,6 +120,7 @@
     "html-webpack-plugin": "5.3.2",
     "husky": "7.0.0",
     "jest": "26.6.3",
+    "jest-styled-components": "^7.0.5",
     "lint-staged": "11.0.0",
     "nodemon": "2.0.9",
     "prettier": "2.3.2",

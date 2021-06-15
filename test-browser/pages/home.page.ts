@@ -42,6 +42,66 @@ class Homepage extends Page {
     return $$('.jg-drawer-open a');
   }
 
+  get aboutMeBlurb(): WebdriverIO.Element {
+    return $('[data-testid="homepage-about-me-blurb"]');
+  }
+
+  get loadingContentLines(): WebdriverIO.Element {
+    return $('[data-testid="loading-content-lines"]');
+  }
+
+  get techBlogPreviewsSection(): WebdriverIO.Element {
+    return $('[data-testid="homepage-tech-blog-previews"]');
+  }
+
+  get commentaryBlogPreviewsSection(): WebdriverIO.Element {
+    return $('[data-testid="homepage-commentary-blog-previews"]');
+  }
+
+  get techBlogPreviewsHeading(): WebdriverIO.Element {
+    return $('[data-testid="homepage-tech-blog-previews-heading"]');
+  }
+
+  get commentaryBlogPreviewsHeading(): WebdriverIO.Element {
+    return $('[data-testid="homepage-commentary-blog-previews-heading"]');
+  }
+
+  get techBlogPreviews(): WebdriverIO.Element[] {
+    this.techBlogPreviewsSection.waitForDisplayed();
+    return this.techBlogPreviewsSection.$$('.single-blog-preview');
+  }
+
+  get commentaryBlogPreviews(): WebdriverIO.Element[] {
+    this.commentaryBlogPreviewsSection.waitForDisplayed();
+    return this.commentaryBlogPreviewsSection.$$('.single-blog-preview');
+  }
+
+  getStructuredTechBlogPreviews(): {
+    title: string;
+    subtitle: string;
+  }[] {
+    const { techBlogPreviews } = this;
+    return techBlogPreviews.map((techBlogPreview) => ({
+      title: techBlogPreview.$('.blog-preview-title-heading').getText(),
+      subtitle: techBlogPreview.$('.blog-preview-subtitle').getText(),
+    }));
+  }
+
+  getStructuredCommentaryBlogPreviews(): {
+    title: string;
+    subtitle: string;
+  }[] {
+    const { commentaryBlogPreviews } = this;
+    return commentaryBlogPreviews.map((commentaryBlogPreview) => ({
+      title: commentaryBlogPreview.$('.blog-preview-title-heading').getText(),
+      subtitle: commentaryBlogPreview.$('.blog-preview-subtitle').getText(),
+    }));
+  }
+
+  get blogPreviews(): WebdriverIO.Element[] {
+    return $$('.single-blog-preview');
+  }
+
   get githubFooterIcon(): WebdriverIO.Element {
     return $('[data-testid="footer-github"]');
   }
@@ -58,8 +118,8 @@ class Homepage extends Page {
     return $('[data-testid="footer-instagram"]');
   }
 
-  open(): void {
-    return super.open();
+  open(path?: string): void {
+    return super.open(path);
   }
 }
 

@@ -7,7 +7,24 @@ class BlogPage extends Page {
   }
 
   open(): void {
-    return super.open();
+    return super.open('/blog?useDummyPreviews=true');
+  }
+
+  get blogPreviews(): WebdriverIO.Element[] {
+    return $$('.single-blog-preview');
+  }
+
+  getStructuredBlogPreviews(): {
+    type: string;
+    title: string;
+    subtitle: string;
+  }[] {
+    const { blogPreviews } = this;
+    return blogPreviews.map((commentaryBlogPreview) => ({
+      type: commentaryBlogPreview.$('.blog-preview-type-heading').getText(),
+      title: commentaryBlogPreview.$('.blog-preview-title-heading').getText(),
+      subtitle: commentaryBlogPreview.$('.blog-preview-subtitle').getText(),
+    }));
   }
 }
 
