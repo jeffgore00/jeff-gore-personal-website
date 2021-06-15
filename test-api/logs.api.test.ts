@@ -1,7 +1,7 @@
 import request from 'supertest';
 
 import app from '../src/server/app';
-import logger from '../src/server/utils/logger';
+import logger from '../src/server/utils/runtime/logger';
 
 describe('PUT /api/logs', () => {
   beforeEach(() => {

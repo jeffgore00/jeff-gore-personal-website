@@ -23,7 +23,7 @@ describe('Server', () => {
   beforeEach(() => {
     jest.isolateModules(() => {
       // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
-      const logger = require('./utils/logger').default;
+      const logger = require('./utils/runtime/logger').default;
       loggerSpy = jest.spyOn(logger, 'info').mockImplementation(jest.fn());
 
       // eslint-disable-next-line global-require

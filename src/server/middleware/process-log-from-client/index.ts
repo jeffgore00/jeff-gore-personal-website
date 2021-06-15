@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import logger from '../../utils/logger';
+import logger from '../../utils/runtime/logger';
 import { NewLogRequest } from '../../../shared/types/logging';
 
 const processLogFromClient: RequestHandler = (req: NewLogRequest, res) => {

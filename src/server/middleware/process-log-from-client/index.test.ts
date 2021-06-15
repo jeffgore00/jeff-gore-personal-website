@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 import processLogFromClient from '.';
 import { LogType, NewLogRequest } from '../../../shared/types/logging';
-import logger from '../../utils/logger';
+import logger from '../../utils/runtime/logger';
 
 const infoLoggerSpy = jest.spyOn(logger, 'info').mockImplementation(jest.fn());
 const warnLoggerSpy = jest.spyOn(logger, 'warn').mockImplementation(jest.fn());

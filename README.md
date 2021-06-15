@@ -57,7 +57,7 @@ You generally don't need to run these scripts in development, since `npm run sta
 
 ### Core Functionality
 
-A dedicated Winston `logger` exists on the application server in `src/server/utils/logger` with the methods `.error`, `.warn`, `.info`, and `.debug`, corresponding to different log levels.
+A dedicated Winston `logger` exists on the application server in `src/server/utils/runtime/logger` with the methods `.error`, `.warn`, `.info`, and `.debug`, corresponding to different log levels.
 
 Example usage:
 
@@ -135,7 +135,7 @@ In development, logs are color-coded and formatted in a non-JSON string to make 
 
 ### Passing Logs from Client to Server via API
 
-The server exposes an API to make this logger available to clients, such as a web browser. In turn, a logger with the same function signature as the server logger is available to front-end code in `src/client/utils/logger`. This client-side logger sends the log data to the `/api/logs` endpoint, which then results in the server `logger` processing the log per the behavior described above.
+The server exposes an API to make this logger available to clients, such as a web browser. In turn, a logger with the same function signature as the server logger is available to front-end code in `src/client/utils/runtime/logger`. This client-side logger sends the log data to the `/api/logs` endpoint, which then results in the server `logger` processing the log per the behavior described above.
 
 The `api/logs` endpoint passes two additional pieces of metadata to the logger: `logFromClient: true` and `logSource`, which is the origin URL of the logging request. Here's an example of how the client-side `logger` would be used in a React component:
 
