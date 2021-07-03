@@ -73,12 +73,8 @@ const { argv: parsedCommandLineArgs } = yargs(rawCommandLineArgs)
   })
   .help('info', 'Show custom WDIO flags. For standard WDIO help, use --help');
 
-const {
-  environment,
-  headless,
-  screenshot,
-  chromedriver,
-} = parsedCommandLineArgs;
+const { environment, headless, screenshot, chromedriver } =
+  parsedCommandLineArgs;
 
 const environmentMap = {
   dev: 'http://localhost:8080',
@@ -156,9 +152,8 @@ const config: Options.Testrunner = {
   },
   afterTest(test, context, { passed }) {
     const generateScreenshotName = (testPassed?: boolean) => {
-      const [filenameNoExtension] = global.specFilename.split(
-        '.browser.test.ts',
-      );
+      const [filenameNoExtension] =
+        global.specFilename.split('.browser.test.ts');
 
       const testPassedMap = {
         true: 'PASSED',

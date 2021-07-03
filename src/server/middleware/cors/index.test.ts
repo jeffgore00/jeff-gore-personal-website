@@ -92,9 +92,7 @@ describe('CORS Strict same origin', () => {
         corsAllowWhitelistOnly(req as Request, res as Response, next);
         expect(next).not.toHaveBeenCalled();
         expect(res.sendStatus).toHaveBeenCalledWith(403);
-        expect(
-          loggerSpy,
-        ).toHaveBeenCalledWith(
+        expect(loggerSpy).toHaveBeenCalledWith(
           'Request "POST https://www.app-that-uses-this-boilerplate.com/api/users" from origin http://neutralintentions.com, user agent Chrome blocked by CORS policy',
           { requestBody: JSON.stringify(req.body) },
         );

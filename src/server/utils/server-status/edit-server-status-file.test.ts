@@ -24,10 +24,12 @@ describe('Edit server status file', () => {
     jest
       .spyOn(getServerStatusModule, 'getServerStatus')
       .mockImplementation(() => sampleServerStatus);
+
     errorLoggerSpy = jest.spyOn(logger, 'error').mockImplementation(() => null);
     writeFileSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {
       throw sampleError;
     });
+
     jest.isolateModules(() => {
       // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment
       module = require('./edit-server-status-file');

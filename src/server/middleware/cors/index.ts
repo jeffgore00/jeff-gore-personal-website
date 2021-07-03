@@ -5,37 +5,36 @@ import { getConfig } from '../../../shared/config';
 
 const { corsWhitelist } = getConfig(process.env.PRODLIKE && 'prodlike');
 
-const buildCorsHandler = (req: Request, res: Response): CorsOptionsDelegate => (
-  request,
-  callback,
-) => {
-  const handleCorsError = (): void => {
-    logger.warn(
-      `Request "${req.method} ${req.originalUrl}" from origin ${req.headers.origin}, user agent ${req.headers['user-agent']} blocked by CORS policy`,
-      { requestBody: JSON.stringify(req.body) },
-    );
-    res.sendStatus(403);
-  };
+const buildCorsHandler =
+  (req: Request, res: Response): CorsOptionsDelegate =>
+  (request, callback) => {
+    const handleCorsError = (): void => {
+      logger.warn(
+        `Request "${req.method} ${req.originalUrl}" from origin ${req.headers.origin}, user agent ${req.headers['user-agent']} blocked by CORS policy`,
+        { requestBody: JSON.stringify(req.body) },
+      );
+      res.sendStatus(403);
+    };
 
-  if (
-    !corsWhitelist.includes('*') &&
-    !corsWhitelist.includes(req.headers.origin)
-  ) {
-    return handleCorsError();
-  }
+    if (
+      !corsWhitelist.includes('*') &&
+      !corsWhitelist.includes(req.headers.origin)
+    ) {
+      return handleCorsError();
+    }
 
-  /* Once the request has passed through the gauntlet above, trust it entirely. The below keys in
+    /* Once the request has passed through the gauntlet above, trust it entirely. The below keys in
   the config are equivalent to "Access-Control-Allow-______" headers on the response. Perhaps in
   the future, this can be more nuanced so that each entry in the whitelist has its own allowed
   methods and headers. */
-  const corsOptions = {
-    origin: req.headers.origin,
-    methods: 'GET, POST, PUT, DELETE, OPTIONS',
-    allowedHeaders: '*',
-  };
+    const corsOptions = {
+      origin: req.headers.origin,
+      methods: 'GET, POST, PUT, DELETE, OPTIONS',
+      allowedHeaders: '*',
+    };
 
-  return callback(null, corsOptions);
-};
+    return callback(null, corsOptions);
+  };
 
 /* The "same-origin policy" doesn't apply to requests from tools like Postman or the browser
 console, in which the origin is undefined (i.e., not originating from another URL). This middleware
