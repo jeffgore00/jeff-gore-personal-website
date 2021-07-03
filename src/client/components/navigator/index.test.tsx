@@ -12,10 +12,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Navigator } from '.';
 import { setupReactMediaMock } from '../../../../test-utils/react-media';
 
-const {
-  simulateMobileScreenWidth,
-  simulateDesktopScreenWidth,
-} = setupReactMediaMock();
+const { simulateMobileScreenWidth, simulateDesktopScreenWidth } =
+  setupReactMediaMock();
 
 describe('The Navigator component', () => {
   describe('Name section', () => {

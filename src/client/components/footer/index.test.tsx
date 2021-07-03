@@ -27,8 +27,8 @@ describe('Footer', () => {
     expect(image.tagName).toEqual('IMG');
     const hrefValue = imageWrappedInLink.attributes.getNamedItem('href').value;
     expect(hrefValue).toEqual(footerLinks.GITHUB_URL);
-    const targetValue = imageWrappedInLink.attributes.getNamedItem('target')
-      .value;
+    const targetValue =
+      imageWrappedInLink.attributes.getNamedItem('target').value;
     expect(targetValue).toEqual('_blank');
   });
 
@@ -44,8 +44,8 @@ describe('Footer', () => {
     expect(image.tagName).toEqual('IMG');
     const hrefValue = imageWrappedInLink.attributes.getNamedItem('href').value;
     expect(hrefValue).toEqual(footerLinks.LINKEDIN_URL);
-    const targetValue = imageWrappedInLink.attributes.getNamedItem('target')
-      .value;
+    const targetValue =
+      imageWrappedInLink.attributes.getNamedItem('target').value;
     expect(targetValue).toEqual('_blank');
   });
 
@@ -61,8 +61,8 @@ describe('Footer', () => {
     expect(image.tagName).toEqual('IMG');
     const hrefValue = imageWrappedInLink.attributes.getNamedItem('href').value;
     expect(hrefValue).toEqual(footerLinks.TWITTER_URL);
-    const targetValue = imageWrappedInLink.attributes.getNamedItem('target')
-      .value;
+    const targetValue =
+      imageWrappedInLink.attributes.getNamedItem('target').value;
     expect(targetValue).toEqual('_blank');
   });
 
@@ -78,8 +78,8 @@ describe('Footer', () => {
     expect(image.tagName).toEqual('IMG');
     const hrefValue = imageWrappedInLink.attributes.getNamedItem('href').value;
     expect(hrefValue).toEqual(footerLinks.INSTAGRAM_URL);
-    const targetValue = imageWrappedInLink.attributes.getNamedItem('target')
-      .value;
+    const targetValue =
+      imageWrappedInLink.attributes.getNamedItem('target').value;
     expect(targetValue).toEqual('_blank');
   });
 });
