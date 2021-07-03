@@ -1,6 +1,7 @@
 import * as developmentConfig from './development.json';
 import * as testConfig from './test.json';
 import * as productionConfig from './production.json';
+import * as prodlocalConfig from './prodlocal.json';
 
 type Config = {
   backendUrl: string;
@@ -11,6 +12,7 @@ type Config = {
 const configMap: { [key: string]: Config } = {
   development: developmentConfig,
   test: testConfig,
+  prodlike: prodlocalConfig,
   production: productionConfig,
 };
 

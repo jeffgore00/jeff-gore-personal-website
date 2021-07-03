@@ -104,13 +104,16 @@ module.exports = {
       reportFilename: 'bundle-size-report.html',
       openAnalyzer: false,
     }),
-    new CompressionPlugin({ include: /.*.bundle.js/ }),
+    new CompressionPlugin({ include: /.*bundle.js/ }),
     new HtmlWebpackPlugin({
       ...createReactScriptHtmlWebpackConfig(),
       template: 'public/index-template.html',
     }),
     new DefinePlugin({
-      appEnvironment: JSON.stringify(process.env.NODE_ENV),
+      appEnvironment: process.env.PRODLIKE
+        ? // This extra stringification is necessary or this plugin would convert the string name to a global variable.
+          JSON.stringify('prodlike')
+        : JSON.stringify(process.env.NODE_ENV),
     }),
   ],
 };
