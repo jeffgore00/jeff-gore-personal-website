@@ -2,12 +2,15 @@ import path from 'path';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CompressionPlugin from 'compression-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { DefinePlugin } from 'webpack';
+import { DefinePlugin, Configuration as WebpackConfig } from 'webpack';
+import { Configuration as WebpackDevServerConfig } from 'webpack-dev-server';
 import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
 import { Application } from 'express';
 import morgan from 'morgan';
 import { sendHtmlForEnabledRoutes } from './src/server/utils/send-html-for-enabled-routes';
 import { sendResourceNotFound } from './src/server/utils/send-resource-not-found';
+
+interface Config extends WebpackConfig, WebpackDevServerConfig {}
 
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
@@ -29,8 +32,13 @@ const createReactScriptHtmlWebpackConfig = () => {
   return createReactScriptTags('production.min');
 };
 
-module.exports = {
-  mode: process.env.NODE_ENV || 'production',
+const getMode = () => {
+  if (process.env.NODE_ENV === 'development') return 'development';
+  return 'production';
+};
+
+const config: Config = {
+  mode: getMode(),
   devtool: 'source-map',
   devServer: {
     compress: true,
