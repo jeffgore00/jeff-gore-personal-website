@@ -35,6 +35,7 @@
     "release": "standard-version",
     "send-codecov-report": "sh scripts/send-codecov-report.sh",
     "start": "NODE_ENV=production node dist/src/server/index.js --unhandled-rejections=strict",
+    "start:local:prodlike": "PRODLIKE=true npm run build && PRODLIKE=true npm start",
     "start:dev": "concurrently -p \"[{name}]\" -n static,___app -c \"magenta,cyan\" \"NODE_ENV=development webpack serve --open\" \"NODE_ENV=development nodemon src/server/index.ts\" --kill-others",
     "start:dev:offline": "BUILD_OFFLINE=true npm run start:dev",
     "selenium": "docker run -it -p 4444:4444 vvoyer/selenium-standalone",
