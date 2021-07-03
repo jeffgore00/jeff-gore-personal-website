@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig",
   "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
     "types": ["node", "react", "react-dom", "styled-components", "jest"],
     "target": "es5",
     "typeRoots": ["./node_modules", "./src/client"]

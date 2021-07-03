@@ -104,7 +104,7 @@ module.exports = {
       reportFilename: 'bundle-size-report.html',
       openAnalyzer: false,
     }),
-    new CompressionPlugin({ include: 'bundle.js' }),
+    new CompressionPlugin({ include: /.*.bundle.js/ }),
     new HtmlWebpackPlugin({
       ...createReactScriptHtmlWebpackConfig(),
       template: 'public/index-template.html',
