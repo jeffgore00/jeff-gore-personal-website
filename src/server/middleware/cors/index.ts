@@ -3,7 +3,7 @@ import { RequestHandler, Response, Request } from 'express';
 import logger from '../../utils/logger';
 import { getConfig } from '../../../shared/config';
 
-const { corsWhitelist } = getConfig();
+const { corsWhitelist } = getConfig(process.env.PRODLIKE && 'prodlike');
 
 const buildCorsHandler = (req: Request, res: Response): CorsOptionsDelegate => (
   request,
