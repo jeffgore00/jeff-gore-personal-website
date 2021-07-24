@@ -5,7 +5,13 @@
  test the default 500 response message when there is no error message
 */
 import morgan from 'morgan';
-import { Request, Response, ErrorRequestHandler } from 'express';
+import {
+  Request,
+  Response,
+  ErrorRequestHandler,
+  Router,
+  NextFunction,
+} from 'express';
 
 const req = {} as Request;
 const res = {} as Response;
@@ -27,13 +33,22 @@ res.send = sendMock;
 const headerMock = jest.fn();
 res.header = headerMock;
 
-jest.mock('../server/utils/logger', () => ({
+jest.mock('./utils/logger', () => ({
   info: jest.fn(),
   debug: jest.fn(),
   warn: jest.fn(),
   error: jest.fn(),
 }));
 jest.mock('morgan', () => jest.fn(() => (): void => {}));
+jest.mock(
+  'helmet',
+  () => () => (request: Request, response: Response, nextFunc: NextFunction) => {
+    nextFunc();
+  },
+);
+jest.mock('./routers/api', () => Router());
+jest.mock('./utils/send-html-for-enabled-routes');
+jest.mock('./utils/send-resource-not-found');
 
 describe('Logging', () => {
   /* This test requires isolated module loading, because the logging
