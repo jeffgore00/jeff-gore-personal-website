@@ -7,5 +7,5 @@ export const ThisComponentWillThrowAnError = (): React.ReactElement => {
     );
   }, []);
 
-  return <div />;
+  return <div data-testid="faulty-component" />;
 };

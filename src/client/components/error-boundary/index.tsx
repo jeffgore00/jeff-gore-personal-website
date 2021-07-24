@@ -34,7 +34,11 @@ export class ErrorBoundary extends React.Component<
     if (this.state.hasError) {
       return (
         <div data-testid="react-error-fallback-ui">
-          <h1>Oops.</h1>
+          {this.props.boundaryLocation === 'top-level' ? (
+            <h1>Oops.</h1>
+          ) : (
+            <h2>Oops.</h2>
+          )}
           <p>
             If you&apos;re seeing this message, something has gone very wrong
             with my website. Please shoot me an email at{' '}
