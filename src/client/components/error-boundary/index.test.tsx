@@ -49,7 +49,7 @@ describe('Error boundary', () => {
     });
 
     describe('When the boundaryLocation is "top-level"', () => {
-      it('Renders the "Oops." header as an <h1> (since even the header is not displayed)', () => {
+      it('Renders the "Oops." header as an <h1> (since the main "Jeff Gore" header is not displayed)', () => {
         expect(fallbackUi.getElementsByTagName('h1')[0]).toBeTruthy();
         expect(fallbackUi.getElementsByTagName('h2')[0]).toBeFalsy();
       });
@@ -65,7 +65,7 @@ describe('Error boundary', () => {
         );
         fallbackUi = screen.queryByTestId('react-error-fallback-ui');
       });
-      it('Renders the "Oops." header as an <h2> (since the main header is not displayed)', () => {
+      it('Renders the "Oops." header as an <h2> (since the main "Jeff Gore" header is already displayed)', () => {
         expect(fallbackUi.getElementsByTagName('h1')[0]).toBeFalsy();
         expect(fallbackUi.getElementsByTagName('h2')[0]).toBeTruthy();
       });
