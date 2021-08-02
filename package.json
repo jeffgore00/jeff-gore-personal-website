@@ -106,7 +106,7 @@
     "@wdio/sync": "7.7.4",
     "@wdio/types": "7.7.3",
     "chalk": "4.1.1",
-    "chromedriver": "91.0.1",
+    "chromedriver": "^92.0.0",
     "compression-webpack-plugin": "8.0.1",
     "concurrently": "6.2.0",
     "eslint": "7.30.0",
