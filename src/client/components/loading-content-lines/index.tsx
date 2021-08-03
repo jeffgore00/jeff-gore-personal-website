@@ -3,6 +3,11 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 type Props = { numberOfLines: number };
 
+/*
+HTML of each <Skeleton> line:
+<span class="MuiSkeleton-root MuiSkeleton-text MuiSkeleton-wave"></span>
+*/
+
 export function ShimmeringLinesInPlaceOfContentNotYetReady(
   props: Props,
 ): React.ReactElement {
