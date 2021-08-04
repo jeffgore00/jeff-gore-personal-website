@@ -9,8 +9,8 @@ const reactDOMRenderSpy = jest
   .mockImplementation(jest.fn());
 
 const TopLevelUserInterfaceSpy = generateSpiedReactComponent({
-  module: TopLevelUserInterfaceModule,
-  exportName: 'TopLevelUserInterface',
+  object: TopLevelUserInterfaceModule,
+  method: 'TopLevelUserInterface',
   implementation: () => <div />,
 });
 
