@@ -20,24 +20,24 @@ jest.mock('react-router-dom', () => ({
 }));
 
 generateSpiedReactComponent({
-  module: PageWrapperModule,
-  exportName: 'PageWrapper',
+  object: PageWrapperModule,
+  method: 'PageWrapper',
   implementation: ({ children }: { children: React.ReactChild }) => (
     <div id="page-wrapper">{children}</div>
   ),
 });
 
 generateSpiedReactComponent({
-  module: ErrorBoundaryModule,
-  exportName: 'ErrorBoundary',
+  object: ErrorBoundaryModule,
+  method: 'ErrorBoundary',
   implementation: ({ children }: { children: React.ReactChild }) => (
     <div id="error-boundary">{children}</div>
   ),
 });
 
 generateSpiedReactComponent({
-  module: HomepageModule,
-  exportName: 'Homepage',
+  object: HomepageModule,
+  method: 'Homepage',
   implementation: () => <div id="homepage" />,
 });
 

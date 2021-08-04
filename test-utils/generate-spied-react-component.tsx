@@ -1,21 +1,35 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment, @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+
+type ReactComponent = (props: { [key: string]: unknown }) => JSX.Element;
+
 export function generateSpiedReactComponent({
-  module,
-  exportName,
+  object,
+  method,
   implementation,
+  spyOnRenderMethod = false,
 }: {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  module: any; // tried { [key: string]: unknown }, but that bizarrely causes a TS error with the next parameter
-  exportName: string;
-  implementation: ({
-    children,
-  }?: {
-    children: React.ReactChild;
-  }) => JSX.Element;
-}): () => JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore. TypeScript complains that a Spy is not invocable as a React component (i.e. <SpiedComponent>), but it is.
-  const MockedComponent: () => JSX.Element = jest
-    .spyOn(module, exportName)
-    .mockImplementation(implementation);
+  object: { [method: string]: any };
+  method: string;
+  implementation: ReactComponent;
+  spyOnRenderMethod?: boolean;
+}): ReactComponent {
+  let MockedComponent: jest.SpyInstance<ReactComponent>;
+
+  /* For styled components and others, the exports are objects and not functions (perhaps class 
+  components?). Hence we have to spy on the `render` method specifically. */
+  if (spyOnRenderMethod) {
+    MockedComponent = jest
+      .spyOn(object[method], 'render')
+      .mockImplementation(implementation);
+  } else {
+    MockedComponent = jest
+      .spyOn(object, method)
+      .mockImplementation(implementation);
+  }
+
+  /* TypeScript complains that a Spy is not invocable as a React component (i.e. <SpiedComponent>), 
+  but it is. Therefore the return type is set to ReactComponent rather than the true 
+  jest.SpyInstance<ReactComponent> to satisfy the TS compiler in all files where this util is used. */
+  // @ts-ignore
   return MockedComponent;
 }
