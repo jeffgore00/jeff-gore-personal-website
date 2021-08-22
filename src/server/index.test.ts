@@ -1,7 +1,6 @@
 import http from 'http';
 
 import app from './app';
-import logger from './utils/logger';
 
 jest.mock('./app');
 
@@ -22,8 +21,11 @@ describe('Server', () => {
     .mockImplementation(jest.fn(() => httpServerMock));
 
   beforeEach(() => {
-    loggerSpy = jest.spyOn(logger, 'info').mockImplementationOnce(jest.fn());
     jest.isolateModules(() => {
+      // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+      const logger = require('./utils/logger').default;
+      loggerSpy = jest.spyOn(logger, 'info').mockImplementation(jest.fn());
+
       // eslint-disable-next-line global-require
       require('.');
     });

@@ -1,9 +1,6 @@
 /* eslint-disable global-require, @typescript-eslint/no-unsafe-assignment */
 import { Request, RequestHandler, Response } from 'express';
 
-import * as configExport from '../../../shared/config';
-import logger from '../../utils/logger';
-
 describe('CORS Strict same origin', () => {
   let corsAllowWhitelistOnly: RequestHandler;
   let req: Partial<Request>;
@@ -26,12 +23,17 @@ describe('CORS Strict same origin', () => {
         originalUrl: 'https://www.app-that-uses-this-boilerplate.com/api/users',
         headers: { origin: 'http://goodintentions.com' },
       };
-      jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
-        backendUrl: 'http://localhost:1337',
-        frontendUrl: 'http://localhost:1337',
-        corsWhitelist: ['http://goodintentions.com'],
-      }));
+
       jest.isolateModules(() => {
+        // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+        const configExport = require('../../../shared/config');
+
+        jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
+          backendUrl: 'http://localhost:1337',
+          frontendUrl: 'http://localhost:1337',
+          corsWhitelist: ['http://goodintentions.com'],
+        }));
+
         ({ corsAllowWhitelistOnly } = require('.'));
       });
     });
@@ -57,12 +59,16 @@ describe('CORS Strict same origin', () => {
 
     describe('When the whitelist contains "*"', () => {
       beforeEach(() => {
-        jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
-          backendUrl: 'http://localhost:1337',
-          frontendUrl: 'http://localhost:1337',
-          corsWhitelist: ['http://goodintentions.com', '*'],
-        }));
         jest.isolateModules(() => {
+          // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+          const configExport = require('../../../shared/config');
+
+          jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
+            backendUrl: 'http://localhost:1337',
+            frontendUrl: 'http://localhost:1337',
+            corsWhitelist: ['http://goodintentions.com', '*'],
+          }));
+
           ({ corsAllowWhitelistOnly } = require('.'));
         });
       });
@@ -77,13 +83,20 @@ describe('CORS Strict same origin', () => {
       let loggerSpy: jest.SpyInstance;
 
       beforeEach(() => {
-        jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
-          backendUrl: 'http://localhost:1337',
-          frontendUrl: 'http://localhost:1337',
-          corsWhitelist: ['http://goodintentions.com'],
-        }));
-        loggerSpy = jest.spyOn(logger, 'warn').mockImplementation(() => null);
         jest.isolateModules(() => {
+          // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+          const configExport = require('../../../shared/config');
+
+          jest.spyOn(configExport, 'getConfig').mockImplementation(() => ({
+            backendUrl: 'http://localhost:1337',
+            frontendUrl: 'http://localhost:1337',
+            corsWhitelist: ['http://goodintentions.com'],
+          }));
+
+          // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+          const logger = require('../../utils/logger').default;
+          loggerSpy = jest.spyOn(logger, 'warn').mockImplementation(jest.fn());
+
           ({ corsAllowWhitelistOnly } = require('.'));
         });
       });
@@ -100,41 +113,59 @@ describe('CORS Strict same origin', () => {
     });
   });
   describe('When process.env.PRODLIKE exists', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let configExport: any;
+
     beforeEach(() => {
       process.env.PRODLIKE = 'true';
-      jest.spyOn(configExport, 'getConfig').mockImplementation(
-        jest.fn(() => ({
-          backendUrl: 'http://localhost:1337',
-          frontendUrl: 'http://localhost:1337',
-          corsWhitelist: ['http://goodintentions.com', '*'],
-        })),
-      );
+
       jest.isolateModules(() => {
+        // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+        configExport = require('../../../shared/config');
+
+        jest.spyOn(configExport, 'getConfig').mockImplementation(
+          jest.fn(() => ({
+            backendUrl: 'http://localhost:1337',
+            frontendUrl: 'http://localhost:1337',
+            corsWhitelist: ['http://goodintentions.com', '*'],
+          })),
+        );
+
         ({ corsAllowWhitelistOnly } = require('.'));
       });
     });
 
     it('calls `getConfig` with "prodlike"', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(configExport.getConfig).toHaveBeenCalledWith('prodlike');
     });
   });
 
   describe('When process.env.PRODLIKE does not exist', () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let configExport: any;
+
     beforeEach(() => {
       delete process.env.PRODLIKE;
-      jest.spyOn(configExport, 'getConfig').mockImplementation(
-        jest.fn(() => ({
-          backendUrl: 'http://localhost:1337',
-          frontendUrl: 'http://localhost:1337',
-          corsWhitelist: ['http://goodintentions.com', '*'],
-        })),
-      );
+
       jest.isolateModules(() => {
+        // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+        configExport = require('../../../shared/config');
+
+        jest.spyOn(configExport, 'getConfig').mockImplementation(
+          jest.fn(() => ({
+            backendUrl: 'http://localhost:1337',
+            frontendUrl: 'http://localhost:1337',
+            corsWhitelist: ['http://goodintentions.com', '*'],
+          })),
+        );
+
         ({ corsAllowWhitelistOnly } = require('.'));
       });
     });
 
     it('calls `getConfig` with undefined', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(configExport.getConfig).toHaveBeenCalledWith(undefined);
     });
   });
