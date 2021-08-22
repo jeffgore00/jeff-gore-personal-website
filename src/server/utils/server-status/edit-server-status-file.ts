@@ -1,8 +1,8 @@
-import fs from 'fs';
 import path from 'path';
 
 import { getServerStatus } from './get-server-status';
 import logger from '../logger';
+import { writeFileSync } from '../write-file-sync';
 
 export const PATH_TO_STATUSFILE = '../../status.json';
 export const HEALTHFILE_EDIT_ERROR_MESSAGE = 'Health file edit failed: ';
@@ -14,7 +14,7 @@ This file is intended for use as an npm script argument e.g.
 */
 try {
   const serverStatus = getServerStatus();
-  fs.writeFileSync(
+  writeFileSync(
     path.join(__dirname, PATH_TO_STATUSFILE),
     JSON.stringify(serverStatus, null, 2),
   );

@@ -8,6 +8,21 @@ require('./react-media').setupReactMediaMock();
 injected via Webpack at build time. */
 appEnvironment = 'development';
 
+/* .setImmediate is used by Winston logging library, which is invoked in logging integration tests.
+In this repo Jest uses a `JSDOM` global environment ('testEnvironment': 'jsdom'). In the browser, 
+`setImmediate` is non-standard. These non-standard globals that are Node-specific were disabled in 
+the JSDOM test environment in Jest 27. 
+
+This seems to be the most faithful polyfill, but unfortunately results in failing tests:
+
+   global.setImmediate = setTimeout(() => {}, 0);
+
+Hence a plain noop function instead.
+*/
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+global.setImmediate = () => {};
+
 process.on('unhandledRejection', (err) => {
   // eslint-disable-next-line @typescript-eslint/no-throw-literal
   throw err;

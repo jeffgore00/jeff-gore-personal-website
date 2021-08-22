@@ -1,13 +1,9 @@
-import fs from 'fs';
 import path from 'path';
-
-import * as getServerStatusModule from './get-server-status';
-import logger from '../logger';
 
 const sampleError = new Error('write failure');
 const sampleServerStatus = {
-  commit: 'unknown',
-  version: '1.0.0',
+  commit: 'abcdefg',
+  version: '99.99.99',
 };
 
 interface Constants {
@@ -21,16 +17,28 @@ describe('Edit server status file', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    jest
-      .spyOn(getServerStatusModule, 'getServerStatus')
-      .mockImplementation(() => sampleServerStatus);
-
-    errorLoggerSpy = jest.spyOn(logger, 'error').mockImplementation(() => null);
-    writeFileSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {
-      throw sampleError;
-    });
 
     jest.isolateModules(() => {
+      // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
+      const getServerStatusModule = require('./get-server-status');
+      // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
+      const logger = require('../logger').default;
+
+      // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
+      const writeFileSyncModule = require('../write-file-sync');
+
+      jest
+        .spyOn(getServerStatusModule, 'getServerStatus')
+        .mockImplementation(() => sampleServerStatus);
+      errorLoggerSpy = jest
+        .spyOn(logger, 'error')
+        .mockImplementation(() => null);
+      writeFileSpy = jest
+        .spyOn(writeFileSyncModule, 'writeFileSync')
+        .mockImplementationOnce(() => {
+          throw sampleError;
+        });
+
       // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment
       module = require('./edit-server-status-file');
     });
