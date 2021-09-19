@@ -1,19 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-unsafe-call, import/no-extraneous-dependencies, @typescript-eslint/ban-ts-comment */
 
 import path from 'path';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CompressionPlugin from 'compression-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { DefinePlugin, Configuration as WebpackConfig } from 'webpack';
-import { Configuration as WebpackDevServerConfig } from 'webpack-dev-server';
 import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
-import { Application } from 'express';
+import WebpackDevServer from 'webpack-dev-server';
 import morgan from 'morgan';
 
 import { sendHtmlForEnabledRoutes } from './src/server/utils/runtime/send-html-for-enabled-routes';
 import { sendResourceNotFound } from './src/server/middleware/send-resource-not-found';
-
-interface Config extends WebpackConfig, WebpackDevServerConfig {}
 
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
@@ -40,19 +37,21 @@ const getMode = () => {
   return 'production';
 };
 
-const config: Config = {
+const config: WebpackConfig = {
   mode: getMode(),
   devtool: 'source-map',
   devServer: {
     compress: true,
     port: 8080,
-    contentBase: 'public',
-    before(app: Application) {
-      app.use(morgan('dev'));
-      sendHtmlForEnabledRoutes(app, path.join(__dirname, './public'));
+    static: {
+      directory: 'public',
     },
-    after(app: Application) {
-      app.use(sendResourceNotFound);
+    onBeforeSetupMiddleware(devServer: WebpackDevServer) {
+      devServer.app.use(morgan('dev'));
+      sendHtmlForEnabledRoutes(devServer.app, path.join(__dirname, './public'));
+    },
+    onAfterSetupMiddleware(devServer: WebpackDevServer) {
+      devServer.app.use(sendResourceNotFound);
     },
   },
   resolve: {
