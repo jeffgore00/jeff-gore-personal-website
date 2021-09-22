@@ -42,6 +42,9 @@ export function Blog(): React.ReactElement {
 
         previewsMarkup.current = markup;
         setContentReady(true);
+      })
+      .catch((err) => {
+        console.log('DO SOMETHING HERE, REDIRECT TO /404 page');
       });
   }, [previewsUrl]);
 

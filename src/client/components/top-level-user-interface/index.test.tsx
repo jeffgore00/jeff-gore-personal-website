@@ -87,6 +87,13 @@ describe('The <TopLevelUserInterface> component', () => {
     expect(homepageWithRoute.innerHTML).toEqual(`<div id="homepage"></div>`);
   });
 
+  it('renders a route to an individual blog within the page wrapper', () => {
+    const individualBlogRoute = document.getElementById(
+      'route-to-/blog/:contentId',
+    );
+    expect(individualBlogRoute.closest('#page-wrapper')).toBeTruthy();
+  });
+
   navMenuEnabledLinks.forEach((route, pageName) => {
     it(`renders the "${pageName}" page within the page wrapper`, () => {
       const pageWithRoute = document.getElementById(`route-to-${route}`);

@@ -222,7 +222,6 @@ describe('Content API - Blogs', () => {
             });
           });
 
-          // https://github.com/visionmedia/supertest/issues/529
           describe(`When ${contentFileName} is NOT present for the requested resource`, () => {
             // No setup, previews.json is a build file only and should never be present in /content.
 

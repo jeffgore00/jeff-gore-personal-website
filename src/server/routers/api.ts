@@ -3,8 +3,8 @@ import { Router } from 'express';
 import healthCheck from '../middleware/health-check';
 import processLogFromClient from '../middleware/process-log-from-client';
 import { corsAllowWhitelistOnly } from '../middleware/cors';
-import { getSingleBlogEntryContent } from '../middleware/get-single-blog-entry';
 import { getBlogPreviews } from '../middleware/get-blog-previews';
+import { getSingleBlogEntryContent } from '../middleware/get-single-blog-entry';
 import { sendResourceNotFound } from '../middleware/send-resource-not-found';
 
 const router = Router();

@@ -96,6 +96,13 @@ generateSpiedReactComponent({
   ),
 });
 
+// Can't use spyOn for this library for some reason. Get "TypeError: Cannot redefine property: useLocation"
+jest.mock('react-router-dom', () => ({
+  Link: ({ to, children }: { to: string; children: React.ReactChild }) => (
+    <a href={to}>{children}</a>
+  ),
+}));
+
 type PreviewTestEntry = {
   blogPreviewHTML: Element;
   blogPreviewId: string;
@@ -157,14 +164,21 @@ describe('buildBlogPreviewsMarkup', () => {
   });
 
   describe('Within the <BlogPreviewWrapper>', () => {
-    it('renders the <BlogPreviewTitleHeading> with expected children', () => {
+    it('renders the <BlogPreviewTitleHeading> with expected children, and wrapped in a link to the blog', () => {
       previewTestEntries.forEach(
-        ({ blogPreviewHTML, expectedSourcePreview, expectedDisplayedDate }) => {
+        ({
+          blogPreviewHTML,
+          expectedSourcePreview,
+          expectedDisplayedDate,
+          blogPreviewId,
+        }) => {
           expect(
             blogPreviewHTML.querySelector('.blog-preview-title-heading')
               .innerHTML,
           ).toEqual(
-            `${expectedSourcePreview.title} (${expectedDisplayedDate})`,
+            `<a href="${`/blog/${blogPreviewId}`}">${
+              expectedSourcePreview.title
+            } (${expectedDisplayedDate})</a>`,
           );
         },
       );

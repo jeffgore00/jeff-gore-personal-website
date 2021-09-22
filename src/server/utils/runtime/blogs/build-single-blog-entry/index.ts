@@ -2,7 +2,7 @@ import path from 'path';
 import { renderToStaticMarkup } from 'react-dom/server';
 
 import { getBlogMetadata } from '../get-blog-metadata';
-import { ContentMetadata } from '../../../../../shared/types/content-metadata';
+import { ContentWithMetadata } from '../../../../../shared/types/content-metadata';
 
 const getContentPath = (filename: string) =>
   path.join(__dirname, '../../../../../../content/blogs', filename);
@@ -18,7 +18,7 @@ const getBlogContent = async (contentId: string): Promise<JSX.Element> => {
 
 export const buildSingleBlogEntry = async (
   contentId: string,
-): Promise<ContentMetadata> => {
+): Promise<ContentWithMetadata> => {
   const metadataAndContent = await Promise.all([
     getBlogMetadata(contentId),
     getBlogContent(contentId),

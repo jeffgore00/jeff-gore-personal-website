@@ -45,6 +45,7 @@ export const enabledPageRoutes = [
   NavMenuLinkRoute.Projects,
   NavMenuLinkRoute.ThingsILike,
   NavMenuLinkRoute.Contact,
+  `${NavMenuLinkRoute.Blog}/:contentId`,
 ];
 
 enum LinkStatus {

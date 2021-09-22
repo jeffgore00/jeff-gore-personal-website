@@ -11,6 +11,7 @@ import {
   navMenuEnabledLinks,
   NavMenuLinkText,
 } from '../../../shared/constants';
+import { IndividualBlog } from '../../pages/individual-blog';
 
 const pageMap = new Map([
   [NavMenuLinkText.About, <PlaceholderPage pageName="About Me" />],
@@ -27,9 +28,17 @@ export const TopLevelUserInterface = (): JSX.Element => (
           <Route exact path="/">
             <Homepage />
           </Route>
+          <Route
+            exact
+            path="/blog/:contentId"
+            render={({ match }) => (
+              <IndividualBlog contentId={match.params.contentId} />
+            )}
+          />
           <Route exact path="/blog">
             <Blog />
           </Route>
+
           <>
             {Array.from(navMenuEnabledLinks).map(([pageName, route]) => (
               <Route exact path={route} key={pageName}>
