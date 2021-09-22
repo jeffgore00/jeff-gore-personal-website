@@ -63,13 +63,10 @@ describe('URL routes', () => {
             browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/`);
           });
 
-          /* Only one test needed to check that the user returns to the homepage after being at a 
-          different route. Nothing significant about the below being located in the "About Me" test block. */
-
           // eslint-disable-next-line jest/expect-expect
           it('Returns to the homepage', () => {
             /* TODO: once the homepage has a unique identity (about + blog), then test that.
-            Currently the only test is the implicit test above that it gets back to the / base route */
+            Currently the only test is the `waitUntil` above that it gets back to the `/` base route */
           });
         });
       });
