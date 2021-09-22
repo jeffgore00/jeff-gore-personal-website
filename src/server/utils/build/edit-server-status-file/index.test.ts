@@ -20,7 +20,7 @@ describe('Edit server status file', () => {
 
     jest.isolateModules(() => {
       // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
-      const getServerStatusModule = require('../../runtime/get-server-status');
+      const getServerStatusModule = require('../get-server-status');
       // eslint-disable-next-line global-require, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires
       const logger = require('../../runtime/logger').default;
 

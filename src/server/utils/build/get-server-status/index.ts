@@ -1,5 +1,5 @@
 import { version } from '../../../../../package.json';
-import logger from '../logger';
+import logger from '../../runtime/logger';
 
 export const logs = {
   FAILED_TO_GET_COMMIT_HASH:

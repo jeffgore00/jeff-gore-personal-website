@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { getServerStatus } from '../../runtime/get-server-status';
+import { getServerStatus } from '../get-server-status';
 import logger from '../../runtime/logger';
 import { writeFileSync } from '../../runtime/node-wrappers';
 
