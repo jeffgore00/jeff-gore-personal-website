@@ -66,6 +66,15 @@ describe('The homepage', () => {
           let homepageLinkMap: Map<NavMenuLinkText, WebdriverIO.Element>;
 
           beforeAll(() => {
+            if (viewportScenario === viewportScenarios.NARROW) {
+              /* TODO: only call setWindowSize if we know it's a non-mobile device. Resizing a 
+              window isn't feasible or necessary on a mobile device. */
+              originalWindowSize = browser.getWindowSize();
+              browser.setWindowSize(411, 731);
+            }
+          });
+
+          beforeEach(() => {
             homepageLinkMap = new Map([
               [NavMenuLinkText.About, homepage.aboutMeLink],
               [NavMenuLinkText.Blog, homepage.blogLink],
@@ -74,13 +83,6 @@ describe('The homepage', () => {
               [NavMenuLinkText.Contact, homepage.contactLink],
               [NavMenuLinkText.Crazytown, homepage.crazytownLink],
             ]);
-
-            if (viewportScenario === viewportScenarios.NARROW) {
-              /* TODO: only call setWindowSize if we know it's a non-mobile device. Resizing a 
-              window isn't feasible or necessary on a mobile device. */
-              originalWindowSize = browser.getWindowSize();
-              browser.setWindowSize(411, 731);
-            }
           });
 
           afterAll(() => {
