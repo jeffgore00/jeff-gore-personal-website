@@ -30,28 +30,32 @@ describe('Content API - Blogs', () => {
           // TODO: Move this test outside of the dummy-previews only block when you write a real blog
           it('responds with all DUMMY previews in the expected format', async () => {
             const response = await request(app).get(`${apiTestPath}&page=blog`);
-            Object.values(response.body).forEach((value) => {
-              expect(value).toEqual(
-                expect.objectContaining({
-                  /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-                  contentSubtype: expect.any(String), // TODO: match enum
-                  contentType: expect.any(String), // TODO: match enum
-                  draft: expect.any(Boolean),
-                  dummy: true,
-                  publishDate: expect.any(String),
-                  subtitle: expect.any(String),
-                  title: expect.any(String),
-                  /* eslint-enable @typescript-eslint/no-unsafe-assignment */
-                }),
-              );
-            });
+            Object.values(response.body as { [s: string]: unknown }).forEach(
+              (value) => {
+                expect(value).toEqual(
+                  expect.objectContaining({
+                    /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+                    contentSubtype: expect.any(String), // TODO: match enum
+                    contentType: expect.any(String), // TODO: match enum
+                    draft: expect.any(Boolean),
+                    dummy: true,
+                    publishDate: expect.any(String),
+                    subtitle: expect.any(String),
+                    title: expect.any(String),
+                    /* eslint-enable @typescript-eslint/no-unsafe-assignment */
+                  }),
+                );
+              },
+            );
           });
 
           it('responds with all the available DUMMY previews', async () => {
             const response = await request(app).get(`${apiTestPath}&page=blog`);
 
             expect(response.status).toEqual(200);
-            const responseEntries = Object.entries(response.body);
+            const responseEntries = Object.entries(
+              response.body as { [s: string]: unknown },
+            );
 
             // There are a total of 10 dummy articles, 5 tech, 5 commentary. 1 of each are draft.
             // That leaves only 8 previews that should be built.
@@ -66,7 +70,9 @@ describe('Content API - Blogs', () => {
               );
 
               expect(response.status).toEqual(200);
-              const responseEntries = Object.entries(response.body);
+              const responseEntries = Object.entries(
+                response.body as { [s: string]: unknown },
+              );
 
               // There are a total of 10 dummy articles, 5 tech, 5 commentary. 1 of each are draft.
               // Then homepage limits to 3 per type. Multiply that by the 2 types (tech, commentary) and you have 6.

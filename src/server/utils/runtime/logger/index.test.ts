@@ -139,8 +139,10 @@ describe('Logger', () => {
           .forEach((logType, index) => {
             logger[logType]('hi');
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            expect(JSON.parse(consoleSpy.mock.calls[index][0])).toEqual({
+            expect(
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              JSON.parse(consoleSpy.mock.calls[index][0] as string),
+            ).toEqual({
               level: logType,
               message: 'hi',
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -128,4 +128,4 @@ const config: WebpackConfig = {
   ],
 };
 
-module.exports = config;
+export default config;

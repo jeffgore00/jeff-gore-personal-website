@@ -5,7 +5,7 @@ import logger from '../../utils/runtime/logger';
 
 // This is tested through API tests in the _root... API test file.
 export function sendResourceNotFound(req: Request, res: Response): Response {
-  const fileRegex = new RegExp(/^.*\.(html|js|ico|gz|map|jpg|gif|png|pdf)$/i);
+  const fileRegex = /^.*\.(html|js|ico|gz|map|jpg|gif|png|pdf)$/i;
   const pathsToSendIndexHtml = ['/', ...enabledPageRoutes];
 
   if (req.method === 'GET') {

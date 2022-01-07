@@ -31,11 +31,13 @@ const StyledHeader = styled.h1.attrs({
   }
 `;
 
-const NameHeader = (): React.ReactElement => (
-  <StyledHeader>
-    <Link to="/">Jeff Gore</Link>
-  </StyledHeader>
-);
+function NameHeader(): React.ReactElement {
+  return (
+    <StyledHeader>
+      <Link to="/">Jeff Gore</Link>
+    </StyledHeader>
+  );
+}
 
 const NavigatorContainer = styled.nav.attrs({
   'data-testid': 'navigator',
@@ -47,13 +49,15 @@ const NavigatorContainer = styled.nav.attrs({
   }
 `;
 
-export const Navigator = (): React.ReactElement => (
-  <NavigatorContainer>
-    <NameHeader />
-    <Media query={DESKTOP_MEDIA_QUERY}>
-      {(isDesktop): React.ReactElement =>
-        isDesktop ? <DesktopNavMenu /> : <MobileNavMenu />
-      }
-    </Media>
-  </NavigatorContainer>
-);
+export function Navigator(): React.ReactElement {
+  return (
+    <NavigatorContainer>
+      <NameHeader />
+      <Media query={DESKTOP_MEDIA_QUERY}>
+        {(isDesktop): React.ReactElement =>
+          isDesktop ? <DesktopNavMenu /> : <MobileNavMenu />
+        }
+      </Media>
+    </NavigatorContainer>
+  );
+}

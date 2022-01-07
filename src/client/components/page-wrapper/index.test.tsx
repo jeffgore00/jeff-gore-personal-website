@@ -43,9 +43,9 @@ describe('Page Wrapper', () => {
     jest
       .spyOn(ErrorBoundaryModule, 'ErrorBoundary')
       // @ts-ignore. This is valid
-      .mockImplementation(({ children }: { children: React.ReactChild }) => (
-        <>{children}</>
-      ));
+      .mockImplementation(
+        ({ children }: { children: React.ReactChildren }) => children,
+      );
 
     useSetPageTitle = jest
       .spyOn(useSetPageTitleModule, 'useSetPageTitle')
