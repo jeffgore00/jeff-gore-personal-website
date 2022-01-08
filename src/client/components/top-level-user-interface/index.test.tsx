@@ -14,10 +14,14 @@ jest.mock('react-router-dom', () => ({
   BrowserRouter: ({ children }: { children: React.ReactChild }) => (
     <div id="router">{children}</div>
   ),
-  Route: ({ path, children }: { path: string; children: React.ReactChild }) => (
-    <div id={`route-to-${path}`}>{children}</div>
+  Routes: ({ children }: { children: React.ReactChild }) => (
+    <div id="routes">{children}</div>
+  ),
+  Route: ({ path, element }: { path: string; element: JSX.Element }) => (
+    <div id={`route-to-${path}`}>{element}</div>
   ),
   Link: jest.fn(),
+  useParams: () => ({}),
 }));
 
 generateSpiedReactComponent({

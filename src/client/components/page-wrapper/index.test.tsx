@@ -40,12 +40,10 @@ describe('Page Wrapper', () => {
       .spyOn(FooterModule, 'Footer')
       .mockImplementation(() => <footer data-testid="mocked-footer" />);
 
-    jest
-      .spyOn(ErrorBoundaryModule, 'ErrorBoundary')
+    jest.spyOn(ErrorBoundaryModule, 'ErrorBoundary').mockImplementation(
       // @ts-ignore. This is valid
-      .mockImplementation(
-        ({ children }: { children: React.ReactChildren }) => children,
-      );
+      ({ children }: { children: React.ReactChildren }) => children,
+    );
 
     useSetPageTitle = jest
       .spyOn(useSetPageTitleModule, 'useSetPageTitle')
