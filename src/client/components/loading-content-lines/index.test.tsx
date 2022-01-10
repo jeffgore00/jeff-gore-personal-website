@@ -35,10 +35,10 @@ describe('loading lines', () => {
       generateExpectedMarkup({ numberOfLines: 3 }),
     );
 
-    const { container: fourLoadingLines } = render(
+    const { container: twentyLoadingLines } = render(
       <ShimmeringLinesInPlaceOfContentNotYetReady numberOfLines={20} />,
     );
-    expect(fourLoadingLines.innerHTML).toEqual(
+    expect(twentyLoadingLines.innerHTML).toEqual(
       generateExpectedMarkup({ numberOfLines: 20 }),
     );
   });
