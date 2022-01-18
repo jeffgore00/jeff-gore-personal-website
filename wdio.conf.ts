@@ -21,6 +21,7 @@ declare global {
 enum Environment {
   dev = 'dev',
   prod = 'prod',
+  localProdlike = 'localProdlike',
 }
 
 enum ScreenshotModes {
@@ -78,6 +79,7 @@ const { environment, headless, screenshot, chromedriver } =
 
 const environmentMap = {
   dev: 'http://localhost:8080',
+  localProdlike: 'http://localhost:1337',
   prod: 'https://jeff-gore-personal-website.herokuapp.com',
 };
 
