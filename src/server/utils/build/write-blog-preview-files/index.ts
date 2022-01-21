@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import chalk from 'chalk';
 import path from 'path';
 
 import { Previews } from '../../../../shared/types/content-metadata';
@@ -57,6 +59,8 @@ void Promise.all(
 ).then(() => {
   // eslint-disable-next-line no-console
   console.log(
-    `Successfully wrote blog preview files to ${pathToDistBlogsContentFromSrc}.`,
+    chalk.green(
+      `Successfully wrote blog preview files to ${pathToDistBlogsContentFromSrc}.`,
+    ),
   );
 });

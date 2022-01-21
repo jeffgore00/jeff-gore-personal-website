@@ -1,6 +1,9 @@
 import { getServerStatus, logs } from '.';
 import packageJson from '../../../../../package.json';
-import logger from '../../runtime/logger';
+
+const consoleWarnSpy = jest
+  .spyOn(console, 'warn')
+  .mockImplementation(() => null);
 
 jest.mock('../../runtime/logger', () => ({
   info: jest.fn(),
@@ -46,8 +49,9 @@ describe('Get Server Status', () => {
 
     it('logs the inability to get the commit', () => {
       getServerStatus();
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      expect(logger.warn).toHaveBeenCalledWith(logs.FAILED_TO_GET_COMMIT_HASH);
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        `<yellow text>${logs.FAILED_TO_GET_COMMIT_HASH}</yellow text>`,
+      );
     });
   });
 });

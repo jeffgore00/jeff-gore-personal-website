@@ -1,5 +1,8 @@
+/* eslint-disable no-console */
+// eslint-disable-next-line import/no-extraneous-dependencies
+import chalk from 'chalk';
+
 import { version } from '../../../../../package.json';
-import logger from '../../runtime/logger';
 
 export const logs = {
   FAILED_TO_GET_COMMIT_HASH:
@@ -21,7 +24,7 @@ export function getServerStatus(): {
   if (process.env.SOURCE_VERSION) {
     serverStatus.commit = process.env.SOURCE_VERSION;
   } else {
-    logger.warn(logs.FAILED_TO_GET_COMMIT_HASH);
+    console.warn(chalk.yellow(logs.FAILED_TO_GET_COMMIT_HASH));
   }
 
   return serverStatus;

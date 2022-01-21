@@ -1,3 +1,5 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import chalk from 'chalk';
 import path from 'path';
 
 import { buildSingleBlogEntry } from '../../runtime/blogs/build-single-blog-entry';
@@ -33,9 +35,15 @@ async function writeSingleBlogEntryFiles() {
       JSON.stringify(entry, null, 2),
     );
   }
+  return contentEntries;
 }
 
-void writeSingleBlogEntryFiles().then(() => {
+void writeSingleBlogEntryFiles().then((contentEntries) => {
   // eslint-disable-next-line no-console
-  console.log('Successfully wrote blog entry files to /dist/content/blogs.');
+  console.log(
+    chalk.green(
+      `Successfully wrote blog entry files to ${pathToDistContentFromSrc}.`,
+    ),
+  );
+  console.log(`ENTRIES:\n${contentEntries.join('\n')}`);
 });

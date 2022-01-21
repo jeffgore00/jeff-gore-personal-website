@@ -112,9 +112,9 @@ describe('Write Blog Preview Files', () => {
     );
   });
 
-  it('Logs success when all files have been written', () => {
+  it('Logs success in green when all files have been written', () => {
     expect(consoleLogSpy).toHaveBeenCalledWith(
-      `Successfully wrote blog preview files to ${pathToDistBlogsContentFromSrc}.`,
+      `<green text>Successfully wrote blog preview files to ${pathToDistBlogsContentFromSrc}.</green text>`,
     );
   });
 });

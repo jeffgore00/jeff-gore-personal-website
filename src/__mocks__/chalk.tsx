@@ -20,5 +20,6 @@ export default {
   yellow: (msg: string): string => `<yellow text>${msg}</yellow text>`,
   red: (msg: string): string => `<red text>${msg}</red text>`,
   gray: (msg: string): string => `<gray text>${msg}</gray text>`,
+  green: (msg: string): string => `<green text>${msg}</green text>`,
   dim: (msg: string): string => `<dimmed text>${msg}</dimmed text>`,
 };
