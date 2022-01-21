@@ -76,6 +76,10 @@ describe('The Blogs page', () => {
           'A reflection on decades of making fart noises and bird calls.',
         );
       });
+
+      it('should display "Blog" in the <title>', () => {
+        expect(browser.getTitle()).toEqual('Blog | Jeff Gore');
+      });
     });
 
     describe('When the user clicks one of the blog links', () => {
@@ -106,6 +110,12 @@ describe('The Blogs page', () => {
         expect(
           $('p*=Here are some algos that will blow you away.').isDisplayed(),
         ).toEqual(true);
+      });
+
+      it('should display the title of the blog in the <title>', () => {
+        expect(browser.getTitle()).toEqual(
+          'The Algorithms That Still Matter | Jeff Gore',
+        );
       });
     });
   });

@@ -43,6 +43,10 @@ describe('The homepage', () => {
         footerLinks.INSTAGRAM_URL,
       );
     });
+
+    it('should display "Jeff Gore" in the <title>', () => {
+      expect(browser.getTitle()).toEqual('Jeff Gore');
+    });
   });
 
   describe('Header', () => {
