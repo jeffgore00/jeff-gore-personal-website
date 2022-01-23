@@ -10,6 +10,18 @@ export const DesktopNavMenuContainer = styled.div.attrs({
   display: flex;
 `;
 
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:visited {
+    color: black;
+  }
+  &:hover {
+    text-decoration: underline;
+    color: purple;
+  }
+`;
+
 const NonFirstHyperlink = styled.div`
   margin-left: 24px;
 `;
@@ -19,9 +31,9 @@ export function DesktopNavMenu(): React.ReactElement {
     <DesktopNavMenuContainer>
       {Array.from(navMenuEnabledLinks).map(([title, path], index) => {
         const link = (
-          <Link to={path} key={title}>
+          <StyledLink to={path} key={title}>
             {title}
-          </Link>
+          </StyledLink>
         );
         if (index === 0) {
           return link;

@@ -12,13 +12,13 @@ const StyledHeader = styled.h1.attrs({
   'data-testid': 'name-header',
 })`
   @font-face {
-    font-family: JetBrainsMono;
+    font-family: JetBrainsMonoItalic;
     src: local('JetBrains Mono Italic'), url('JetBrainsMono-Italic.woff2');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
   }
-  font-family: JetBrainsMono, monospace;
+  font-family: JetBrainsMonoItalic, monospace;
   font-style: italic;
   font-size: 2em;
   margin: 0;

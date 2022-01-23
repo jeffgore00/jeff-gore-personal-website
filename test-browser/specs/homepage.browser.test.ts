@@ -57,7 +57,7 @@ describe('The homepage', () => {
     /* TODO: use wdio-image-comparison-service for visual regression testing */
     it('should display my name in a custom font', () => {
       expect(homepage.heading.getCSSProperty('font-family').value).toEqual(
-        'jetbrainsmono',
+        'jetbrainsmonoitalic',
       );
     });
 

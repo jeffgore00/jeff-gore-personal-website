@@ -27,7 +27,7 @@ export const LinkPanel = styled.div.attrs({
 })`
   height: 3em;
   font-size: 1.5em;
-  font-family: JetBrainsMono;
+  font-family: JetBrainsMonoItalic;
   border-width: 2px;
   padding-left: 1em;
   padding-right: 3em;

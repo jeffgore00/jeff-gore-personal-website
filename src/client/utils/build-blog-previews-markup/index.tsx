@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import {
   BlogPreviewWrapper,
   BlogPreviewTypeHeading,
   BlogPreviewTitleHeading,
+  StyledLink,
 } from '../../components/blog-preview/styled-components';
 import { SerializedPreviews } from '../../../shared/types/content-metadata';
 
@@ -46,9 +46,9 @@ export function buildBlogPreviewsMarkup({
                 <BlogPreviewTypeHeading blogType={contentItem.contentSubtype} />
               )}
               <BlogPreviewTitleHeading>
-                <Link to={`/blog/${contentId}`}>
+                <StyledLink to={`/blog/${contentId}`}>
                   {`${contentItem.title} (${formattedBlogPublishDate})`}
-                </Link>
+                </StyledLink>
               </BlogPreviewTitleHeading>
 
               <span className="blog-preview-subtitle">
