@@ -94,6 +94,9 @@ describe('The Blogs page', () => {
           browser.getUrl() ===
           `${wdioBaseUrl}/blog/20500402-DUMMY-the-algorithms-that-still-matter`,
       );
+      // This solves a mysterious issue with the below test occassionally failing.
+      // Perhaps we need to wait for loading lines to disappear.
+      browser.pause(1000);
     });
 
     it('should display that blogs content', () => {
