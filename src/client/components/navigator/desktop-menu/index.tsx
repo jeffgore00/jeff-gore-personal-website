@@ -1,30 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { Link } from 'react-router-dom';
 import { navMenuEnabledLinks } from '../../../../shared/constants';
-
-export const DesktopNavMenuContainer = styled.div.attrs({
-  'data-testid': 'desktop-nav-menu',
-})`
-  display: flex;
-`;
-
-export const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-  &:visited {
-    color: black;
-  }
-  &:hover {
-    text-decoration: underline;
-    color: purple;
-  }
-`;
-
-const NonFirstHyperlink = styled.div`
-  margin-left: 24px;
-`;
+import {
+  DesktopNavMenuContainer,
+  StyledLink,
+  NonFirstHyperlink,
+} from './styled-components';
 
 export function DesktopNavMenu(): React.ReactElement {
   return (

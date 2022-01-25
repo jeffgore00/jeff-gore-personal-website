@@ -29,6 +29,10 @@ const StyledHeader = styled.h1.attrs({
     color: inherit;
     text-decoration: none !important;
   }
+
+  &:hover {
+    color: purple;
+  }
 `;
 
 function NameHeader(): React.ReactElement {
@@ -44,6 +48,7 @@ const NavigatorContainer = styled.nav.attrs({
 })`
   display: flex;
   justify-content: space-between;
+  padding-bottom: 0.75em;
   & * {
     align-self: flex-end;
   }

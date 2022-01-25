@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DesktopNavMenuContainer presentational component renders the wrapped content with the expected CSS styles and HTML attributes 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+<div
+  class="c0"
+  data-testid="desktop-nav-menu"
+>
+  The Algorithms That Still Matter
+</div>
+`;
+
+exports[`NonFirstHyperlink presentational component renders the wrapped content with the expected CSS styles and HTML attributes 1`] = `
+.c0 {
+  margin-left: 24px;
+}
+
+<div
+  class="c0"
+>
+  <a
+    href="/blog"
+  >
+    Blog
+  </a>
+</div>
+`;
+
+exports[`StyledLink presentational component renders the React Router <Link> with the expected CSS styles 1`] = `
+.c0 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: black;
+}
+
+.c0:visited {
+  color: black;
+}
+
+.c0:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: purple;
+}
+
+<div
+  class="c0"
+  id="link-to-/blog"
+/>
+`;

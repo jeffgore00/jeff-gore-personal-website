@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import chalk from 'chalk';
 import path from 'path';
@@ -39,7 +40,6 @@ async function writeSingleBlogEntryFiles() {
 }
 
 void writeSingleBlogEntryFiles().then((contentEntries) => {
-  // eslint-disable-next-line no-console
   console.log(
     chalk.green(
       `Successfully wrote blog entry files to ${pathToDistContentFromSrc}.`,
