@@ -1,0 +1,370 @@
+/*-----------------------*/
+
+@font-face {
+    font-family: "Bellbaby";
+    src:url("../_fonts/BELL.TTF");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Bellbaby";
+    src:url("../_fonts/BELLI.TTF");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Bellbaby";
+    src:url("../_fonts/BELLB.TTF");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "MLBPirates";
+    src:url("../_fonts/MLBPIRAT.woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.webfontexample {
+    font-family:"Bellbaby";
+    font-style:normal;
+    font-weight:normal;
+}
+
+.webfontexampleitalic {
+    font-family:"Bellbaby";
+    font-style:italic;
+    font-weight:normal;
+}
+
+.webfontexamplebold {
+    font-family:"Bellbaby";
+    font-style:normal;
+    font-weight:bold;
+}
+
+.webfontexamplePIRATES {
+    font-family:"MLBPirates";
+    font-size:3em;
+}
+
+/*-----------------------*/
+
+#ulcircleexample {
+  list-style-type: circle;
+}
+
+
+/* Area for one-off styling */
+
+.w3specWD {
+    background: hsl(20, 78%, 55%);
+    color:white;
+}
+
+.w3specLC {
+    border-bottom: 5px solid red;
+}
+
+    th.w3specLC  {
+        background: hsl(30, 68%, 65%);
+    }
+
+.w3specCR {
+    background: hsl(62, 86%, 45%);
+}
+
+.w3specPR {
+    background: hsl(89, 53%, 44%);
+    color:white;
+}
+
+.w3specREC {
+    background: hsl(129, 53%, 40%);
+    color:white;
+}
+
+#W3CSelectorTypes .pattern {
+    background:honeydew;
+}
+
+
+
+
+.test1 {
+    font-size: xx-small;
+}
+
+.test2 {
+    font-size: x-small;
+}
+
+.test3 {
+    font-size: small;
+}
+
+.test4 {
+    font-size: medium;
+}
+
+.test5 {
+    font-size: large;
+}
+
+.test6 {
+    font-size: x-large;
+}
+
+.test7 {
+    font-size: xx-large;
+}
+
+samp[class*="lineheightex"] {
+    font-size:14px;
+    padding-bottom:0;
+    padding-top:0;
+}
+
+    .lineheightexEM {
+        line-height:1.6em;
+    }
+
+    .lineheightexMULTIPLIER {
+        line-height:1.6;
+    }
+
+    samp[class*="lineheightex"] h2, samp[class*="lineheightex"] h3, samp[class*="lineheightex"] h4{
+        margin:0;
+    }
+
+
+input:focus { 
+  outline:aqua solid 2px;
+}
+
+input:checked { 
+  outline:green solid 2px;
+}
+
+#pseudoprof_first-child_ex1_results h2:first-child {
+    font-style:italic;
+}
+
+#pseudoprof_first-child_ex2_results h2:first-child {
+    font-style:italic;
+}
+
+#pseudoprof_first-of-type_ex1_results h2:first-of-type{
+     background-color:pink;
+}
+
+#pseudoprof_only-child_ex1_results p:only-child{
+     font-weight:bold;
+}
+
+#pseudoprof_nth-child_ex1_results tr:nth-child(even) {
+    background:gainsboro;
+}
+
+#pseudoprof_nth-child_ex1_results tr:nth-child(2n) {
+    background:gainsboro;
+}
+
+#pseudoprof_nth-child_ex2_results :nth-child(-1n+10) {
+    color:red;
+}
+#pseudoprof_nth-child_ex2_results :nth-last-child(-1n+10) {
+    color:purple;
+}
+#pseudoprof_nth-child_ex2_results :nth-child(1n+11):nth-last-child(1n+11) {
+    color:blue;
+}
+
+#synprof_pseudoelement_ex1_results ::first-line {
+    font-weight:bold;
+}
+
+#synprof_pseudoelement_ex1_results ::first-letter {
+    font-size: 50px;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-weight: normal;
+    line-height: 0.5;
+    margin-right: 5px;
+    margin-top: 9px;
+    float: left;
+}
+
+#pseudoprof_moreelements_ex1_results .pending::after { 
+  content:" (pending)";
+  color:red;
+}
+
+#pseudoprof_moreelements_ex2_results a::after { 
+  content:" "attr(href);
+}
+
+#pseudoprof_selection_ex1_results ::selection { 
+  color:purple;
+  background:pink;
+}
+
+.synprof_CSSimportant_ex1_results {
+    color: red !important;
+}
+
+#synprof_CSSimportant_ex1_results {
+    color: blue;
+}
+
+#attprof_fontshorthand_ex1_results {
+  font:italic small-caps bold expanded 1.25em/1.5 Helvetica, Arial, sans-serif;
+}
+
+#transformexample {
+
+    transform: rotate(-5deg);
+    transform-origin: left bottom;
+    -webkit-transform: rotate(-5deg);
+    -webkit-transform-origin: left bottom;
+    -moz-transform: rotate(-5deg);
+    -moz-transform-origin: left bottom;  
+
+}
+
+#fontsmoothingexample {
+-webkit-font-smoothing:antialiased;
+-moz-osx-font-smoothing:grayscale;
+}
+
+.lower-alpha {
+    counter-reset: list;
+}
+
+.lower-alpha > li {
+    list-style: none;
+}
+
+.lower-alpha li:before {
+  content: " (" counter(list, lower-alpha) ") ";
+  counter-increment: list;
+}
+
+#popHeader, #popHeaderSlow {
+  color: white;
+  background-color: black;
+  font-weight: bold;
+  padding:1em;
+  margin: 0;
+}
+
+#popQuote, #popQuoteSlow {
+  border: 1px solid black;
+}
+
+#popBody, #popBodySlow {
+  display:none;
+  margin: 0 0 1em; 
+}
+
+.pointy {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.containerDotted {
+  border: 2px dashed black;
+}
+
+[id^="flexExample"] {
+  display: flex;
+}
+
+.flexExItem {
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  color:white;
+}
+
+.fECube {
+  height:80px; 
+  width: 80px;
+}
+
+
+[class*="fE1"] {
+  background-color:blue;
+}
+
+[class*="fE1"] span::after {
+  content: "1st";
+}
+
+[class*="fE2"] {
+  background-color:red;
+}
+
+[class*="fE2"] span::after {
+  content: "2nd";
+}
+
+[class*="fEw"] {
+  background-color:green;
+  border: 4px double white;
+}
+
+[class*="fEw"] span::after {
+  content: "x";
+}
+
+#synprof_flex-box [class$='g1'] {
+  flex-grow: 1;
+}
+
+#synprof_flex-box [class$='g2'] {
+  flex-grow: 2;
+}
+
+#flexExample_jiSpaceBetween {
+  justify-content: space-between;
+}
+
+#flexExample_jiCenter {
+  justify-content:center;
+}
+
+#flexExample_jiCenter_fb50 {
+  justify-content:center;
+}
+
+#flexExample_jiFlexEnd {
+  justify-content:flex-end;
+}
+
+#flexExample_dirRowReverse {
+  flex-direction: row-reverse;
+}
+
+#flexExample_jiFlexEnd_dirRowReverse {
+  flex-direction: row-reverse;
+  justify-content:flex-end;
+}
+
+#flexExample_dirColumn{
+  flex-direction: column;
+}
+
+#flexExample_wrap {
+  flex-wrap: wrap;
+}
+
+/*----POSITIONING--------*/
+
+#relativePositioningExample {
+  position: relative;
+  top: -10px;
+  left: 5px;
+}

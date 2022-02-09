@@ -1,0 +1,595 @@
+
+html {
+  background: black; 
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif; 
+  font-size: 90%; 
+  width: 80%;
+  max-width:900px;
+  margin: 0 auto;
+  padding: .1px 25px 500px;
+  background: white;
+}
+
+p {
+  line-height:1.1;
+}
+
+img {
+  max-width:100%;
+  max-height:100%;
+}
+
+li {
+  font-weight:bold; /* In order for numbers on left margin to be bold*/
+  clear:both;
+}
+
+li li {
+  font-weight:normal; /* In order for numbers on left margin to be bold*/
+  clear:both;
+}
+
+ul {
+  list-style-type:disc;
+}
+
+ul ul {
+  list-style-type:circle;
+}
+
+table {
+  border: 1px solid black;
+  border-spacing:0;
+  border-collapse:collapse;
+  text-align:left;
+  font-style:normal;
+  margin-bottom:1em;
+}
+
+thead {
+  background-color:gainsboro;
+}
+
+thead th {
+  border-color:black;
+}
+
+th, td {
+  border: 1px solid gainsboro;
+  padding: .5em;
+}
+
+samp th, samp td {
+  border: 1px solid black;
+  padding: .25em;
+}
+
+th {
+  text-align:center;
+}
+
+aside {
+  float:right;
+  width:25%;
+  padding: 1em;
+  overflow: auto;
+  margin-right:3%;
+  margin-bottom:  1em;
+  line-height:normal;
+  background-color: blanchedalmond;
+  text-align:left;
+}
+
+#mainHeader {
+  text-decoration: underline;
+  margin-bottom:0;
+  transition: all 1s ease;
+}
+
+#mainHeader:hover {
+  color: purple;
+  text-shadow:2px 2px 1px rgb(244, 229, 66);
+  transform: translateX(5px);
+}
+
+section > h2 {
+  font-size:18px;
+  padding:5px;
+  margin-right:3%;
+  border-style:dotted;
+}
+
+#QA ol > h3 {
+  font-size:1.5em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#QA ol > h4 {
+  font-size:1.17em;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+
+.answer > h3 {
+  font-size:100%;
+  font-style:normal;
+  font-weight:normal;
+  border:1px solid black;
+}
+
+
+h4 {
+  margin:1em 0 ;
+  font-weight:normal;
+  font-style:italic;
+  text-decoration: underline;
+}
+
+thead, .hdr { 
+  font-weight:bold;
+}
+
+.question > p, .question li {
+  padding:0;
+  margin-bottom:  .2em;
+  margin-right:   3%;
+  text-align:justify;
+  position:relative;
+  font-weight:bold;
+}
+        
+.answer > p {
+  margin-top:.2em;
+  margin-bottom:  1em;
+  text-align:justify;
+}
+    
+td > p:first-child, 
+aside > p:first-child {
+    margin-top:.25em;
+}
+    
+td > p:last-child, 
+aside > p:last-child {
+  margin-bottom:.25em;
+}
+    
+.answer {
+  font-weight:normal;
+  margin-right:3%;
+}
+    
+.note {
+  font-style:italic;
+}
+
+.declaration, .nest {
+  display:block;
+  margin-left:2em;
+}
+
+.presubanswer {
+  width:80%;
+  max-width:500px;
+  margin-top:     .5em;
+  margin-left:    55px;
+}
+
+.sidenote {
+  background: rgba(244,244,244,.7);
+  padding: 0px 10px;
+  border: 2px dashed rgba(0,0,255,.5);
+  margin-bottom:1em;
+}
+
+.revision {
+  background: rgba(244,244,244,.7);
+  padding: 0px 10px;
+  border: 2px dashed rgba(0,255,0,.5);
+  margin-bottom:1em;
+}
+
+#randomQuestion {
+  background: rgba(244,244,244,.7);
+  padding: 0px 10px;
+  border: 2px dashed rgba(255,0,0,.5);
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+
+
+#navbar {
+  border: 2px solid purple;
+}
+
+blockquote {
+  margin-top:.5em;
+  margin-left:5%;
+  margin-right:8%;
+  padding:0;
+  text-align:justify;
+  font-style:italic;
+}
+
+li ul {
+  font-weight:normal;
+  margin: .5em auto;
+  margin-bottom:1em;
+}
+
+.hghlt {
+  background-color: yellow;
+}
+
+a {
+  color:inherit;
+}
+    
+a:hover {
+  background-color:yellow;
+}
+
+
+div.answer li {
+  font-weight:normal;
+  margin-left:2%;
+  margin-top:.2em;
+  margin-right:3%;
+  padding:0;
+}
+
+div.answer ol, 
+div.answer ul {
+  margin-bottom:1em;
+}
+
+div.question ol {
+  margin-bottom:1em;
+}
+
+ol.listanswer li {
+  margin-left:0;
+}
+
+pre.code {
+  /*white-space:pre-wrap;*/
+  overflow:auto;
+  overflow-wrap: break-word;
+}
+
+code.block {
+  overflow-wrap: break-word;
+}
+
+code.block, 
+pre.code {
+  display:block;
+  padding: 1em;
+  margin: 1em 0;
+  font-size:inherit;
+}
+
+code.HTML, 
+code.VBA {
+  font-family:"Courier New",Menlo,Monaco,Lucida Console,monospace,sans-serif;
+  letter-spacing:-0.08em;
+}
+
+pre.code.invalid {
+  border: 2px solid red;
+}
+pre.code.valid {
+  border: 2px solid green;
+}
+
+span.invalid {
+  color: red;
+}
+
+.CSS.function {
+  background-color:rgb(255,239,253);
+}
+
+.CSS.function:after{
+    content:"()"
+}
+
+.element2:before,
+.CSS.datatype:before{
+    content:"<"
+}
+
+.element2:after,
+.CSS.datatype:after{
+    content:">"
+}
+
+.CSS.datatype {
+    background-color:hsl(0,10%,95%);
+}
+
+.HTML.comment2:before,
+.HTML .comment2:before {
+    content:"<!--"
+}
+
+.HTML.comment2:after,
+.HTML .comment2:after {
+    content:"-->"
+}
+
+.CSS.comment2:before,
+.CSS .comment2:before,
+.JS.comment2:before,
+.JS .comment2:before {
+    content:"/*"
+}
+
+.CSS.comment2:after,
+.CSS .comment2:after,
+.JS.comment2:after,
+.JS .comment2:after {
+    content:"*/"
+}
+
+code.CSS, 
+code.SCSS,
+.propvalpair,
+#W3CSelectorTypes .pattern  {
+    font-family:Consolas,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,monospace,sans-serif;
+}    
+
+code.JS,
+code.DOM,
+code.git {
+    font-family:"Andale Mono",Monaco,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,monospace,sans-serif;
+    font-size:90%;
+}
+
+code.HTML.block,
+pre.code.HTML {
+    background-color: #eff0f1;
+}
+
+code.CSS.block,
+pre.code.CSS,
+.intblex  {
+    background-color: #f2f7ff;
+}    
+
+code.SCSS.block,
+pre.code.SCSS {
+    background-color: honeydew;
+}     
+
+code.JS.block, 
+pre.code.JS {
+    background-color: lavenderblush;
+}
+
+code.SSJS.block, 
+pre.code.SSJS {
+    background-color: lightgoldenrodyellow;
+}
+
+pre.code.CLI,
+pre.code.git {
+    background-color: black;
+    color:white;
+}
+
+span.keyboard {
+    border:1px solid black;
+    padding: 0px 2px;
+}
+
+pre.syntax,
+pre.HTML.code.syntax,
+pre.CSS.code.syntax,
+pre.JS.code.syntax,
+code.syntax.block {
+    border:1px solid black;
+    background-color:white;
+}
+
+code.float {
+    margin: 0 0 1em 0;
+    float:left;
+    width:60%;
+}
+
+code.block p:last-child {
+    margin-bottom:0;
+}
+
+.defineCode li :first-child {
+    font-weight:bold;
+}
+
+samp {
+    display:block;
+    padding: 1em;
+    width:auto;
+    overflow: auto;
+    margin-top:1%;
+    margin-bottom:2%;
+    line-height:normal;
+    background-color: blanchedalmond;
+    text-align:left;
+    font-family:inherit;
+}
+
+.sample {
+    padding: 0.01em 1em 1em;
+    margin-top:1%;
+    margin-bottom:2%;
+    background-color: blanchedalmond;
+    text-align:left;
+}
+  
+samp h1 {
+    font-size: 2em;
+    margin: inherit;
+    text-decoration:none;
+}
+
+samp h2 {
+    margin: inherit;
+    text-decoration:none;
+}
+
+samp h6 {
+    margin: 0;
+    text-decoration:none;
+}
+
+samp p.plink {
+    margin-bottom:0;
+}
+
+samp.clean {
+    padding:0;
+    background:none;
+    font-family:Consolas;
+    font-size:90%;
+}
+
+samp table {
+    margin-bottom:0;
+}
+
+
+.sidebyside th, .sidebyside td {
+    width:50%;
+    vertical-align:top;
+}
+
+.sidebyside th {
+    font-style:italic;
+
+}
+
+li:target { 
+  border:2px dashed red;
+}
+
+p.emphasize::first-line {
+    font-weight:bold;
+}
+
+.superscript {
+    vertical-align:super;
+    font-size:70%;
+}
+
+.directory {
+    font-family:Consolas,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,monospace,sans-serif;
+}
+
+.error, .fail {
+  color:red;
+}
+
+.success {
+  color:green;
+}
+
+.toDo {
+  color:purple;
+    background-color:yellow;
+  font-weight:bold;
+}
+
+.toComplete {
+  color:purple;
+    background-color:lawngreen;
+  font-weight:bold;
+}
+
+.warning {
+    color:red;
+    font-weight:bold;
+}
+
+.mixin,
+.interface,
+.object {
+    padding: 0 0.25em;
+    border-width:1px;
+    border-color:black;
+}
+
+.object {
+    border-style:solid;
+}
+
+.interface {
+    border-style:dotted;
+}
+
+.mixin {
+    border-style:dashed;
+}
+
+.element,
+.element2,
+.statement,
+.selector {
+    color:blue;
+}
+    
+.attribute, 
+.property,
+.string,
+.propvalpair td:first-child {
+    color:green;
+}
+
+.value, 
+.propvalpair td:nth-child(2), 
+.valueextable td:first-child {
+    color:purple;
+}
+
+.punctuation {
+    color:#999;
+}
+
+.entity,
+.operator {
+    color:#a67f59;
+}
+.method,
+.function,
+.specialchar {
+    color:red;
+}
+    
+.comment,
+.comment2 {
+    color:gray;
+    white-space:pre-wrap;
+}
+    
+.event {
+    color:darkorange;
+}
+
+
+.atrule {
+    color:hsl(20, 78%, 55%);
+}
+
+.pseudoclass {
+    color:darkorange;
+}
+
+.pseudoelement {
+    color:mediumvioletred;
+}

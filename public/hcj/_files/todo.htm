@@ -1,0 +1,333 @@
+<!--
+**********************
+**********************
+*****JAVASCRIPT
+**********************
+**********************
+
+What is a "sparse array"?
+
+----------------------------------
+CALLBACKS
+
+$("#btn_1").click(function() {
+    alert("Btn 1 Clicked");
+});
+
+function() {
+    alert("Btn 1 Clicked");
+} = callback function. 
+
+It doesn't need extra parentheses at end because it is a callback function, i.e. it WILL be called when click() WANTS it to be called. ..."When we pass a callback function as an argument to another function, we are only passing the function definition. We are not executing the function in the parameter."
+
+Examples of functions that take callbacks as parameters:
+setTimeout()
+setInterval()
+Array.map() - A new array with each element being the result of the callback function.
+Array.forEach() -undefined.
+
+Lots of Array callbacks seem to take (currentValue, index, array) as their parameters.
+
+-----------------------------
+HOISTING
+
+How does hoisting work if the variable is declared twice in the scope?
+
+http://blog.caplin.com/2012/01/18/javascript-is-hard-part-2-the-hidden-world-of-hoisting/
+
+Note that the declaration of:
+
+var x = 3;
+
+The var x; is hoisted to the top, while the assignment of x = 3 stays whereever it is in the code.
+------------------------
+
+This is flawed code from an example website.
+
+In the code below....
+
+  function greetUser(customerName, sex)  {
+     var salutation  = sex && sex === "Man" ? "Mr." : "Ms.";
+    console.log("Hello, " + salutation + " " + customerName);
+  }
+
+What the hell is....
+
+    sex && sex === "Man" ? "Mr." : "Ms.";
+    
+Remember short circuit evaluation.
+
+    sex
+    
+1. Is sex truthy? If not, then the parameter wasn't even supplied, in which case don't bother with the rest.
+
+2. If sex is truthy AND equals "Man", then salutate with "Mr.". Otherwise use "Ms.". You see the problem here. If no parameter is supplied at all, then the salutation will default to "Ms.".
+---------------------------------------
+
+Beware....typeof array = 'object'
+
+---------------------------------------
+
+CALL AND APPLY are nearly the same, main use to specify the THIS value. "The call() method calls a function with a given this value and arguments provided individually. Note: While the syntax of this function is almost identical to that of apply() , the fundamental difference is that call() accepts an argument list, while apply() accepts a single array of arguments."
+
+---------------------------------------
+
+CLOSURES:
+
+All about closures:
+https://stackoverflow.com/questions/111102/how-do-javascript-closures-work?page=1&tab=votes#tab-top
+
+"Simply accessing variables outside of your immediate lexical scope creates a closure."
+
+I.E. inner function is a closure.
+
+Called closures why? Not sure. It traps the state of the outer function as it existed when it was calling the inner function. So even when the outer function returns, 
+
+"Yes, every JS function creates a closure. Variables that are not referenced will likely be made eligible for garbage collection in modern JS engines, but it doesn't change the fact that when you create an execution context, that context has a reference to the enclosing execution context, and its variables, and that function is an object that has potential to be relocated to a different variable scope, while retaining that original reference. That's the closure."
+
+"Functions returned from another function are called closures."
+
+----------------------------
+Spits out all timeout/intervals to console as they're set, examine code to see how this works
+
+var go = function(window){
+        
+    var oldSetInterval = window.setInterval;
+    var newSetInterval = function(f,t) {
+        __log("INSPECT_TIMERS: setInterval - " + t + "ms");
+        __log("INSPECT_TIMERS: " + f);
+        var id = oldSetInterval(f,t);
+        return id;
+    };
+    window.setInterval = newSetInterval;
+    
+    var oldSetTimeout = window.setTimeout;
+    var newSetTimeout = function (f,t) {
+        __log("INSPECT_TIMERS: setTimeout - " + t + "ms");
+        __log("INSPECT_TIMERS: " + f);
+        var id = oldSetTimeout(f,t);
+        return id;
+    };
+    window.setTimeout = newSetTimeout;
+    
+    function __log(msg) {
+        if (window.console && window.console.log) {
+            window.console.log(msg);
+        }
+    }
+    
+    
+};
+
+var script = document.createElement('script');
+script.setAttribute("type", "application/javascript");
+script.textContent = '(' + go + ')(window);';
+document.body.appendChild(script); // run the script
+
+
+------------------------------------------
+Web Workers are not part of JavaScript, they are a browser feature which can be accessed through JavaScript
+------------------------------------------
+
+Use Object.freeze() to make object immutable
+
+--------------------------------------------
+What's wrong with this? If name is not supplied, then the function fails - cannot read property "length" of undefined.
+
+function greeting(name) {
+	if (name.length > 0) {
+   	return "Hello, " + name + "!" ;
+  } else {
+    return "Hello!";
+  }
+}
+
+--------------------------------------------
+
+
+
+
+
+
+
+
+**********************
+**********************
+*****OTHER STUFF
+**********************
+**********************
+
+What is a virtual environment?
+
+PIP is the Python package manager.
+
+ZSH is a command line tool.
+
+
+Big O Notation - Big O notation is used in Computer Science to describe the performance or complexity of an algorithm. Big O specifically describes the worst-case scenario, and can be used to describe the execution time required or the space used (e.g. in memory or on disk) by an algorithm.
+
+--------------------------------------
+
+Uncle Bob quotes:
+
+  You don't want methods in the same class if they change for wildly different reasons.
+
+  If you have polymorphism you don't need function pointers.
+
+  OO is about reducing dependencies.
+
+-------------------------------------------
+
+        <ul class="toDo">
+
+            <li>Key links would be a checkbox for HTML, CSS, JS, by default all checked (show all), and then a drop-down menu. These are main categories:
+                <ul>
+                    <li>Elements (then another option: (1) element profile, or (2) all questions in which element is mentioned. If latter, show profile first)</li>
+                    <li>Attributes (same as element with 2nd option)</li>
+                    <li>Definitions (i.e. HTML, CSS)</li>
+                    <li>How to...</li>
+                </ul>
+                Then when hovering over a category, it will unpack the element in a new list to the right of the category.
+            </li>
+        </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*****************************
+Holding for later elaboration:
+*****************************
+HCJ102 - 7-7 (floats), Ch. 8 (javascript)
+HCJ103 - 3-3 (box-sizing)
+HCJ104 - 3-9--3-11 (positioning, floats, @media, @import)
+HCJ105 - 5-2, floats are discussed.
+old notes - positioning
+
+**************************
+Learn these at some point:
+**************************
+@page
+CSS grid layout
+<input> - where does the data go?
+<time> - Find a real example of usefulness. Perhaps last-updated on my own page.
+<iframe> - Google Map embedded within page example.
+
+Get all CSS rules in the first CSS sheet linked to by an HTML doc:
+
+var allSheets = document.styleSheets;
+var firstSheet = allSheets[0];
+var allRules = sheet.cssRules;
+for (i = 0; i < rules.length; i++) {
+	console.log(rules[i].cssText);
+}
+
+.querySelector
+.querySelectorAll
+typeof
+parseInt
+array.push
+array.sort
+
+Web Workers (standalone course, Bill Weinman) - pass "messages" to other JS files (the workers) which have no access to the DOM. They can be used for processing data in the background without interrupting/affecting the main JS file. var ___ = new Worker()...
+
+Difference between URL and URI
+
+- Memory management techniques: reference tracking, garbage collection.
+
+Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and swaps them if they are in the wrong order. 
+
+A digital signal processor (DSP) is a specialized microprocessor (or a SIP block), with its architecture optimized for the operational needs of digital signal processing...The goal of DSPs is usually to measure, filter or compress continuous real-world analog signals.
+
+*********QUESTION PURGATORY*********************************
+
+
+
+
+Q: What does HTTP mean?
+
+
+Q: What is the difference between HTTP and HTTPS?
+    Secured with TLS or its predecessor, SSL.
+
+
+Q: How does document outlining work? MAIN not included.
+
+
+
+Q: What is a "replaced element"?
+  
+    <p class = "answer">"In CSS, a replaced element is an element whose representation is outside the scope of CSS. These are a type of external object whose representation is independent of the CSS. Typical replaced elements are <img>, <object>, <video> or form elements like <textarea> and <input>. Some elements, like <audio> or <canvas> are replaced elements only in specific cases. Objects inserted using the CSS content properties are anonymous replaced elements."</p>
+
+Q: What is a namespace?
+
+    NAMESPACES - essentially, languages. In a given namespaces, certain keywords have meaning. In a SQL DBMS, the word "SELECT" changes color automatically because it carries special meaning, while """ would do nothing, and the inverse would be true for Brackets, a code editor dealing with the HTML namespace.
+
+        "
+        A name in a namespace consists of a namespace identifier and a local name.[5][6] The namespace name is usually applied as a prefix to the local name.
+
+        In Augmented Backus-Naur Form:
+
+        name = <namespace identifier> separator <local name>
+
+        When local names are used by themselves, name resolution is used to decide which (if any) particular item is alluded to by some particular local name.
+        "
+
+    IN SQL, for instance, a local name would be simply a column:
+
+        Sales
+
+    But that works only within its local namespace. If referring to multiple tables, you have to be more specific:
+
+        WHERE TY.Sales = LY.Sales
+
+Q: Why not change the namespace of HTML from http://www.w3.org/1999/xhtml ?
+
+    "Experience shows that changing the namespace when you move to a new version of a specification causes far more problems than it solves, especially when the new standard is highly compatible with the old. In most cases old applications will continue to work if you leave the namespace unchanged, but if you change the namespace, then ALL old applications will fail. The conventional wisdom is that it is better to leave the namespace unchanged, but add a "version" attribute to indicate which version of the spec is in use. –"
+
+
+Q: What is the difference between a browser and a user agent?
+    A browser is just one example of a user agent, a classification which has a broader scope. "In computing, a user agent is software that is acting on behalf of a user."
+
+    <script>
+        var x = 3
+        var synclass = syntaxblock.getAttribute("class");
+        window.alert(synclass);
+        syntaxblock.setAttribute("class","code");
+    </script>
+    
+In computer programming, initialization is the assignment of an initial value for a data object or variable.
+
+...might be a good idea to group CSS styles together by theme, like "layout"...
+
+
+Shorthand notation does not supply default values for margin/padding because there are no default values for margin/padding.
+
+
+
+In CSS, a replaced element is an element whose representation is outside the scope of CSS. These are a type of external object whose representation is independent of the CSS. Typical replaced elements are <img>, <object>, <video> or form elements like <textarea> and <input>. 
+
+<a href="#eleprof_THEAD" title="THEAD element profile"><span class = "element">thead</span></a> and <a href="#eleprof_TFOOT" title="TFOOT element profile"><span class = "element">tfoot</span></a>, <span class = "element">tbody </span>is a way to group table content - in this case, the "body" of the table, which are the actual data rows. If you are using this element, then no <span class = "element">tr</span> elements can be direct children of the parent <a href="#eleprof_TABLE" title="Table element profile"><span class = "element">table</span></a>
+
+
+What is my website's root directory?
+
+The root directory of your website is the content that loads when visitors access your domain name in a Web browser. The most obvious consequence of this is that you need to put your "index file" in your website's root directory for visitors to see your site at all (more info).
+
+Website-related applications might also need to know your website's root directory.
+
+Your website's root directory depends on whether the domain name is your primary domain name or another type (more info).
+
+Your primary domain name's root directory is /public_html.
+
+
+-->
