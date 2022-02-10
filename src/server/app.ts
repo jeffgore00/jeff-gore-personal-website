@@ -16,7 +16,11 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         'default-src': "'self'", // provided by default if `directives` are not supplied, but since I am supplying custom directives below, I have to add this as well
-        'script-src': ["'self'", 'https://unpkg.com'], // for React and React DOM
+        'script-src': [
+          "'self'",
+          'https://unpkg.com',
+          'https://ajax.googleapis.com',
+        ], // for React and React DOM and HCJ JQuery
         'style-src': ["'self'", "'unsafe-inline'"], // for Styled Components
       },
     },
@@ -44,10 +48,15 @@ if (process.env.NODE_ENV === 'development') {
 
 // On a request for a .js file, modify the request to look for the gzipped version
 app.get('*.js', (req, res, next) => {
-  req.url += '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.header('Content-Type', 'application/javascript');
-  next();
+  if (!req.url.includes('hcj/_scripts')) {
+    req.url += '.gz';
+    res.set('Content-Encoding', 'gzip');
+    res.header('Content-Type', 'application/javascript');
+    next();
+  } else {
+    res.header('Content-Type', 'application/javascript');
+    next();
+  }
 });
 
 /* When the server gets a request for a **file**, look in the /public directory.
