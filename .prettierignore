@@ -1,4 +1,6 @@
 node_modules
 dist
 coverage
-public/*
+public/**/*.js
+public/**/*.json
+public/bundle-size-report.html
