@@ -20,10 +20,6 @@
       <div id="pageLastUpdated">
         Last updated: <span id="pageLastModifiedDateTime"></span>
       </div>
-      <div id="phillyTemp">
-        The temperature in New York is
-        <span id="currentNewYorkTemp"></span> degrees Fahrenheit.
-      </div>
     </header>
 
     <!-- "For Internet Explorer 11 and below, it is suggested that an aria role of "main" be added to the <main> element to ensure it is accessible (screen readers like JAWS, used in combination with older versions of Internet Explorer will be able to understand the semantic meaning of the <main> element once this role attribute is included). -->
@@ -26824,12 +26820,62 @@ All Web services are APIs but all APIs are not Web services.</pre
           <h3 id="genDevSection">General Software Engineering / Hardware</h3>
 
           <li id="general_bitBinary">
-            <div class="question toDo">
-              <p>What is a bit and how does it relate to binary?</p>
+            <div class="question">
+              <p>
+                What is a bit, what is a byte, and how do those relate to
+                binary?
+              </p>
             </div>
 
             <div class="answer">
-              <p>do it</p>
+              <p>
+                "The bit is the most basic unit of information in computing and
+                digital communications. The name is a portmanteau of "binary
+                digit". The bit represents a logical state with one of two
+                possible values. These values are most commonly represented as
+                either "1" or "0", but other representations such as true/false,
+                yes/no, +/−, or on/off are commonly used."
+              </p>
+              <p>Therefore the following number 5 in binary:</p>
+              <pre>00000101</pre>
+              <p>
+                ...is an 8-bit value. Count the number of digits - there are
+                eight. Eight bits equals a byte.
+              </p>
+              <p>
+                "Historically, the byte was the number of bits used to encode a
+                single character of text in a computer and for this reason it is
+                the smallest addressable unit of memory in many computer
+                architectures."
+              </p>
+              <p>
+                Technically, a byte can be other sizes than 8 bit. But its
+                default meaning is 8 bits. "To disambiguate arbitrarily sized
+                bytes from the common 8-bit definition, network protocol
+                documents such as The Internet Protocol (RFC 791) refer to an
+                8-bit byte as an octet.""
+              </p>
+
+              <p>
+                But how are bits actually physically implemented? It varies. "A
+                bit can be a tiny magnetic region on a hard disk, a tiny dent in
+                the reflective material on a CD or DVD, or a tiny transistor on
+                a memory stick."
+              </p>
+            </div>
+          </li>
+
+          <li id="general_bitwise">
+            <div class="question toComplete">
+              <p>What are "bitwise" operations?</p>
+            </div>
+
+            <div class="answer">
+              <p>
+                "In computer programming, a bitwise operation operates on a bit
+                string, a bit array or a binary numeral (considered as a bit
+                string) at the level of its individual bits."
+              </p>
             </div>
           </li>
 
@@ -27673,6 +27719,35 @@ BNE   0x20, R4, R1
                 storage devices (e.g. hard disk drives, floppy disks, and
                 magnetic tape), optical discs, and early computer storage
                 methods such as paper tape and punched cards." Think hard drive.
+              </p>
+            </div>
+          </li>
+
+          <li id="general_memoryAddressing">
+            <div class="question">
+              <p>
+                How does memory addressing work? Why do I see "0x" in memory
+                addressing?
+              </p>
+            </div>
+
+            <div class="answer">
+              <p>
+                "0x" is a prefix used in computing to let you know that the
+                following numeric constant is written in hexadecimal format.
+                Even deeper: "The 0 tells the parser it's dealing with a
+                constant (and not an identifier/reserved word). Something is
+                still needed to specify the number base: the x is an arbitrary
+                choice [for heXadecimal]."
+              </p>
+              <p>
+                Writing memory addresses in hex allows them to be represented in
+                fewer characters than base 10 (decimal) or base 2 (binary).
+              </p>
+              <p>
+                You'll also note that the addresses you may see in an error
+                stack have a colon (:) in the middle, such as "27392:0x52aa740".
+                This colon separates the segment address from the offset.
               </p>
             </div>
           </li>
@@ -28697,7 +28772,7 @@ subtrahend 0  4  2  1
                   >binary subtraction</a
                 >, with a pretty helpful graphic below:
               </p>
-              <img src="/_images/general_binary_subtraction.png" />
+              <img src="_images/general_binary_subtraction.png" />
               <h3>What About Fractional Numbers?</h3>
               <p>
                 You can still represent fractional numbers in binary, provided
@@ -29581,6 +29656,98 @@ Print order: 1, 2, 5, 5, 14, 13, 22, 15, 12</code></pre>
   
 }
 </code></pre>
+            </div>
+          </li>
+
+          <li id="synprof_tyepsOfBinarySearchTree">
+            <div class="question">
+              <p>What are the different types of binary search tree?</p>
+            </div>
+
+            <div class="answer">
+              <p>
+                There are different attributes or adjectives you can use to
+                describe a binary search tree, based on its levels and/or the
+                children of each node. Let's get into four main characteristics.
+                Note that the first three (full, complete, and balanced) are not
+                supersets of each other.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <b>Full binary tree</b>: This is a binary tree in which
+                    every node has 0 or 2 children. In other words, there are no
+                    nodes with just 1 child.
+                  </p>
+                  <p>
+                    Cruel way to remember: an only child does not have a "full"
+                    life.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Complete binary tree</b>: This is a binary tree in which
+                    every level except the last level (and by last, I mean,
+                    furthest from the root) is full, AND all the nodes in the
+                    last level are as far to the left as possible.
+                  </p>
+                  <p>
+                    Lame way to remember: once your Western education is
+                    "complete", you know to write top to bottom, left to right.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Balanced binary tree</b>: This is a binary tree in which
+                    the left and right subtrees of every node differ in height
+                    by no more than 1.
+                  </p>
+
+                  <p>
+                    Lame way to remember: imagine the scale held by Lady
+                    Justice. It can handle a slight difference in injustice
+                    (just 1 unit, whatever that means, but anything beyond that
+                    will cause it to topple due to imbalance.)
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Perfect binary tree</b>: This is a binary tree in which
+                    all nodes have two children, except the nodes on the last
+                    level, which have zero children.
+                  </p>
+
+                  <p>
+                    Way to remember: symmetry is perfection. Another lame way:
+                    if you're going to have children, the "perfect" number is 2,
+                    otherwise don't have any at all.
+                  </p>
+
+                  <p>
+                    Perfect trees are also therefore complete (filled out top to
+                    bottom, right to left), full (no nodes with just one child),
+                    and balanced (no difference in height greater than 1 between
+                    any two subtrees)
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    <b>Degenerate binary tree</b>: This is a binary tree in
+                    which all nodes have one child, except for the final node,
+                    which would obviously have zero children. This would
+                    resemble one long, possibly scraggly looking branch.
+                  </p>
+
+                  <p>
+                    Way to remember: if you don't have options, then your life
+                    has degenerated.
+                  </p>
+                </li>
+                <p>Here is an image which shows all 5 types:</p>
+                <img src="_images/synprof_tyepsOfBinarySearchTree.png" />
+              </ul>
             </div>
           </li>
 
