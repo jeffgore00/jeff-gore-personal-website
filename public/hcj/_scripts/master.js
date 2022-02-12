@@ -42,30 +42,6 @@ refreshPageLastUpdated();
 
 ////////////////////////////////////
 //
-// Page header function - tempature
-//
-////////////////////////////////////
-
-$(document).ready(function () {
-  var weatherAPI = 'http://api.openweathermap.org/data/2.5/weather';
-  var weatherSettings = {
-    APPID: '7c63dc42576f6e29ff30a529a870dc65',
-    q: 'New York',
-    units: 'imperial'
-  };
-
-  function getTemperature() {
-    $.getJSON(weatherAPI, weatherSettings, function (returnedData) {
-      $('#currentNewYorkTemp').html(returnedData.main.temp);
-    });
-  }
-  getTemperature();
-  var tempEvery10Mins = window.setInterval(getTemperature, 600000);
-  getNewRandomQuestion();
-});
-
-////////////////////////////////////
-//
 // Page header - show or hide all answers.
 //
 ////////////////////////////////////
@@ -91,8 +67,6 @@ visitedQuestions.add(-1)
 
 function getNewRandomQuestion() {
   const questions = document.querySelectorAll("#QAcontainer > li");
-
-  const filteredQuestions = Array.prototype.filter.call(questions, question => !question.querySelector('.question').classList.contains('toDo'))
 
   let randomQIdx = -1;
   while (visitedQuestions.has(randomQIdx)) {

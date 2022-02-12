@@ -20,10 +20,6 @@
       <div id="pageLastUpdated">
         Last updated: <span id="pageLastModifiedDateTime"></span>
       </div>
-      <div id="phillyTemp">
-        The temperature in New York is
-        <span id="currentNewYorkTemp"></span> degrees Fahrenheit.
-      </div>
     </header>
 
     <!-- "For Internet Explorer 11 and below, it is suggested that an aria role of "main" be added to the <main> element to ensure it is accessible (screen readers like JAWS, used in combination with older versions of Internet Explorer will be able to understand the semantic meaning of the <main> element once this role attribute is included). -->
@@ -26824,12 +26820,236 @@ All Web services are APIs but all APIs are not Web services.</pre
           <h3 id="genDevSection">General Software Engineering / Hardware</h3>
 
           <li id="general_bitBinary">
-            <div class="question toDo">
-              <p>What is a bit and how does it relate to binary?</p>
+            <div class="question">
+              <p>
+                What is a bit, what is a byte, and how do those relate to
+                binary?
+              </p>
             </div>
 
             <div class="answer">
-              <p>do it</p>
+              <p>
+                "The bit is the most basic unit of information in computing and
+                digital communications. The name is a portmanteau of "binary
+                digit". The bit represents a logical state with one of two
+                possible values. These values are most commonly represented as
+                either "1" or "0", but other representations such as true/false,
+                yes/no, +/−, or on/off are commonly used."
+              </p>
+              <p>Therefore the following number 5 in binary:</p>
+              <pre>00000101</pre>
+              <p>
+                ...is an 8-bit value. Count the number of digits - there are
+                eight. Eight bits equals a byte.
+              </p>
+              <p>
+                "Historically, the byte was the number of bits used to encode a
+                single character of text in a computer and for this reason it is
+                the smallest addressable unit of memory in many computer
+                architectures."
+              </p>
+              <p>
+                Technically, a byte can be other sizes than 8 bit. But its
+                default meaning is 8 bits. "To disambiguate arbitrarily sized
+                bytes from the common 8-bit definition, network protocol
+                documents such as The Internet Protocol (RFC 791) refer to an
+                8-bit byte as an octet.""
+              </p>
+
+              <p>
+                But how are bits actually physically implemented? It varies. "A
+                bit can be a tiny magnetic region on a hard disk, a tiny dent in
+                the reflective material on a CD or DVD, or a tiny transistor on
+                a memory stick."
+              </p>
+            </div>
+          </li>
+
+          <li id="general_bitwise">
+            <div class="question">
+              <p>What are "bitwise" operations?</p>
+            </div>
+
+            <div class="answer">
+              <p>
+                "In computer programming, a bitwise operation operates on a bit
+                string, a bit array or a binary numeral (considered as a bit
+                string) at the level of its individual bits."
+              </p>
+
+              <p>
+                There are four basic operations to discuss first: one that is
+                unary, meaning, there is only one operand. And three that are
+                binary, meaning two operands. Note that the three binary
+                operators - AND, OR, XOR - only care about 1s! And note that in
+                JavaScript specifically, "treat their operands as a set of 32
+                bits (zeros and ones) and return standard JavaScript numerical
+                values." Here we will use the JavaScript symbols for these
+                operators if they are not spelled out.
+              </p>
+
+              <ol>
+                <li>
+                  <h4>NOT (Unary)</h4>
+                  <p>
+                    This simply flips each bit to its complement. Bits that are
+                    0 become 1, and vice versa.
+                  </p>
+                  <pre class="syntax code">
+NOT    001 
+equals 110
+
+~1 =  6 (if this example were read literally)
+~1 = -2 (two's complement, which is actual JS implementation/output)
+                  </pre>
+                </li>
+                <li>
+                  <h4>AND (Binary) - if both inputs are 1, output 1. Else 0</h4>
+                  <p>
+                    As the description says, AND operates like the boolean
+                    "and", meaning both input values have to be true for the the
+                    output to be true.
+                  </p>
+                  <pre class="syntax code">
+2 & 2 = 2
+
+10 AND
+10 equals
+10
+    </pre
+                  >
+                  <p>
+                    Hence 2 & 2 = 2, just like any value AND'd with itself is
+                    itself.
+                  </p>
+                  <p>
+                    Another interesting note: if the result of AND'ing a number
+                    with 1 is zero, then that number is even. (Think about it -
+                    if the final digit, the slot signifying the number 1, is not
+                    occupied, then the number must be a multiple of 2, as the
+                    digits all are multiples of 2 starting with the second
+                    digit.) More examples:
+                  </p>
+                  <pre class="syntax code">
+4 & 2 = 0
+    
+100 AND
+010 equals
+000
+
+4 & 7 = 4
+
+100 AND
+111 equals
+100
+            </pre
+                  >
+                </li>
+                <li>
+                  <h4>
+                    OR (Binary) - "if either input is 1, output 1, else 0"
+                  </h4>
+                  <p>
+                    Either of the input digits can be 1 to result in an output
+                    of 1 for that digit
+                  </p>
+                  <pre class="syntax code">
+2 | 2 = 2
+
+10 OR
+10 equals
+10
+            </pre
+                  >
+                  <p>
+                    Hence 2 | 2 = 2, just like any value OR'd with itself is
+                    itself. More examples:
+                  </p>
+                  <pre class="syntax code">
+4 | 2 = 6
+
+100 OR
+010 equals
+110
+
+4 & 7  = 7
+
+100 OR
+111 equals
+111
+            </pre
+                  >
+                </li>
+                <li>
+                  <h4>
+                    XOR (Binary) - "if either but not both of the inputs are 1,
+                    output 1, else 0"
+                  </h4>
+                  <p>
+                    The "X" in XOR means "exclusive". This only outputs 1 when
+                    its inputs are 1 and 0.
+                  </p>
+                  <pre class="syntax code">
+2 ^ 2 = 0
+
+10 XOR
+10 equals
+00
+            </pre
+                  >
+                  <p>
+                    Hence 2 ^ 2 = 0, just like any value XOR'd with itself is 0.
+                    More examples:
+                  </p>
+                  <pre class="syntax code">
+4 ^ 2 = 6
+
+100 XOR
+010 equals
+110 
+
+4 ^ 7 = 3
+100 XOR
+111 equals
+011
+            </pre
+                  >
+                </li>
+              </ol>
+              <p>So, again, some basic takeways:</p>
+              <ul>
+                <li>
+                  The result of a number AND'ed with itself is that same number
+                  (X AND X = X).
+                </li>
+                <li>If X AND 1 equals 0, then X is even.</li>
+                <li>If X AND 1 equals 1, then X is odd.</li>
+                <li>
+                  The result of a number OR'ed with itself is that same number
+                  (X OR X = X).
+                </li>
+                <li>
+                  The result of a number XOR'ed with itself is zero. (X XOR X =
+                  0)
+                </li>
+              </ul>
+              <p>
+                Now, there are some "shift" operators as well that simply shift
+                the binary digits of a number to the left (<<) or to the right
+                (>>). For example, 1 << 3 means "take the binary representation
+                of 1 and shift its bits to the left by 3 places. The three bits
+                on the very left will be discarded, and the new bits on the
+                right will be zeroes."
+              </p>
+              <pre class="syntax code">
+1 << 3 = 8
+
+0001 original number (1)
+0010 one left shift
+0100 two left shifts
+1000 third and final left shift
+        </pre
+              >
             </div>
           </li>
 
@@ -27673,6 +27893,35 @@ BNE   0x20, R4, R1
                 storage devices (e.g. hard disk drives, floppy disks, and
                 magnetic tape), optical discs, and early computer storage
                 methods such as paper tape and punched cards." Think hard drive.
+              </p>
+            </div>
+          </li>
+
+          <li id="general_memoryAddressing">
+            <div class="question">
+              <p>
+                How does memory addressing work? Why do I see "0x" in memory
+                addressing?
+              </p>
+            </div>
+
+            <div class="answer">
+              <p>
+                "0x" is a prefix used in computing to let you know that the
+                following numeric constant is written in hexadecimal format.
+                Even deeper: "The 0 tells the parser it's dealing with a
+                constant (and not an identifier/reserved word). Something is
+                still needed to specify the number base: the x is an arbitrary
+                choice [for heXadecimal]."
+              </p>
+              <p>
+                Writing memory addresses in hex allows them to be represented in
+                fewer characters than base 10 (decimal) or base 2 (binary).
+              </p>
+              <p>
+                You'll also note that the addresses you may see in an error
+                stack have a colon (:) in the middle, such as "27392:0x52aa740".
+                This colon separates the segment address from the offset.
               </p>
             </div>
           </li>
@@ -28697,7 +28946,7 @@ subtrahend 0  4  2  1
                   >binary subtraction</a
                 >, with a pretty helpful graphic below:
               </p>
-              <img src="/_images/general_binary_subtraction.png" />
+              <img src="_images/general_binary_subtraction.png" />
               <h3>What About Fractional Numbers?</h3>
               <p>
                 You can still represent fractional numbers in binary, provided
@@ -29360,8 +29609,11 @@ doesPathExist(graph, 's', 'a') // false
 1         14</code></pre>
               <blockquote>
                 <p>
-                  In-order traversal means to "visit" (often, print) the left
-                  branch, then the current node, and finally, the right branch.
+                  In-order traversal means to "visit" (meaing retrieve the value
+                  of) the left child, then the current node, and finally, the
+                  right child. If the children themselves have more children,
+                  then this method will be executed recursively, resulting in
+                  the visit order being leaf-to-root.
                 </p>
                 <pre
                   class="code syntax"
@@ -29386,9 +29638,9 @@ Print order: 1, 2, 5, 5, 12, 13, 14, 15, 22</code></pre>
                   class="code syntax"
                 ><code>1 void preOrderTraversal(TreeNode node) {
 2   if (node != null) {
-3     visit (node) j
-4     preOrderTraversal(node.left)j
-5     preOrderTraversal(node.right)j
+3     visit (node)
+4     preOrderTraversal(node.left)
+5     preOrderTraversal(node.right)
 6   }
 7 }
 
@@ -29427,7 +29679,7 @@ Print order: 12, 5, 2, 1, 5, 15, 13, 14, 22</code></pre>
                   class="code syntax"
                 ><code>1 void postOrderTraversal(TreeNode node) {
 2   if (node != null) {
-3     postOrderTraversal(node.left)j
+3     postOrderTraversal(node.left)
 4     postOrderTraversal(node.right)
 5     visit(node)
 6   }
@@ -29581,6 +29833,102 @@ Print order: 1, 2, 5, 5, 14, 13, 22, 15, 12</code></pre>
   
 }
 </code></pre>
+            </div>
+          </li>
+
+          <li id="synprof_typesOfBinarySearchTree">
+            <div class="question">
+              <p>What are the different types of binary search tree?</p>
+            </div>
+
+            <div class="answer">
+              <p>
+                There are different attributes or adjectives you can use to
+                describe a binary search tree, based on its levels and/or the
+                children of each node. Let's get into four main characteristics.
+                Note that the first three (full, complete, and balanced) are not
+                supersets of each other.
+              </p>
+
+              <ul>
+                <li>
+                  <p>
+                    <b>Full binary tree</b>: This is a binary tree in which
+                    every node has 0 or 2 children. In other words, there are no
+                    nodes with just 1 child.
+                  </p>
+                  <p>
+                    Cruel way to remember: an only child does not have a "full"
+                    life.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Balanced binary tree</b>: This is a binary tree in which
+                    the left and right subtrees of every node differ in height
+                    by no more than 1.
+                  </p>
+
+                  <p>
+                    Lame way to remember: imagine the scale held by Lady
+                    Justice. It can handle a slight difference in injustice
+                    (just 1 unit, whatever that means, but anything beyond that
+                    will cause it to topple due to imbalance.)
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Complete binary tree</b>: This is a binary tree in which
+                    every level except the last level (and by last, I mean,
+                    furthest from the root) is full, AND all the nodes in the
+                    last level are as far to the left as possible.
+                  </p>
+                  <p>
+                    Lame way to remember: once your Western education is
+                    "complete", you know to write top to bottom, left to right.
+                  </p>
+                  <p>
+                    Complete trees are also therefore balanced (no difference in
+                    height greater than 1 between any two subtrees)
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Perfect binary tree</b>: This is a binary tree in which
+                    all nodes have two children, except the nodes on the last
+                    level, which have zero children.
+                  </p>
+
+                  <p>
+                    Way to remember: symmetry is perfection. Another lame way:
+                    if you're going to have children, the "perfect" number is 2,
+                    otherwise don't have any at all.
+                  </p>
+
+                  <p>
+                    Perfect trees are also therefore complete (filled out top to
+                    bottom, right to left), full (no nodes with just one child),
+                    and balanced (no difference in height greater than 1 between
+                    any two subtrees)
+                  </p>
+                </li>
+
+                <li>
+                  <p>
+                    <b>Degenerate binary tree</b>: This is a binary tree in
+                    which all nodes have one child, except for the final node,
+                    which would obviously have zero children. This would
+                    resemble one long, possibly scraggly looking branch.
+                  </p>
+
+                  <p>
+                    Way to remember: if you don't have options, then your life
+                    has degenerated.
+                  </p>
+                </li>
+                <p>Here is an image which shows all 5 types:</p>
+                <img src="_images/synprof_typesOfBinarySearchTree.png" />
+              </ul>
             </div>
           </li>
 
@@ -29898,6 +30246,120 @@ LinkedList {
                 null. That would occur in O(n) time where n is the number of
                 nodes in the linked list.
               </p>
+            </div>
+          </li>
+
+          <li id="cs_dsProf_heap">
+            <div class="question">
+              <p>Describe the Heap DS.</p>
+            </div>
+
+            <div class="answer">
+              <p>
+                A heap is a tree-based data structure in which the key of all
+                parent nodes are either greater than their children (in a max
+                heap) or less than their children (in a min heap).
+              </p>
+
+              <p>
+                The children have no relation to each other, so there is no
+                concept of "left" or "right" child, but many heaps *are*
+                implemented as binary heaps, that is, each parent node has two
+                children.
+              </p>
+
+              <p>
+                One important phenomenon of both heap insertion and removal is
+                that the heap is rearranged every time a node is added or
+                removed.
+              </p>
+              <ul>
+                <li>pop: remove the top item of the heap.</li>
+                <li>insert: insert a new item into the heap.</li>
+              </ul>
+              <p>
+                The reason for this is that the heap property has to be
+                guaranteed - the min or max element at the top - and all
+                elements are arranged in relation to each other.
+              </p>
+              <ul>
+                <li>
+                  pop: now that the top element is gone, heap needs to be
+                  rearranged to determine the new top. Choose the child with the
+                  greatest/smallest value to move up, which then has cascading
+                  effects on the rest of the tree.
+                </li>
+                <li>
+                  insert: we insert at the bottom of the heap and then "sift"
+                  upwards
+                </li>
+              </ul>
+              <p>
+                This rearrangement guarantees that the binary heap will always
+                be a complete binary tree; there's no reason for one branch to
+                ever differ in height from another by more than 1.
+              </p>
+              <ul>
+                <li>
+                  In both cases, we swap a parent with its child if the
+                  relationship is the inverse of what it should be (based on max
+                  or min heap).
+                </li>
+                <li>
+                  In the case of `insert`, if the relationship between the new
+                  node and its parent is inverse of the heap property, then swap
+                  them. We repeat this until the node reaches the correct level
+                  or the top of the heap.
+                </li>
+                <li>
+                  In the case of `pop`, the top is removed and now a new element
+                  by default is first. That element may not actually be the min
+                  or max. In which case it has to be moved *down* through the
+                  heap. We do this by accessing its children, seeing which is
+                  greater, and then, if that happens to be greater than the
+                  parent, swapping them. We repeat this until we reach the
+                  correct level or the bottom of the heap.
+                </li>
+              </ul>
+              <p>
+                Because either the minimum or maximum value of the heap is
+                immediately available in O(1) time, the heap is best way to
+                implement the Priority Queue ADT.
+              </p>
+
+              <p>With that said, what is the best way to implement a heap?</p>
+
+              <p>
+                Well, for a binary heap, an array is actually a great way to do
+                this. Because we know the tree will be complete, we can
+                represent it like this
+              </p>
+              <pre
+                class="code syntax"
+              ><code>[root, child1OfRoot, child2OfRoot, child1ofChild1, child2ofChild1, child1ofChild2, child2ofChild2, ...etc]</code></pre>
+              <p>
+                That means accessing a parent and or children is simple math
+              </p>
+              <pre
+                class="code syntax"
+              ><code>children: [2 * parentIdx + 1, 2 * parentIdx + 2];
+parent: Math.floor((childIdx - 1) / 2);</code></pre>
+              <p>
+                Here's a great illustration of the max heap implemented as an
+                array:
+              </p>
+              <img src="./_images/cs_dsProf_heap.png" />
+              <p>
+                What are the time complexities of binary heap operations? Note
+                that all rebalancing is log(n) because log(n) is the depth of
+                the tree, and we are only doing as many swaps as the depth of
+                the tree.
+              </p>
+              <ul>
+                <li>find-max aka "peek": O(1)</li>
+                <li>delete-max aka "pop": O(log (n))</li>
+                <li>insert aka "push": O(log (n))</li>
+              </ul>
             </div>
           </li>
 
