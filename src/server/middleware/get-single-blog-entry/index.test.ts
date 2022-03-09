@@ -75,8 +75,12 @@ describe('getSingleBlogEntryContent middleware', () => {
       );
   });
 
-  it('issues the expected INFO log with additional data when called', () => {
-    getSingleBlogEntryContent(request as Request, response as Response, null);
+  it('issues the expected INFO log with additional data when called', async () => {
+    await getSingleBlogEntryContent(
+      request as Request,
+      response as Response,
+      null,
+    );
     expect(infoLoggerSpy).toHaveBeenCalledWith(
       GETTING_SINGLE_BLOG_CONTENT_LOG,
       {
@@ -88,10 +92,10 @@ describe('getSingleBlogEntryContent middleware', () => {
   describe('When the .json file read (prod) or object creation (dev) is successful', () => {
     // In production, access the previews JSON file that's already been built as part of the deployment process
     describe('When `process.env.NODE_ENV` is "production"', () => {
-      beforeAll(() => {
+      beforeAll(async () => {
         jest.clearAllMocks();
         process.env.NODE_ENV = 'production';
-        getSingleBlogEntryContent(
+        await getSingleBlogEntryContent(
           request as Request,
           response as Response,
           next,
@@ -113,10 +117,10 @@ describe('getSingleBlogEntryContent middleware', () => {
 
     // Not production, then build the previews on the fly rather than expecting a pre-built file.
     describe('When `process.env.NODE_ENV` is not "production"', () => {
-      beforeAll(() => {
+      beforeAll(async () => {
         jest.clearAllMocks();
         process.env.NODE_ENV = 'development';
-        getSingleBlogEntryContent(
+        await getSingleBlogEntryContent(
           request as Request,
           response as Response,
           next,
@@ -138,13 +142,17 @@ describe('getSingleBlogEntryContent middleware', () => {
   describe('When theres an error getting the previews.json file (prod) or building the previews object (dev)', () => {
     const sampleError = new Error();
 
-    beforeAll(() => {
+    beforeAll(async () => {
       jest.clearAllMocks();
       process.env.NODE_ENV = 'development';
       buildSingleBlogEntrySpy.mockImplementation(() =>
         Promise.reject(sampleError),
       );
-      getSingleBlogEntryContent(request as Request, response as Response, next);
+      await getSingleBlogEntryContent(
+        request as Request,
+        response as Response,
+        next,
+      );
     });
 
     it('logs the occurrence', () => {

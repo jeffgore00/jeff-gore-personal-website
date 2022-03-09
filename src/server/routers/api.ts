@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, RequestHandler } from 'express';
 
 import healthCheck from '../middleware/health-check';
 import processLogFromClient from '../middleware/process-log-from-client';
@@ -11,10 +11,10 @@ const router = Router();
 
 router.get('/health', healthCheck);
 router.put('/logs', corsAllowWhitelistOnly, processLogFromClient);
-router.get('/content/blogs/previews', getBlogPreviews);
+router.get('/content/blogs/previews', <RequestHandler>getBlogPreviews);
 router.get(
   '/content/blogs/:contentId',
-  getSingleBlogEntryContent,
+  <RequestHandler>getSingleBlogEntryContent,
   sendResourceNotFound,
 );
 

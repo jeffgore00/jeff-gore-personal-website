@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import { buildBlogPreviews } from '../../utils/runtime/blogs/build-blog-previews';
 import { getBlogPreviewsFile } from '../../utils/runtime/blogs/get-blog-previews-file';
@@ -7,7 +7,11 @@ import logger from '../../utils/runtime/logger';
 export const GETTING_BLOG_PREVIEWS_LOG = 'Getting blog previews';
 export const ERROR_GETTING_BLOG_PREVIEWS_LOG = 'Error getting blog previews';
 
-export const getBlogPreviews: RequestHandler = async (req, res, next) => {
+export async function getBlogPreviews(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const {
     query: { useDummyPreviews: useDummyPreviewsString, page },
   } = req;
@@ -37,5 +41,4 @@ export const getBlogPreviews: RequestHandler = async (req, res, next) => {
     });
     next(err);
   }
-  return null;
-};
+}

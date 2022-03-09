@@ -72,8 +72,8 @@ describe('getBlogPreviews middleware', () => {
       .mockImplementation(() => Promise.resolve(samplePreviewsFromFile));
   });
 
-  it('issues the expected INFO log with additional data when called', () => {
-    getBlogPreviews(request as Request, response as Response, null);
+  it('issues the expected INFO log with additional data when called', async () => {
+    await getBlogPreviews(request as Request, response as Response, null);
     expect(infoLoggerSpy).toHaveBeenCalledWith(GETTING_BLOG_PREVIEWS_LOG, {
       page: request.query.page,
       useDummyPreviews: request.query.useDummyPreviews === 'true',
@@ -83,10 +83,10 @@ describe('getBlogPreviews middleware', () => {
   describe('When the previews.json file read (prod) or object creation (dev) is successful', () => {
     // In production, access the previews JSON file that's already been built as part of the deployment process
     describe('When `process.env.NODE_ENV` is "production"', () => {
-      beforeAll(() => {
+      beforeAll(async () => {
         jest.clearAllMocks();
         process.env.NODE_ENV = 'production';
-        getBlogPreviews(request as Request, response as Response, next);
+        await getBlogPreviews(request as Request, response as Response, next);
       });
       it('calls `getBlogPreviewsFile` with the correct args', () => {
         expect(getBlogPreviewsFileSpy).toHaveBeenCalledWith({
@@ -105,10 +105,10 @@ describe('getBlogPreviews middleware', () => {
 
     // Not production, then build the previews on the fly rather than expecting a pre-built file.
     describe('When `process.env.NODE_ENV` is not "production"', () => {
-      beforeAll(() => {
+      beforeAll(async () => {
         jest.clearAllMocks();
         process.env.NODE_ENV = 'development';
-        getBlogPreviews(request as Request, response as Response, next);
+        await getBlogPreviews(request as Request, response as Response, next);
       });
       it('calls `buildBlogPreviewsFile` with the correct args', () => {
         expect(buildBlogPreviewsSpy).toHaveBeenCalledWith({
@@ -129,13 +129,13 @@ describe('getBlogPreviews middleware', () => {
   describe('When theres an error getting the previews.json file (prod) or building the previews object (dev)', () => {
     const sampleError = new Error();
 
-    beforeAll(() => {
+    beforeAll(async () => {
       jest.clearAllMocks();
       process.env.NODE_ENV = 'development';
       buildBlogPreviewsSpy.mockImplementation(() =>
         Promise.reject(sampleError),
       );
-      getBlogPreviews(request as Request, response as Response, next);
+      await getBlogPreviews(request as Request, response as Response, next);
     });
 
     it('logs the occurrence', () => {

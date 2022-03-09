@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import path from 'path';
 
 import { readFile } from '../../utils/runtime/node-wrappers';
@@ -20,11 +20,11 @@ const getAlreadyBuiltBlog = async (contentId: string) => {
   return { ...contentItem, static: true };
 };
 
-export const getSingleBlogEntryContent: RequestHandler = async (
-  req,
-  res,
-  next,
-) => {
+export async function getSingleBlogEntryContent(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   const {
     params: { contentId },
   } = req;
@@ -46,5 +46,4 @@ export const getSingleBlogEntryContent: RequestHandler = async (
     });
     next();
   }
-  return null;
-};
+}
