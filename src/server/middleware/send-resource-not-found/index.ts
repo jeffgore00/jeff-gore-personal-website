@@ -13,7 +13,7 @@ export function sendResourceNotFound(req: Request, res: Response): Response {
       logger.error('Static file request error: index.html file not found!');
       return res.sendStatus(404);
     }
-    if (fileRegex.exec(req.path)) {
+    if (fileRegex.test(req.path)) {
       logger.error(
         `Static file request error: ${req.path.slice(1)} not found!`,
       );
