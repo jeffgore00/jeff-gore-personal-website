@@ -4,6 +4,7 @@ import {
   screen,
   getByTestId,
   getByAltText,
+  queryByText,
 } from '@testing-library/react';
 import { Footer, footerLinks } from '.';
 
@@ -13,6 +14,15 @@ describe('Footer', () => {
   beforeAll(() => {
     render(<Footer />);
     footer = screen.getByTestId('footer');
+  });
+
+  it('displays my name with the copyright symbol and the current year', () => {
+    const copyright = queryByText(
+      footer,
+      `© ${new Date().getFullYear()} Jeff Gore`,
+    );
+
+    expect(copyright).toBeTruthy();
   });
 
   it('displays a Github icon with a link', () => {
