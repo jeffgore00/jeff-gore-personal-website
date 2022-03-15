@@ -44,6 +44,12 @@ describe('The homepage', () => {
       );
     });
 
+    it('displays my name with the copyright symbol and the current year', () => {
+      const copyrightMessage = `© ${new Date().getFullYear()} Jeff Gore`;
+
+      expect($(`div*=${copyrightMessage}`).isDisplayed()).toEqual(true);
+    });
+
     it('should display "Jeff Gore" in the <title>', () => {
       expect(browser.getTitle()).toEqual('Jeff Gore');
     });
