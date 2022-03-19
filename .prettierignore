@@ -4,3 +4,4 @@ coverage
 public/**/*.js
 public/**/*.json
 public/bundle-size-report.html
+public/index.html
