@@ -32,7 +32,9 @@ export function PageWrapper({
 
   return (
     <PageWrapperStyled>
-      <Navigator />
+      <header>
+        <Navigator />
+      </header>
       <ErrorBoundary boundaryLocation="within-header-and-footer">
         <main>{children}</main>
       </ErrorBoundary>
