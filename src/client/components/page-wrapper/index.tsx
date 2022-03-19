@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { ErrorBoundary } from '../error-boundary';
 import { Navigator } from '../navigator';
@@ -9,6 +10,15 @@ import {
   navMenuAllLinksByPathname,
   NavMenuLinkRoute,
 } from '../../../shared/constants';
+
+const PageWrapperStyled = styled.div.attrs({
+  id: 'page-wrapper',
+  'data-testid': 'page-wrapper',
+})`
+  min-height: 93vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+`;
 
 export function PageWrapper({
   children,
@@ -21,7 +31,7 @@ export function PageWrapper({
   useSetPageTitle(navMenuAllLinksByPathname.get(pathnameEnum));
 
   return (
-    <div id="page-wrapper" data-testid="page-wrapper">
+    <PageWrapperStyled>
       <header>
         <Navigator />
       </header>
@@ -29,6 +39,6 @@ export function PageWrapper({
         <main>{children}</main>
       </ErrorBoundary>
       <Footer />
-    </div>
+    </PageWrapperStyled>
   );
 }

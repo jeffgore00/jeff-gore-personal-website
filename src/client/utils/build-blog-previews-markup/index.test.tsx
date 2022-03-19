@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 
 import * as BlogPreviewStyledComponents from '../../components/blog-preview/styled-components';
 import { generateSpiedReactComponent } from '../../../../test-utils/generate-spied-react-component';
