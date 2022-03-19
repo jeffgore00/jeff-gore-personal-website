@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 
 import * as BlogPreviewStyledComponents from '../../components/blog-preview/styled-components';
 import { generateSpiedReactComponent } from '../../../../test-utils/generate-spied-react-component';
@@ -230,6 +230,32 @@ describe('buildBlogPreviewsMarkup', () => {
             blogPreviewHTML.querySelector('.blog-preview-type-heading').id,
           ).toEqual('TECH');
         });
+      });
+    });
+
+    describe('When `includeDate` is `false`', () => {
+      beforeAll(() => {
+        cleanup();
+        render(
+          buildBlogPreviewsMarkup({
+            previews: samplePreviews,
+            includeDate: false,
+          }),
+        );
+        blogPreviewElements = document.querySelectorAll('.single-blog-preview');
+        previewTestEntries = createPreviewTestEntries(blogPreviewElements);
+      });
+
+      it('does not include the date in the preview title heading', () => {
+        previewTestEntries.forEach(
+          ({ blogPreviewHTML, expectedSourcePreview }) => {
+            expect(
+              blogPreviewHTML.innerHTML.includes(
+                `<div class="blog-preview-title-heading">${expectedSourcePreview.title}</div>`,
+              ),
+            ).toEqual(true);
+          },
+        );
       });
     });
   });

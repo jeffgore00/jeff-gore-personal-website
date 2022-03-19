@@ -42,6 +42,7 @@ export function Homepage(): React.ReactElement {
             {buildBlogPreviewsMarkup({
               previews: response.data,
               blogType: 'TECH',
+              includeDate: false,
             })}
           </section>
         );
@@ -55,6 +56,7 @@ export function Homepage(): React.ReactElement {
             {buildBlogPreviewsMarkup({
               previews: response.data,
               blogType: 'COMMENTARY',
+              includeDate: false,
             })}
           </section>
         );

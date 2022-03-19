@@ -124,11 +124,13 @@ describe('Homepage', () => {
       expect(previewsMarkupSpy).toHaveBeenCalledWith({
         blogType: 'TECH',
         previews: contentFromServer,
+        includeDate: false,
       });
 
       expect(previewsMarkupSpy).toHaveBeenCalledWith({
         blogType: 'COMMENTARY',
         previews: contentFromServer,
+        includeDate: false,
       });
     });
 

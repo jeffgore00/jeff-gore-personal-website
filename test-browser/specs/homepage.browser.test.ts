@@ -231,22 +231,18 @@ describe('The homepage', () => {
 
         const [preview1, preview2, preview3] = techBlogPreviews;
 
-        expect(preview1.title).toEqual(
-          'The Algorithms That Still Matter (4/2/2050)',
-        );
+        expect(preview1.title).toEqual('The Algorithms That Still Matter');
         expect(preview1.subtitle).toEqual(
           'A cheat sheet to some fundamentals that are older than me.',
         );
 
-        expect(preview2.title).toEqual(
-          'WebAssembly - A Blast From The Past (4/1/2050)',
-        );
+        expect(preview2.title).toEqual('WebAssembly - A Blast From The Past');
         expect(preview2.subtitle).toEqual(
           'A look back at the language that was the hotness during the 2030s.',
         );
 
         expect(preview3.title).toEqual(
-          'Coding Your Printed-Flesh Friends With DNAScript (2/2/2050)',
+          'Coding Your Printed-Flesh Friends With DNAScript',
         );
         expect(preview3.subtitle).toEqual(
           'Template-farmed humans are for casuals. As always, tinkering with the source yields the best results.',
@@ -264,21 +260,17 @@ describe('The homepage', () => {
 
         const [preview1, preview2, preview3] = commentaryBlogPreviews;
 
-        expect(preview1.title).toEqual(
-          'Good Design Is A Human Right (3/15/2050)',
-        );
+        expect(preview1.title).toEqual('Good Design Is A Human Right');
         expect(preview1.subtitle).toEqual(
           "We shouldn't have to look at ugly things. Inside, a proposal to codify that into international law.",
         );
 
-        expect(preview2.title).toEqual(
-          'Remember When We Had to Remember? (3/1/2050)',
-        );
+        expect(preview2.title).toEqual('Remember When We Had to Remember?');
         expect(preview2.subtitle).toEqual(
           'With the latest Neuralink, we welcome the end of human memory as we know it. Is that a good thing?',
         );
 
-        expect(preview3.title).toEqual('My Trip To Mars (2/1/2050)');
+        expect(preview3.title).toEqual('My Trip To Mars');
         expect(preview3.subtitle).toEqual(
           "A fun extraterrestrial jaunt, but oddly, everything smells like Cap'n Crunch.",
         );

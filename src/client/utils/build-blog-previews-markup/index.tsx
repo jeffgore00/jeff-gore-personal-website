@@ -11,10 +11,12 @@ import { SerializedPreviews } from '../../../shared/types/content-metadata';
 export function buildBlogPreviewsMarkup({
   previews,
   includeTypeHeading = false,
+  includeDate = true,
   blogType,
 }: {
   previews: SerializedPreviews;
   includeTypeHeading?: boolean;
+  includeDate?: boolean;
   blogType?: string;
 }): JSX.Element {
   const filterForBlogType = blogType
@@ -49,7 +51,9 @@ export function buildBlogPreviewsMarkup({
                   />
                 )}
                 <BlogPreviewTitleHeading>
-                  {`${contentItem.title} (${formattedBlogPublishDate})`}
+                  {`${contentItem.title}${
+                    includeDate ? ` (${formattedBlogPublishDate})` : ''
+                  }`}
                 </BlogPreviewTitleHeading>
 
                 <span className="blog-preview-subtitle">
