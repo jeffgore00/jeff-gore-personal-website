@@ -52,6 +52,14 @@ const NavigatorContainer = styled.nav.attrs({
   & * {
     align-self: flex-end;
   }
+  font-family: JetBrainsMono;
+  @font-face {
+    font-family: JetBrainsMono;
+    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 `;
 
 export function Navigator(): React.ReactElement {
