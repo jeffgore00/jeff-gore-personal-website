@@ -164,7 +164,7 @@ describe('buildBlogPreviewsMarkup', () => {
   });
 
   describe('Within the <BlogPreviewWrapper>', () => {
-    it('renders the <BlogPreviewTitleHeading> with expected children, and wrapped in a link to the blog', () => {
+    it('renders the blog title, date, and and subtitle, all wrapped in a link to the blog', () => {
       previewTestEntries.forEach(
         ({
           blogPreviewHTML,
@@ -172,24 +172,13 @@ describe('buildBlogPreviewsMarkup', () => {
           expectedDisplayedDate,
           blogPreviewId,
         }) => {
-          expect(
-            blogPreviewHTML.querySelector('.blog-preview-title-heading')
-              .innerHTML,
-          ).toEqual(
-            `<a href="${`/blog/${blogPreviewId}`}">${
+          expect(blogPreviewHTML.querySelector('a').outerHTML).toEqual(
+            `<a href="${`/blog/${blogPreviewId}`}"><div class="blog-preview-title-heading">${
               expectedSourcePreview.title
-            } (${expectedDisplayedDate})</a>`,
+            } (${expectedDisplayedDate})</div><span class="blog-preview-subtitle">${
+              expectedSourcePreview.subtitle
+            }</span></a>`,
           );
-        },
-      );
-    });
-
-    it('renders the subtitle', () => {
-      previewTestEntries.forEach(
-        ({ blogPreviewHTML, expectedSourcePreview }) => {
-          expect(
-            blogPreviewHTML.querySelector('.blog-preview-subtitle').innerHTML,
-          ).toEqual(expectedSourcePreview.subtitle);
         },
       );
     });

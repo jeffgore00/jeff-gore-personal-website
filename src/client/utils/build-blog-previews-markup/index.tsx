@@ -42,18 +42,20 @@ export function buildBlogPreviewsMarkup({
 
           return (
             <BlogPreviewWrapper contentId={contentId} key={contentId}>
-              {includeTypeHeading && (
-                <BlogPreviewTypeHeading blogType={contentItem.contentSubtype} />
-              )}
-              <BlogPreviewTitleHeading>
-                <StyledLink to={`/blog/${contentId}`}>
+              <StyledLink to={`/blog/${contentId}`}>
+                {includeTypeHeading && (
+                  <BlogPreviewTypeHeading
+                    blogType={contentItem.contentSubtype}
+                  />
+                )}
+                <BlogPreviewTitleHeading>
                   {`${contentItem.title} (${formattedBlogPublishDate})`}
-                </StyledLink>
-              </BlogPreviewTitleHeading>
+                </BlogPreviewTitleHeading>
 
-              <span className="blog-preview-subtitle">
-                {contentItem.subtitle}
-              </span>
+                <span className="blog-preview-subtitle">
+                  {contentItem.subtitle}
+                </span>
+              </StyledLink>
             </BlogPreviewWrapper>
           );
         })}

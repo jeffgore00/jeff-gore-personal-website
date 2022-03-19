@@ -83,7 +83,7 @@ describe('The Blogs page', () => {
 
   describe('When the user clicks one of the blog links', () => {
     beforeAll(() => {
-      blogPage.blogPreviews[0].$('.blog-preview-title-heading a').click();
+      blogPage.blogPreviews[0].$('a').click();
     });
 
     // eslint-disable-next-line jest/expect-expect
