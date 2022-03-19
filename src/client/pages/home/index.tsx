@@ -69,7 +69,7 @@ export function Homepage(): React.ReactElement {
     <>
       <AboutMeHeader>
         Welcome to my site! I work full time as a web developer. I used to work
-        as a journalist. Peruse the blog!
+        as a journalist. Peruse the <a href="/blog">blog</a>!
       </AboutMeHeader>
       {!contentReady ? (
         <ShimmeringLinesInPlaceOfContentNotYetReady
