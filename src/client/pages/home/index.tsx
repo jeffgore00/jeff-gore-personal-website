@@ -1,6 +1,7 @@
 // External dependencies
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
+import styled from 'styled-components';
 
 // Internal dependencies
 import logger from '../../utils/logger';
@@ -17,6 +18,17 @@ export const NUMBER_OF_LOADING_LINES = 20;
 export const HOMEPAGE_RENDERED_LOG =
   'Homepage rendered. Fetching blog previews...';
 export const HOMEPAGE_GOT_CONTENT_PREVIEWS_LOG = 'Homepage: Got blog previews';
+
+export const StyledHeader = styled.h3`
+  font-family: JetBrainsMono, monospace;
+  @font-face {
+    font-family: JetBrainsMono;
+    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+`;
 
 export function Homepage(): React.ReactElement {
   const techMarkup = useRef<JSX.Element>(null);
@@ -36,9 +48,9 @@ export function Homepage(): React.ReactElement {
         const techPreviewsMarkup = (
           <section data-testid="homepage-tech-blog-previews">
             <div>- - - - - - - - - - - - - - - - - - - -</div>
-            <h3 data-testid="homepage-tech-blog-previews-heading">
+            <StyledHeader data-testid="homepage-tech-blog-previews-heading">
               Latest From the Tech Blog
-            </h3>
+            </StyledHeader>
             {buildBlogPreviewsMarkup({
               previews: response.data,
               blogType: 'TECH',
@@ -50,9 +62,9 @@ export function Homepage(): React.ReactElement {
         const nonTechPreviewsMarkup = (
           <section data-testid="homepage-commentary-blog-previews">
             <div>- - - - - - - - - - - - - - - - - - - -</div>
-            <h3 data-testid="homepage-commentary-blog-previews-heading">
+            <StyledHeader data-testid="homepage-commentary-blog-previews-heading">
               Latest From the Commentary Blog
-            </h3>
+            </StyledHeader>
             {buildBlogPreviewsMarkup({
               previews: response.data,
               blogType: 'COMMENTARY',
