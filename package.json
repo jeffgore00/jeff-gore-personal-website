@@ -27,7 +27,6 @@
   "scripts": {
     "build": "npm run build:client && npm run build:server && npm run build:content",
     "build:dev": "NODE_ENV=development npm run build:client",
-    "build:dev:offline": "BUILD_OFFLINE=true npm run build:dev",
     "build:content": "rm -rf dist/content && npm run write-single-blog-entry-files && npm run write-blog-preview-files",
     "build:client": "webpack",
     "build:server": "rm -rf dist/server && tsc --project tsconfig.server.json && node dist/src/server/utils/build/edit-server-status-file/index.js",
@@ -40,7 +39,6 @@
     "start": "NODE_ENV=production node dist/src/server/index.js --unhandled-rejections=strict",
     "start:local:prodlike": "PRODLIKE=true npm run build && PRODLIKE=true npm start",
     "start:dev": "concurrently -p \"[{name}]\" -n static,___app -c \"magenta,cyan\" \"NODE_ENV=development webpack serve --open\" \"NODE_ENV=development nodemon src/server/index.ts\" --kill-others",
-    "start:dev:offline": "BUILD_OFFLINE=true npm run start:dev",
     "selenium": "docker run -it -p 4444:4444 vvoyer/selenium-standalone",
     "test": "npm run test:unit-and-api && npm run lint && npm run prettier:check && npm run test:spellcheck",
     "test:unit-and-api": "NODE_ENV=test jest --runInBand",
