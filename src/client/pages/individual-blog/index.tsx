@@ -2,6 +2,7 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import parse from 'html-react-parser';
 
 // Internal dependencies
 import logger from '../../utils/logger';
@@ -42,6 +43,6 @@ export function IndividualBlog(): React.ReactElement {
       numberOfLines={NUMBER_OF_LOADING_LINES}
     />
   ) : (
-    <div dangerouslySetInnerHTML={{ __html: content.current.htmlContent }} />
+    <article>{parse(content.current.htmlContent)}</article>
   );
 }
