@@ -6,6 +6,7 @@ const FooterContainer = styled.footer.attrs({
 })`
   display: flex;
   align-items: center;
+  margin-top: 1em;
 `;
 
 const CopyrightContainer = styled.div.attrs({
