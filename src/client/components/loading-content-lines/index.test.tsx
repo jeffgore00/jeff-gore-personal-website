@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
 import { render } from '@testing-library/react';
 
 import { ShimmeringLinesInPlaceOfContentNotYetReady } from '.';

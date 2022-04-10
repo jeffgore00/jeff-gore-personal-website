@@ -54,11 +54,12 @@ describe('Mobile nav menu', () => {
       expect(screen.queryByRole('presentation')).toBeTruthy();
       expect(document.querySelector('.jg-drawer-open')).toBeTruthy();
       expect(
-        screen
-          .getByRole('presentation')
-          .getAttribute('style')
-          .includes('z-index: 1'),
-      ).toEqual(true);
+        Number(
+          getComputedStyle(screen.getByRole('presentation')).getPropertyValue(
+            'z-index',
+          ),
+        ),
+      ).toBeGreaterThan(0);
     });
 
     it('sets "aria-hidden":"true" on the page underneath', () => {
