@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 
 import * as TopLevelUserInterfaceModule from './components/top-level-user-interface';
 import { generateSpiedReactComponent } from '../../test-utils/generate-spied-react-component';
 
-const reactDOMRenderSpy = jest
-  .spyOn(ReactDOM, 'render')
-  .mockImplementation(jest.fn());
+const reactDOMRootSpy = { render: jest.fn() };
+
+const reactDOMCreateRootSpy = jest
+  .spyOn(ReactDOM, 'createRoot')
+  // @ts-ignore
+  .mockImplementation(() => reactDOMRootSpy);
 
 const TopLevelUserInterfaceSpy = generateSpiedReactComponent({
   object: TopLevelUserInterfaceModule,
@@ -25,9 +29,10 @@ describe('root', () => {
 
   it('injects the <TopLevelUserInterface> component into <div id="root">', async () => {
     await import('.');
-    expect(reactDOMRenderSpy).toHaveBeenCalledWith(
+    expect(reactDOMCreateRootSpy).toHaveBeenCalledWith(root);
+
+    expect(reactDOMRootSpy.render).toHaveBeenCalledWith(
       <TopLevelUserInterfaceSpy />,
-      root,
     );
   });
 });

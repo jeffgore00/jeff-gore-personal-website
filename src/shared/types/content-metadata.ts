@@ -24,6 +24,7 @@ export interface ContentWithMetadata extends ContentMetadata {
 
 export interface SerializedContentMetadata {
   title: string;
+  subtitle?: string;
   publishDate: string;
   revisionDates?: string[];
   contentType: string;
