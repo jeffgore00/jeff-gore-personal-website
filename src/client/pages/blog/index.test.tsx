@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import axios from 'axios';
 import { render, act, RenderResult, cleanup } from '@testing-library/react';
 
 // The module being tested, plus its constants
@@ -22,14 +21,17 @@ import * as useAdditionalParamsStringModule from '../../hooks/use-additional-par
 
 describe('Blog', () => {
   let infoLoggerSpy: jest.SpyInstance;
-  let axiosGetSpy: jest.SpyInstance;
+  let fetchSpy: jest.SpyInstance;
   let previewsMarkupSpy: jest.SpyInstance;
   let component: RenderResult;
 
-  const delayedContentApiResponse = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ status: 200, data: { sampleDataKey: 'sampleDataValue' } });
-    }, 1000);
+  const sampleResponse: unknown = {
+    status: 200,
+    json: () => Promise.resolve({ sampleDataKey: 'sampleDataValue' }),
+  };
+
+  const delayedContentApiResponse: unknown = new Promise((resolve) => {
+    setTimeout(() => resolve(sampleResponse), 1000);
   });
 
   beforeAll(async () => {
@@ -42,9 +44,9 @@ describe('Blog', () => {
     });
 
     infoLoggerSpy = jest.spyOn(logger, 'info').mockImplementation(jest.fn());
-    axiosGetSpy = jest
-      .spyOn(axios, 'get')
-      .mockImplementation(() => delayedContentApiResponse);
+    fetchSpy = jest
+      .spyOn(window, 'fetch')
+      .mockImplementation(() => delayedContentApiResponse as Promise<Response>);
     previewsMarkupSpy = jest
       .spyOn(buildBlogPreviewsMarkupModule, 'buildBlogPreviewsMarkup')
       .mockImplementation(() => <div className="mocked-previews-markup" />);
@@ -64,7 +66,7 @@ describe('Blog', () => {
   });
 
   it('calls the blog previews API endpoint with `page=blog`', () => {
-    expect(axiosGetSpy).toHaveBeenCalledWith(
+    expect(fetchSpy).toHaveBeenCalledWith(
       'http://localhost:1337/api/content/blogs/previews?page=blog',
     );
   });
@@ -90,7 +92,10 @@ describe('Blog', () => {
   });
 
   describe('When the blog previews have loaded', () => {
-    const contentFromServer = { sampleDataKey2: 'sampleDataValue2' };
+    const sampleResponseFromServer: unknown = {
+      status: 200,
+      json: () => Promise.resolve({ sampleDataKey2: 'sampleDataValue2' }),
+    };
 
     beforeAll(async () => {
       jest.clearAllMocks();
@@ -99,10 +104,10 @@ describe('Blog', () => {
 
       /* This time, make the API respond with no latency whatsoever. That should translate to the 
       component rendering immediately with the content. */
-      axiosGetSpy = jest
-        .spyOn(axios, 'get')
+      fetchSpy = jest
+        .spyOn(window, 'fetch')
         .mockImplementation(() =>
-          Promise.resolve({ status: 200, data: contentFromServer }),
+          Promise.resolve(sampleResponseFromServer as Response),
         );
 
       await act(async () => {
@@ -118,7 +123,7 @@ describe('Blog', () => {
     it('calls buildBlogPreviewsMarkup with correct arguments, including data from server', () => {
       expect(previewsMarkupSpy).toHaveBeenCalledWith({
         includeTypeHeading: true,
-        previews: contentFromServer,
+        previews: { sampleDataKey2: 'sampleDataValue2' },
       });
     });
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { serializeError } from 'serialize-error';
 
 import { Logger } from '.';
@@ -6,16 +5,21 @@ import { LogType } from '../../../shared/types/logging';
 
 describe('Logger', () => {
   let logger: Logger;
-  let axiosPutSpy: jest.SpyInstance;
+  let fetchSpy: jest.SpyInstance;
 
   const SAMPLE_MESSAGE = 'sample message';
   const logTypes = Object.values(LogType);
 
+  const sampleResponse: unknown = {
+    status: 200,
+    json: () => Promise.resolve({ sampleDataKey: 'sampleDataValue' }),
+  };
+
   beforeAll(() => {
     appEnvironment = 'development';
-    axiosPutSpy = jest
-      .spyOn(axios, 'put')
-      .mockImplementation(() => Promise.resolve({ status: 200 }));
+    fetchSpy = jest
+      .spyOn(window, 'fetch')
+      .mockImplementation(() => Promise.resolve(sampleResponse as Response));
   });
 
   beforeEach(() => {
@@ -36,12 +40,18 @@ describe('Logger', () => {
       'issues a PUT request to the /api/logs endpoint with logType: %s',
       (logType) => {
         void logger[logType](SAMPLE_MESSAGE);
-        expect(axiosPutSpy).toHaveBeenCalledWith(
+        expect(fetchSpy).toHaveBeenCalledWith(
           'http://localhost:1337/api/logs',
           {
-            logType,
-            logSource: 'UI',
-            message: SAMPLE_MESSAGE,
+            headers: {
+              'content-type': 'application/json',
+            },
+            method: 'PUT',
+            body: JSON.stringify({
+              logType,
+              logSource: 'UI',
+              message: SAMPLE_MESSAGE,
+            }),
           },
         );
       },
@@ -53,13 +63,19 @@ describe('Logger', () => {
           'issues a PUT request to the /api/logs endpoint plus `additionalData` key and primitive value',
           (logType) => {
             void logger[logType](SAMPLE_MESSAGE, { clientId: 12345 });
-            expect(axiosPutSpy).toHaveBeenCalledWith(
+            expect(fetchSpy).toHaveBeenCalledWith(
               'http://localhost:1337/api/logs',
               {
-                logType,
-                logSource: 'UI',
-                message: SAMPLE_MESSAGE,
-                additionalData: { clientId: 12345 },
+                headers: {
+                  'content-type': 'application/json',
+                },
+                method: 'PUT',
+                body: JSON.stringify({
+                  logType,
+                  logSource: 'UI',
+                  message: SAMPLE_MESSAGE,
+                  additionalData: { clientId: 12345 },
+                }),
               },
             );
           },
@@ -73,13 +89,19 @@ describe('Logger', () => {
             void logger[logType](SAMPLE_MESSAGE, {
               formData: { firstName: 'Jeff' },
             });
-            expect(axiosPutSpy).toHaveBeenCalledWith(
+            expect(fetchSpy).toHaveBeenCalledWith(
               'http://localhost:1337/api/logs',
               {
-                logType,
-                logSource: 'UI',
-                message: SAMPLE_MESSAGE,
-                additionalData: { formData: { firstName: 'Jeff' } },
+                headers: {
+                  'content-type': 'application/json',
+                },
+                method: 'PUT',
+                body: JSON.stringify({
+                  logType,
+                  logSource: 'UI',
+                  message: SAMPLE_MESSAGE,
+                  additionalData: { formData: { firstName: 'Jeff' } },
+                }),
               },
             );
           },
@@ -93,15 +115,21 @@ describe('Logger', () => {
           'issues a PUT request to the /api/logs endpoint plus `additionalData` key with serialized Error object',
           (logType) => {
             void logger[logType](SAMPLE_MESSAGE, { error: sampleError });
-            expect(axiosPutSpy).toHaveBeenCalledWith(
+            expect(fetchSpy).toHaveBeenCalledWith(
               'http://localhost:1337/api/logs',
               {
-                logType,
-                logSource: 'UI',
-                message: SAMPLE_MESSAGE,
-                additionalData: {
-                  error: serializeError(sampleError),
+                headers: {
+                  'content-type': 'application/json',
                 },
+                method: 'PUT',
+                body: JSON.stringify({
+                  logType,
+                  logSource: 'UI',
+                  message: SAMPLE_MESSAGE,
+                  additionalData: {
+                    error: serializeError(sampleError),
+                  },
+                }),
               },
             );
           },
@@ -119,9 +147,11 @@ describe('Logger', () => {
 
       describe('When the call to the /api/logs endpoint responds with non 200-level response', () => {
         beforeAll(() => {
-          axiosPutSpy = jest
-            .spyOn(axios, 'put')
-            .mockImplementation(() => Promise.resolve({ status: 401 }));
+          fetchSpy = jest
+            .spyOn(window, 'fetch')
+            .mockImplementation(() =>
+              Promise.resolve({ status: 401 } as Response),
+            );
         });
 
         const SAMPLE_LOG_MESSAGE = 'SAMPLE_LOG_MESSAGE';
@@ -136,8 +166,8 @@ describe('Logger', () => {
 
       describe('When the call to the /api/logs endpoint fails', () => {
         beforeAll(() => {
-          axiosPutSpy = jest
-            .spyOn(axios, 'put')
+          fetchSpy = jest
+            .spyOn(window, 'fetch')
             .mockImplementation(() =>
               Promise.reject(new Error('ECONNREFUSED')),
             );

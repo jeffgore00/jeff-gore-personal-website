@@ -1,4 +1,3 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
 import { serializeError } from 'serialize-error';
 
 import { LogType, Metadata } from '../../../shared/types/logging';
@@ -46,23 +45,28 @@ export class Logger implements ClientSideLogger {
         {},
       );
 
-    return axios
-      .put(`${apiUrl}/logs`, {
+    return fetch(`${apiUrl}/logs`, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
         logType,
         logSource: 'UI',
         message,
         ...(additionalData && {
           additionalData: serializedAdditionalData,
         }),
-      })
-      .then((res: AxiosResponse) => {
+      }),
+    })
+      .then((res) => {
         if (res.status >= 300) {
           throw new Error(
             `Non-ok response from /api/logs endpoint: ${res.status}`,
           );
         }
       })
-      .catch((err: AxiosError) => {
+      .catch((err: Error) => {
         // eslint-disable-next-line no-console
         console.error(
           `Failed to log message: "${message}". Error: ${err.message}`,

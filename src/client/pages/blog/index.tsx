@@ -1,5 +1,4 @@
 // External dependencies
-import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 
 // Internal dependencies
@@ -26,15 +25,15 @@ export function Blog(): React.ReactElement {
 
   useEffect(() => {
     void logger.info(BLOG_RENDERED_LOG);
-    void axios
-      .get(previewsUrl)
-      .then((response: AxiosResponse<SerializedPreviews>) => {
+    void fetch(previewsUrl)
+      .then((response) => response.json())
+      .then((responseBody: SerializedPreviews) => {
         void logger.info(BLOG_GOT_CONTENT_PREVIEWS_LOG);
 
         const markup = (
           <section data-testid="blog-page-blog-previews">
             {buildBlogPreviewsMarkup({
-              previews: response.data,
+              previews: responseBody,
               includeTypeHeading: true,
             })}
           </section>

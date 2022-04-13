@@ -1,5 +1,4 @@
 // External dependencies
-import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import parse from 'html-react-parser';
@@ -28,12 +27,12 @@ export function IndividualBlog(): React.ReactElement {
     const blogContentUrl = `${apiUrl}/content/blogs/${contentId}`;
 
     void logger.info(BLOG_FETCHING_CONTENT_LOG);
-    void axios
-      .get(blogContentUrl)
-      .then((response: AxiosResponse<SerializedContentAndMetadata>) => {
+    void fetch(blogContentUrl)
+      .then((response) => response.json())
+      .then((responseBody: SerializedContentAndMetadata) => {
         void logger.info(BLOG_GOT_CONTENT_LOG, { contentId });
 
-        content.current = response.data;
+        content.current = responseBody;
         setContentReady(true);
       });
   }, [contentId]);

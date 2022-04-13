@@ -1,5 +1,4 @@
 // External dependencies
-import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 
@@ -40,9 +39,9 @@ export function Homepage(): React.ReactElement {
 
   useEffect(() => {
     void logger.info(HOMEPAGE_RENDERED_LOG);
-    void axios
-      .get(previewsUrl)
-      .then((response: AxiosResponse<SerializedPreviews>) => {
+    void fetch(previewsUrl)
+      .then((response) => response.json())
+      .then((responseBody: SerializedPreviews) => {
         void logger.info(HOMEPAGE_GOT_CONTENT_PREVIEWS_LOG);
 
         const techPreviewsMarkup = (
@@ -52,7 +51,7 @@ export function Homepage(): React.ReactElement {
               Latest From the Tech Blog
             </StyledHeader>
             {buildBlogPreviewsMarkup({
-              previews: response.data,
+              previews: responseBody,
               blogType: 'TECH',
               includeDate: false,
             })}
@@ -66,7 +65,7 @@ export function Homepage(): React.ReactElement {
               Latest From the Commentary Blog
             </StyledHeader>
             {buildBlogPreviewsMarkup({
-              previews: response.data,
+              previews: responseBody,
               blogType: 'COMMENTARY',
               includeDate: false,
             })}

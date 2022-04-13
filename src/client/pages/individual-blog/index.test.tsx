@@ -1,6 +1,5 @@
 // External dependencies
 import React from 'react';
-import axios from 'axios';
 import { render, act, RenderResult, cleanup } from '@testing-library/react';
 
 // The module being tested, plus its constants
@@ -41,13 +40,18 @@ jest.mock('react-router-dom', () => ({
 
 describe('Individual Blog Page', () => {
   let infoLoggerSpy: jest.SpyInstance;
+  let fetchSpy: jest.SpyInstance;
   let useSetPageTitleSpy: jest.SpyInstance;
-  let axiosGetSpy: jest.SpyInstance;
   let component: RenderResult;
+
+  const sampleResponse: unknown = {
+    status: 200,
+    json: () => Promise.resolve(contentApiResponse),
+  };
 
   const delayedContentApiResponse = new Promise((resolve) => {
     setTimeout(() => {
-      resolve({ status: 200, data: contentApiResponse });
+      resolve(sampleResponse);
     }, 1000);
   });
 
@@ -61,9 +65,9 @@ describe('Individual Blog Page', () => {
     });
 
     infoLoggerSpy = jest.spyOn(logger, 'info').mockImplementation(jest.fn());
-    axiosGetSpy = jest
-      .spyOn(axios, 'get')
-      .mockImplementation(() => delayedContentApiResponse);
+    fetchSpy = jest
+      .spyOn(window, 'fetch')
+      .mockImplementation(() => delayedContentApiResponse as Promise<Response>);
     useSetPageTitleSpy = jest
       .spyOn(useSetPageTitleModule, 'useSetPageTitle')
       .mockImplementation(() => null);
@@ -79,7 +83,7 @@ describe('Individual Blog Page', () => {
   });
 
   it('calls the blog previews API endpoint with the ID of the content in the URL', () => {
-    expect(axiosGetSpy).toHaveBeenCalledWith(
+    expect(fetchSpy).toHaveBeenCalledWith(
       `http://localhost:1337/api/content/blogs/${contentId}`,
     );
   });
@@ -107,11 +111,9 @@ describe('Individual Blog Page', () => {
 
       /* This time, make the API respond with no latency whatsoever. That should translate to the 
       component rendering immediately with the content. */
-      axiosGetSpy = jest
-        .spyOn(axios, 'get')
-        .mockImplementation(() =>
-          Promise.resolve({ status: 200, data: contentApiResponse }),
-        );
+      fetchSpy = jest
+        .spyOn(window, 'fetch')
+        .mockImplementation(() => Promise.resolve(sampleResponse as Response));
 
       await act(async () => {
         component = render(<IndividualBlog />);

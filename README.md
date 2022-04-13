@@ -98,9 +98,9 @@ If the additional data object is provided, contains the key name `error` and is 
 
 ```ts
 try {
-  await axios.delete('https://www.cia.gov/api/agents/5');
+  await fetch('https://www.cia.gov/api/agents/5');
 } catch (error: unknown) {
-  logger.error('Could not remove CIA secret agent', { error });
+  logger.error('Could not get CIA secret agent', { error });
 }
 ```
 

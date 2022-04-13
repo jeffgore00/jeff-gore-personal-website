@@ -23,6 +23,13 @@ Hence a plain noop function instead.
 // @ts-ignore
 global.setImmediate = () => {};
 
+const response: unknown = {
+  status: 200,
+  json: () => Promise.resolve({}),
+};
+
+global.fetch = () => Promise.resolve(response as Response);
+
 process.on('unhandledRejection', (err) => {
   // eslint-disable-next-line @typescript-eslint/no-throw-literal
   throw err;
