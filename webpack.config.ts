@@ -14,6 +14,24 @@ import { sendResourceNotFound } from './src/server/middleware/send-resource-not-
 
 const styledComponentsTransformer = createStyledComponentsTransformer();
 
+const createReactScriptHtmlWebpackConfig = () => {
+  if (process.env.BUILD_OFFLINE) {
+    return {
+      reactScript: '',
+      reactDomScript: '',
+    };
+  }
+  const createReactScriptTags = (environment: string) => ({
+    reactScript: `<script crossorigin src="https://unpkg.com/react@18.0.0/umd/react.${environment}.js"></script>`,
+    reactDomScript: `<script crossorigin src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.${environment}.js"></script>`,
+  });
+
+  if (process.env.NODE_ENV === 'development') {
+    return createReactScriptTags('development');
+  }
+  return createReactScriptTags('production.min');
+};
+
 const getMode = () => {
   if (process.env.NODE_ENV === 'development') return 'development';
   return 'production';
@@ -78,6 +96,18 @@ const config: WebpackConfig = {
       },
     ],
   },
+
+  /* From the TypeScript boilerplate repo webpack config:
+  "When importing a module whose path matches one of the following, just assume a corresponding
+  global variable exists and use that instead. This is important because it allows us to avoid
+  bundling all of our dependencies, which allows browsers to cache those libraries between builds."
+  */
+  ...(!process.env.BUILD_OFFLINE && {
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+    },
+  }),
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
@@ -86,6 +116,7 @@ const config: WebpackConfig = {
     }),
     new CompressionPlugin({ include: /.*bundle.js/ }),
     new HtmlWebpackPlugin({
+      ...createReactScriptHtmlWebpackConfig(),
       template: 'public/index-template.html',
     }),
     new DefinePlugin({

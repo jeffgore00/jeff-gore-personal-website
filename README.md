@@ -27,6 +27,14 @@ This starts the application server on port 1337 and the Webpack development serv
 
 Once Webpack has compiled the client-side bundle, it will automatically open `http://localhost:8080` in your default web browser. All changes in the `/server` and `/client` directories are watched by nodemon and webpack-dev-server respectively, which means those servers will restart if any of the files they watch are modified.
 
+By default, `react` and `react-dom` is fetched via CDN, rather than bundled, to minimize the size of `bundle.js`. But this default configuration does not allow for offline development. Therefore if you need to work offline, use this:
+
+```shell
+npm run start:dev:offline
+```
+
+This will signal the Webpack bundler to include React and React DOM in the bundle.
+
 As expected, this is the command you want in production:
 
 ```shell
