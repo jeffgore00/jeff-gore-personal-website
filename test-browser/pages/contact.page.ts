@@ -2,11 +2,11 @@
 import Page from './page';
 
 class ContactPage extends Page {
-  get heading(): WebdriverIO.Element {
+  get heading(): Promise<WebdriverIO.Element> {
     return $('h2=Contact Me');
   }
 
-  open(): void {
+  open(): Promise<void> {
     return super.open();
   }
 }

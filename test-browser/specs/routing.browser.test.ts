@@ -23,44 +23,48 @@ const pageMap = new Map([
 declare let wdioBaseUrl: string;
 
 describe('URL routes', () => {
-  beforeAll(() => {
+  beforeAll(async () => {
     /* TODO: check with server first what links *should* be appearing. If a link is 
     disabled, do not test for it. */
-    homepage.open();
+    await homepage.open();
   });
   describe(`When the user accesses the homepage ("/" base route)`, () => {
     let homepageLinkMap: Map<NavMenuLinkText, WebdriverIO.Element>;
 
-    beforeAll(() => {
+    beforeAll(async () => {
       // Needs to be set within a test hook, after `homepage` is initialized
       homepageLinkMap = new Map([
-        [NavMenuLinkText.About, homepage.aboutMeLink],
-        [NavMenuLinkText.Blog, homepage.blogLink],
-        [NavMenuLinkText.Projects, homepage.projectsLink],
-        [NavMenuLinkText.ThingsILike, homepage.thingsILikeLink],
-        [NavMenuLinkText.Contact, homepage.contactLink],
-        [NavMenuLinkText.Crazytown, homepage.crazytownLink],
+        [NavMenuLinkText.About, await homepage.aboutMeLink],
+        [NavMenuLinkText.Blog, await homepage.blogLink],
+        [NavMenuLinkText.Projects, await homepage.projectsLink],
+        [NavMenuLinkText.ThingsILike, await homepage.thingsILikeLink],
+        [NavMenuLinkText.Contact, await homepage.contactLink],
+        [NavMenuLinkText.Crazytown, await homepage.crazytownLink],
       ]);
     });
 
     navMenuEnabledLinks.forEach((route, pageName) => {
       describe(`When the user clicks the "${pageName}" link`, () => {
-        beforeAll(() => {
-          homepageLinkMap.get(pageName).click();
+        beforeAll(async () => {
+          await homepageLinkMap.get(pageName).click();
           /* Implicit test that the route changes to the expected route. */
-          browser.waitUntil(
-            () => browser.getUrl() === `${wdioBaseUrl}${route}`,
+          await browser.waitUntil(
+            async () => (await browser.getUrl()) === `${wdioBaseUrl}${route}`,
           );
         });
 
-        it(`Displays the "${pageName}" page`, () => {
-          expect(pageMap.get(pageName).heading.isDisplayed()).toEqual(true);
+        it(`Displays the "${pageName}" page`, async () => {
+          expect(
+            await (await pageMap.get(pageName).heading).isDisplayed(),
+          ).toEqual(true);
         });
 
         describe('When the user clicks on my name in the header', () => {
-          beforeAll(() => {
-            homepage.heading.click();
-            browser.waitUntil(() => browser.getUrl() === `${wdioBaseUrl}/`);
+          beforeAll(async () => {
+            await (await homepage.heading).click();
+            await browser.waitUntil(
+              async () => (await browser.getUrl()) === `${wdioBaseUrl}/`,
+            );
           });
 
           // eslint-disable-next-line jest/expect-expect
@@ -72,47 +76,51 @@ describe('URL routes', () => {
       });
     });
     navMenuDisabledLinks.forEach((route, pageName) => {
-      it(`Should not display the disabled "${pageName}" link`, () => {
-        expect(homepageLinkMap.get(pageName).isDisplayed()).toEqual(false);
+      it(`Should not display the disabled "${pageName}" link`, async () => {
+        expect(await homepageLinkMap.get(pageName).isDisplayed()).toEqual(
+          false,
+        );
       });
     });
   });
   navMenuEnabledLinks.forEach((route, pageName) => {
     describe(`When the user accesses the ${route} URL directly`, () => {
-      beforeAll(() => {
-        browser.url(`${wdioBaseUrl}${route}`);
+      beforeAll(async () => {
+        await browser.url(`${wdioBaseUrl}${route}`);
       });
 
-      it(`Displays the "${pageName}" page`, () => {
-        expect(pageMap.get(pageName).heading.isDisplayed()).toEqual(true);
+      it(`Displays the "${pageName}" page`, async () => {
+        expect(
+          await (await pageMap.get(pageName).heading).isDisplayed(),
+        ).toEqual(true);
       });
     });
   });
 
   describe(`When the user accesses an individual blog URL directly`, () => {
-    beforeAll(() => {
-      browser.url(
+    beforeAll(async () => {
+      await browser.url(
         `${wdioBaseUrl}/blog/20500402-DUMMY-the-algorithms-that-still-matter`,
       );
       // This solves a mysterious issue with the below test occassionally failing.
-      browser.pause(1000);
+      await browser.pause(1000);
     });
 
-    it(`Displays that blog entry`, () => {
-      expect($('h2*=The Algorithms That Still Matter').isDisplayed()).toEqual(
-        true,
-      );
+    it(`Displays that blog entry`, async () => {
+      expect(
+        await (await $('h2*=The Algorithms That Still Matter')).isDisplayed(),
+      ).toEqual(true);
     });
   });
 
   navMenuDisabledLinks.forEach((route) => {
     describe(`When the user accesses the disabled ${route} URL directly`, () => {
-      beforeAll(() => {
-        browser.url(`${wdioBaseUrl}${route}`);
+      beforeAll(async () => {
+        await browser.url(`${wdioBaseUrl}${route}`);
       });
 
-      it('Displays the plain text 404 response for an unrecognized route', () => {
-        expect($('body').getText()).toEqual(
+      it('Displays the plain text 404 response for an unrecognized route', async () => {
+        expect(await (await $('body')).getText()).toEqual(
           `Operation "GET ${route}" not recognized on this server.`,
         );
       });

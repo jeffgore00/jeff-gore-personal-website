@@ -3,7 +3,7 @@
 declare let wdioBaseUrl: string;
 
 export default class Page {
-  open(path?: string): void {
+  async open(path?: string): Promise<void> {
     if (path && path[0] !== '/') {
       throw new Error(
         `path argument, if supplied, must start with a forward slash (/). path argument supplied was: ${path}`,
@@ -13,6 +13,6 @@ export default class Page {
 
     // eslint-disable-next-line no-console
     console.log(`Opening URL ${url}`);
-    browser.url(url);
+    await browser.url(url);
   }
 }

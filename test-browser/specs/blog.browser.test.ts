@@ -4,13 +4,13 @@ import blogPage from '../pages/blog.page';
 declare let wdioBaseUrl: string;
 
 describe('The Blogs page', () => {
-  beforeAll(() => {
-    blogPage.open();
+  beforeAll(async () => {
+    await blogPage.open();
   });
 
   describe('When the content has loaded', () => {
-    it('Should show previews for all blogs, from newest to oldest', () => {
-      const blogPreviews = blogPage.getStructuredBlogPreviews();
+    it('Should show previews for all blogs, from newest to oldest', async () => {
+      const blogPreviews = await blogPage.getStructuredBlogPreviews();
       expect(blogPreviews.length).toEqual(8);
 
       expect(blogPreviews[0].type).toEqual('TECH');
@@ -76,46 +76,55 @@ describe('The Blogs page', () => {
       );
     });
 
-    it('should display "Blog" in the <title>', () => {
-      expect(browser.getTitle()).toEqual('Blog | Jeff Gore');
+    it('should display "Blog" in the <title>', async () => {
+      expect(await browser.getTitle()).toEqual('Blog | Jeff Gore');
     });
   });
 
   describe('When the user clicks one of the blog links', () => {
-    beforeAll(() => {
-      blogPage.blogPreviews[0].$('a').click();
+    beforeAll(async () => {
+      const previews = await blogPage.blogPreviews;
+      const firstPreview = previews[0];
+
+      await (await firstPreview.$('a')).click();
     });
 
     // eslint-disable-next-line jest/expect-expect
-    it('should navigate to the URL for that blog', () => {
+    it('should navigate to the URL for that blog', async () => {
       /* Implicit test that the route changes to the expected route. */
-      browser.waitUntil(
-        () =>
-          browser.getUrl() ===
+      await browser.waitUntil(
+        async () =>
+          (await browser.getUrl()) ===
           `${wdioBaseUrl}/blog/20500402-DUMMY-the-algorithms-that-still-matter`,
       );
       // This solves a mysterious issue with the below test occassionally failing.
       // Perhaps we need to wait for loading lines to disappear.
-      browser.pause(1000);
+      await browser.pause(1000);
     });
 
-    it('should display that blogs content', () => {
-      expect($('h2*=The Algorithms That Still Matter').isDisplayed()).toEqual(
+    it('should display that blogs content', async () => {
+      expect(
+        await (await $('h2*=The Algorithms That Still Matter')).isDisplayed(),
+      ).toEqual(true);
+      expect(
+        await (
+          await $(
+            'h3*=A cheat sheet to some fundamentals that are older than me.',
+          )
+        ).isDisplayed(),
+      ).toEqual(true);
+      expect(await (await $('span*=April 2, 2050')).isDisplayed()).toEqual(
         true,
       );
       expect(
-        $(
-          'h3*=A cheat sheet to some fundamentals that are older than me.',
+        await (
+          await $('p*=Here are some algos that will blow you away.')
         ).isDisplayed(),
-      ).toEqual(true);
-      expect($('span*=April 2, 2050').isDisplayed()).toEqual(true);
-      expect(
-        $('p*=Here are some algos that will blow you away.').isDisplayed(),
       ).toEqual(true);
     });
 
-    it('should display the title of the blog in the <title>', () => {
-      expect(browser.getTitle()).toEqual(
+    it('should display the title of the blog in the <title>', async () => {
+      expect(await browser.getTitle()).toEqual(
         'The Algorithms That Still Matter | Jeff Gore',
       );
     });

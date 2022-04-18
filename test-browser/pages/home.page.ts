@@ -2,123 +2,153 @@
 import Page from './page';
 
 class Homepage extends Page {
-  get heading(): WebdriverIO.Element {
+  get heading(): Promise<WebdriverIO.Element> {
     return $('h1');
   }
 
-  get aboutMeLink(): WebdriverIO.Element {
+  get aboutMeLink(): Promise<WebdriverIO.Element> {
     return $('a*=About');
   }
 
-  get blogLink(): WebdriverIO.Element {
+  get blogLink(): Promise<WebdriverIO.Element> {
     return $('a*=Blog');
   }
 
-  get projectsLink(): WebdriverIO.Element {
+  get projectsLink(): Promise<WebdriverIO.Element> {
     return $('a*=Projects');
   }
 
-  get thingsILikeLink(): WebdriverIO.Element {
+  get thingsILikeLink(): Promise<WebdriverIO.Element> {
     return $('a*=Things I Like');
   }
 
-  get contactLink(): WebdriverIO.Element {
+  get contactLink(): Promise<WebdriverIO.Element> {
     return $('a*=Contact');
   }
 
-  get crazytownLink(): WebdriverIO.Element {
+  get crazytownLink(): Promise<WebdriverIO.Element> {
     return $('a*=Crazytown');
   }
 
-  get mobileHamburgerMenuIcon(): WebdriverIO.Element {
+  get mobileHamburgerMenuIcon(): Promise<WebdriverIO.Element> {
     return $('button*=≡');
   }
 
-  get mobileSideDrawerMenu(): WebdriverIO.Element {
+  get mobileSideDrawerMenu(): Promise<WebdriverIO.Element> {
     return $('.jg-drawer-open');
   }
 
-  get mobileSideDrawerMenuLinks(): WebdriverIO.Element[] {
+  get mobileSideDrawerMenuLinks(): Promise<WebdriverIO.Element[]> {
     return $$('.jg-drawer-open a');
   }
 
-  get aboutMeBlurb(): WebdriverIO.Element {
+  get aboutMeBlurb(): Promise<WebdriverIO.Element> {
     return $('[data-testid="homepage-about-me-blurb"]');
   }
 
-  get loadingContentLines(): WebdriverIO.Element {
+  get loadingContentLines(): Promise<WebdriverIO.Element> {
     return $('[data-testid="loading-content-lines"]');
   }
 
-  get techBlogPreviewsSection(): WebdriverIO.Element {
+  get techBlogPreviewsSection(): Promise<WebdriverIO.Element> {
     return $('[data-testid="homepage-tech-blog-previews"]');
   }
 
-  get commentaryBlogPreviewsSection(): WebdriverIO.Element {
+  get commentaryBlogPreviewsSection(): Promise<WebdriverIO.Element> {
     return $('[data-testid="homepage-commentary-blog-previews"]');
   }
 
-  get techBlogPreviewsHeading(): WebdriverIO.Element {
+  get techBlogPreviewsHeading(): Promise<WebdriverIO.Element> {
     return $('[data-testid="homepage-tech-blog-previews-heading"]');
   }
 
-  get commentaryBlogPreviewsHeading(): WebdriverIO.Element {
+  get commentaryBlogPreviewsHeading(): Promise<WebdriverIO.Element> {
     return $('[data-testid="homepage-commentary-blog-previews-heading"]');
   }
 
-  get techBlogPreviews(): WebdriverIO.Element[] {
-    this.techBlogPreviewsSection.waitForDisplayed();
-    return this.techBlogPreviewsSection.$$('.single-blog-preview');
+  get techBlogPreviews(): Promise<WebdriverIO.Element[]> {
+    return this.techBlogPreviewsSection
+      .then((ele) => ele.waitForDisplayed())
+      .then(async () =>
+        (await this.techBlogPreviewsSection).$$('.single-blog-preview'),
+      );
   }
 
-  get commentaryBlogPreviews(): WebdriverIO.Element[] {
-    this.commentaryBlogPreviewsSection.waitForDisplayed();
-    return this.commentaryBlogPreviewsSection.$$('.single-blog-preview');
+  get commentaryBlogPreviews(): Promise<WebdriverIO.Element[]> {
+    return this.commentaryBlogPreviewsSection
+      .then((ele) => ele.waitForDisplayed())
+      .then(async () =>
+        (await this.commentaryBlogPreviewsSection).$$('.single-blog-preview'),
+      );
   }
 
-  getStructuredTechBlogPreviews(): {
-    title: string;
-    subtitle: string;
-  }[] {
-    const { techBlogPreviews } = this;
-    return techBlogPreviews.map((techBlogPreview) => ({
-      title: techBlogPreview.$('.blog-preview-title-heading').getText(),
-      subtitle: techBlogPreview.$('.blog-preview-subtitle').getText(),
-    }));
+  async getStructuredTechBlogPreviews(): Promise<
+    {
+      title: string;
+      subtitle: string;
+    }[]
+  > {
+    const previews = await this.techBlogPreviews;
+
+    return Promise.all(
+      previews.map(async (techBlogPreview) => {
+        const heading = await techBlogPreview.$('.blog-preview-title-heading');
+        const subtitle = await techBlogPreview.$('.blog-preview-subtitle');
+
+        return {
+          title: await heading.getText(),
+          subtitle: await subtitle.getText(),
+        };
+      }),
+    );
   }
 
-  getStructuredCommentaryBlogPreviews(): {
-    title: string;
-    subtitle: string;
-  }[] {
-    const { commentaryBlogPreviews } = this;
-    return commentaryBlogPreviews.map((commentaryBlogPreview) => ({
-      title: commentaryBlogPreview.$('.blog-preview-title-heading').getText(),
-      subtitle: commentaryBlogPreview.$('.blog-preview-subtitle').getText(),
-    }));
+  async getStructuredCommentaryBlogPreviews(): Promise<
+    {
+      title: string;
+      subtitle: string;
+    }[]
+  > {
+    const previews = await this.commentaryBlogPreviews;
+
+    return Promise.all(
+      previews.map(async (commentaryBlogPreview) => {
+        const heading = await commentaryBlogPreview.$(
+          '.blog-preview-title-heading',
+        );
+        const subtitle = await commentaryBlogPreview.$(
+          '.blog-preview-subtitle',
+        );
+
+        return {
+          title: await heading.getText(),
+          subtitle: await subtitle.getText(),
+        };
+      }),
+    );
   }
 
-  get blogPreviews(): WebdriverIO.Element[] {
+  get blogPreviews(): Promise<WebdriverIO.Element[]> {
     return $$('.single-blog-preview');
   }
 
-  get githubFooterIcon(): WebdriverIO.Element {
+  get githubFooterIcon(): Promise<WebdriverIO.Element> {
     return $('[data-testid="footer-github"]');
   }
 
-  get linkedinFooterIcon(): WebdriverIO.Element {
+  get linkedinFooterIcon(): Promise<WebdriverIO.Element> {
     return $('[data-testid="footer-linkedin"]');
   }
 
-  get twitterFooterIcon(): WebdriverIO.Element {
+  get twitterFooterIcon(): Promise<WebdriverIO.Element> {
     return $('[data-testid="footer-twitter"]');
   }
 
-  get instagramFooterIcon(): WebdriverIO.Element {
+  get instagramFooterIcon(): Promise<WebdriverIO.Element> {
     return $('[data-testid="footer-instagram"]');
   }
 
-  open(path?: string): void {
+  async open(path?: string): Promise<void> {
     return super.open(path);
   }
 }

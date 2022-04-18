@@ -2,11 +2,11 @@
 import Page from './page';
 
 class ProjectsPage extends Page {
-  get heading(): WebdriverIO.Element {
+  get heading(): Promise<WebdriverIO.Element> {
     return $('h2=Projects');
   }
 
-  open(): void {
+  open(): Promise<void> {
     return super.open();
   }
 }

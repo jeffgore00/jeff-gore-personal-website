@@ -15,7 +15,7 @@
       "react-dom",
       "styled-components",
       "jest",
-      "webdriverio/sync"
+      "webdriverio/async"
     ]
   },
   "include": [
