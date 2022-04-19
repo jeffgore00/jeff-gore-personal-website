@@ -210,7 +210,7 @@ describe('Content API - Blogs', () => {
             });
 
             afterAll(() => {
-              fs.rmdirSync(previewsDir, {
+              fs.rmSync(previewsDir, {
                 recursive: true,
               });
             });

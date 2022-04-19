@@ -1,22 +1,25 @@
-/* eslint-disable @typescript-eslint/no-namespace, @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { JasmineOpts } from '@wdio/jasmine-framework';
 import { Options } from '@wdio/types';
 import yargs from 'yargs/yargs';
 import fs from 'fs';
 
+/*
+The use of "var" is required here, see 
+https://javascript.plainenglish.io/typescript-and-global-variables-in-node-js-59c4bf40cb31
+https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#type-checking-for-globalthis
+*/
+/* eslint-disable no-var, vars-on-top */
 declare global {
-  namespace NodeJS {
-    interface Global {
-      wdioBaseUrl: string;
-      specFilename: string;
-      /* `browser` is injected by WDIO into the global namespace, but the @wdio/types
+  var wdioBaseUrl: string;
+  var specFilename: string;
+  /* `browser` is injected by WDIO into the global namespace, but the @wdio/types
       Clients.Browser type definition is empty. ¯\_(ツ)_/¯ */
-      browser: {
-        saveScreenshot: (filepath: string) => void;
-      };
-    }
-  }
+  var browser: {
+    saveScreenshot: (filepath: string) => void;
+  };
 }
+/* eslint-enable no-var, vars-on-top */
 
 enum Environment {
   dev = 'dev',
@@ -147,7 +150,6 @@ const config: Options.Testrunner = {
   },
   beforeSession(conf, capabilities, specs) {
     // This is used by test-browser/pages/page.ts for logging
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     global.wdioBaseUrl = baseUrl;
     const specFilepathSegments = specs[0].split('/');
     global.specFilename = specFilepathSegments[specFilepathSegments.length - 1];
@@ -177,12 +179,12 @@ const config: Options.Testrunner = {
     };
 
     if (screenshot === ScreenshotModes.failedTestsOnly && !passed) {
-      global.browser.saveScreenshot(
+      browser.saveScreenshot(
         `test-result-screenshots/${generateScreenshotName()}.png`,
       );
     }
     if (screenshot === ScreenshotModes.always) {
-      global.browser.saveScreenshot(
+      browser.saveScreenshot(
         `test-result-screenshots/${generateScreenshotName(passed)}.png`,
       );
     }

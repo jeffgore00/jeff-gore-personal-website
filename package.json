@@ -10,7 +10,7 @@
     "url": "https://github.com/jeffgore00/jeff-gore-personal-website.git"
   },
   "engines": {
-    "node": "14.16.1"
+    "node": "16.14.2"
   },
   "nodemonConfig": {
     "ignore": [
@@ -88,7 +88,7 @@
     "@types/jasmine": "^4.0.0",
     "@types/jest": "^27.0.1",
     "@types/morgan": "1.9.2",
-    "@types/node": "^14.14.44",
+    "@types/node": "^16.11.7",
     "@types/react": "^18.0.1",
     "@types/react-dom": "^18.0.0",
     "@types/styled-components": "5.1.11",

@@ -6,7 +6,7 @@ workflows:
   heroku-deploy:
     jobs:
       - node/test:
-          version: "14.16.1"
+          version: "16.14.2"
       - heroku/deploy-via-git:
           filters:
             branches:
