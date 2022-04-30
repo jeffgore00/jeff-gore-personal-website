@@ -11,13 +11,6 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 700px)';
 const StyledHeader = styled.h1.attrs({
   'data-testid': 'name-header',
 })`
-  @font-face {
-    font-family: JetBrainsMonoItalic;
-    src: local('JetBrains Mono Italic'), url('JetBrainsMono-Italic.woff2');
-    font-weight: normal;
-    font-style: italic;
-    font-display: swap;
-  }
   font-family: JetBrainsMonoItalic, monospace;
   font-style: italic;
   font-size: 2em;
@@ -53,13 +46,6 @@ const NavigatorContainer = styled.nav.attrs({
     align-self: flex-end;
   }
   font-family: JetBrainsMono;
-  @font-face {
-    font-family: JetBrainsMono;
-    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
 `;
 
 export function Navigator(): React.ReactElement {

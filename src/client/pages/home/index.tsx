@@ -20,13 +20,6 @@ export const HOMEPAGE_GOT_CONTENT_PREVIEWS_LOG = 'Homepage: Got blog previews';
 
 export const StyledHeader = styled.h3`
   font-family: JetBrainsMono, monospace;
-  @font-face {
-    font-family: JetBrainsMono;
-    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
 `;
 
 export function Homepage(): React.ReactElement {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 
 import { PageWrapper } from '../page-wrapper';
 import { ErrorBoundary } from '../error-boundary';
@@ -13,6 +14,24 @@ import {
 } from '../../../shared/constants';
 import { IndividualBlog } from '../../pages/individual-blog';
 
+const FontFamilies = createGlobalStyle`
+  @font-face {
+    font-family: JetBrainsMonoItalic;
+    src: local('JetBrains Mono Italic'), url('JetBrainsMono-Italic.woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: JetBrainsMono;
+    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+`;
+
 export function TopLevelUserInterface(): JSX.Element {
   const pageMap = new Map([
     [NavMenuLinkText.About, <PlaceholderPage pageName="About Me" />],
@@ -25,6 +44,7 @@ export function TopLevelUserInterface(): JSX.Element {
 
   return (
     <ErrorBoundary boundaryLocation="top-level">
+      <FontFamilies />
       <Router>
         <PageStylingContainer>
           <PageWrapper>

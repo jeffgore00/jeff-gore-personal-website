@@ -16,11 +16,4 @@ export const StyledPageHeader = styled.h2`
   font-family: JetBrainsMono, monospace;
   font-style: normal;
   font-size: 1.5em;
-  @font-face {
-    font-family: JetBrainsMono;
-    src: local('JetBrains Mono Regular'), url('JetBrainsMono-Regular.woff2');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-  }
 `;
