@@ -103,7 +103,7 @@
     "@wdio/spec-reporter": "^7.19.5",
     "@wdio/types": "^7.19.5",
     "chalk": "4.1.1",
-    "chromedriver": "^100.0.0",
+    "chromedriver": "^101.0.0",
     "compression-webpack-plugin": "^9.2.0",
     "concurrently": "^7.0.0",
     "eslint": "^8.6.0",
