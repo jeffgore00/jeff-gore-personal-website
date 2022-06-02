@@ -16,7 +16,6 @@ const config: Config.InitialOptions = {
     '@testing-library/react/dont-cleanup-after-each', // see https://testing-library.com/docs/react-testing-library/setup/#skipping-auto-cleanup
   ],
   rootDir: '.',
-  maxWorkers: '75%', // for some reason, this is required in InitialOptions
 };
 
 export default config;

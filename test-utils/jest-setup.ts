@@ -4,6 +4,12 @@ below. */
 // eslint-disable-next-line
 require('./react-media').setupReactMediaMock();
 
+/* After Jest 27 -> 28 upgrade, JSDOM environment was no longer bundled and had to be installed 
+separately. Evidently this environment is leaner and was missing this global needed by React for
+server side rendering: */
+// eslint-disable-next-line
+global.TextEncoder = require('util').TextEncoder;
+
 /* This is necessary for client-side code tests as this global env var is
 injected via Webpack at build time. */
 appEnvironment = 'development';
