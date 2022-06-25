@@ -127,7 +127,7 @@
     "spellchecker-cli": "4.8.0",
     "standard-version": "9.3.0",
     "supertest": "^6.2.3",
-    "ts-jest": "^28.0.3",
+    "ts-jest": "^28.0.4",
     "ts-loader": "^9.3.0",
     "typescript-plugin-styled-components": "^2.0.0",
     "wdio-chromedriver-service": "^7.3.2",
