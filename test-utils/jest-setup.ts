@@ -26,7 +26,7 @@ This seems to be the most faithful polyfill, but unfortunately results in failin
 Hence a plain noop function instead.
 */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore. Not worth effort trying to make this match the real one
 global.setImmediate = () => {};
 
 const response: unknown = {

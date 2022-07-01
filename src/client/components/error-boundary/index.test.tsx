@@ -14,7 +14,6 @@ describe('Error boundary', () => {
     let faultyComponent: HTMLElement;
 
     beforeAll(() => {
-      // @ts-ignore
       loggerSpy = jest.spyOn(logger, 'error').mockImplementation(jest.fn());
 
       // Despite above, this is necessary to prevent JSDOM from logging the error:

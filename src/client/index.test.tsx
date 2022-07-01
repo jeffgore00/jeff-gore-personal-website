@@ -5,11 +5,10 @@ import ReactDOM from 'react-dom/client';
 import * as TopLevelUserInterfaceModule from './components/top-level-user-interface';
 import { generateSpiedReactComponent } from '../../test-utils/generate-spied-react-component';
 
-const reactDOMRootSpy = { render: jest.fn() };
+const reactDOMRootSpy = { render: jest.fn(), unmount: () => {} };
 
 const reactDOMCreateRootSpy = jest
   .spyOn(ReactDOM, 'createRoot')
-  // @ts-ignore
   .mockImplementation(() => reactDOMRootSpy);
 
 const TopLevelUserInterfaceSpy = generateSpiedReactComponent({

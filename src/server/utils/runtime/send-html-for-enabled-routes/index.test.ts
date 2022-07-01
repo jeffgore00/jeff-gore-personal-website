@@ -14,13 +14,14 @@ const res = {
   sendFile: jest.fn(),
 };
 
-const getSpy = jest.spyOn(app, 'get').mockImplementation(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  (path: string, handler: (req: unknown, res: unknown) => void) => {
-    handler(req, res);
-  },
-);
+const getSpy = jest
+  .spyOn(app, 'get')
+  .mockImplementation(
+    (path: string, handler: (req: unknown, res: unknown) => void) => {
+      handler(req, res);
+      return app;
+    },
+  );
 
 const sendResourceNotFoundSpy = jest
   .spyOn(sendResourceNotFoundModule, 'sendResourceNotFound')
