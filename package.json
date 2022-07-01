@@ -52,6 +52,7 @@
     "test:spellcheck": "spellchecker -d .spellcheck-ignore.js --files \"**/*.md\" \"!CHANGELOG.md\" --no-suggestions",
     "test:full:local": "npm run test:browser -- -c --headless && npm test",
     "test:browser:prod": "npm run test:browser -- -c --headless -e prod",
+    "type-check": "tsc --noEmit --project tsconfig.json --skipLibCheck",
     "view-prod-logs": "heroku logs --tail -a jeff-gore-personal-website",
     "write-single-blog-entry-files": "node -r ts-node/register src/server/utils/build/write-single-blog-entry-files/index.ts",
     "write-blog-preview-files": "node -r ts-node/register src/server/utils/build/write-blog-preview-files/index.ts",
