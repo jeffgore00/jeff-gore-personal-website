@@ -67,7 +67,7 @@
     "date-fns": "2.22.1",
     "express": "4.17.1",
     "helmet": "^5.0.1",
-    "html-react-parser": "^1.4.10",
+    "html-react-parser": "^2.0.0",
     "morgan": "1.10.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
