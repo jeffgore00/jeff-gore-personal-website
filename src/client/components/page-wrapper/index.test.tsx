@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { render, queryByTestId, screen } from '@testing-library/react';
 
@@ -45,6 +44,7 @@ describe('Page Wrapper', () => {
       .mockImplementation(() => <footer data-testid="mocked-footer" />);
 
     jest.spyOn(ErrorBoundaryModule, 'ErrorBoundary').mockImplementation(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore. This is valid
       ({ children }: { children: React.ReactChildren }) => children,
     );

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, import/no-extraneous-dependencies, @typescript-eslint/ban-ts-comment */
-
 import path from 'path';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CompressionPlugin from 'compression-webpack-plugin';

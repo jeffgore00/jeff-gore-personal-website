@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { JasmineOpts } from '@wdio/jasmine-framework';
 import { Options } from '@wdio/types';
 import yargs from 'yargs/yargs';
@@ -169,8 +168,11 @@ const config: Options.Testrunner = {
           ? `_${String(testPassedMap[String(testPassed)])}`
           : '';
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore. `test.id` DOES exist, takes the form of "spec_" where _ is a 0-indexed number
       const testId = <string>test.id;
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore. `test.description` DOES exist, it is first argument to the "it" block
       return `${filenameNoExtension}_${testId}${testPassedStr}_${test.description
         .toLowerCase()
         .trim()

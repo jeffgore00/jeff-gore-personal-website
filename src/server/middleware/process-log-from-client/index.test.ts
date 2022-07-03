@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Request, Response } from 'express';
 
 import processLogFromClient from '.';
@@ -25,6 +24,7 @@ describe('Middleware for logging from external source', () => {
         storeId: 39735,
       },
     },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore. Express has a special type for set-cookie arg that makes this difficult to mock.
     get(headerName: string) {
       if (headerName === 'Origin') {
