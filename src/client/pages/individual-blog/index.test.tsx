@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 // External dependencies
 import React from 'react';
 import { render, act, RenderResult, cleanup } from '@testing-library/react';

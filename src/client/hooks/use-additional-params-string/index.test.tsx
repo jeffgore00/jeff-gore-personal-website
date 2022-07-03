@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { useLocation } from 'react-router-dom';
 import { useAdditionalParamsString } from '.';
 

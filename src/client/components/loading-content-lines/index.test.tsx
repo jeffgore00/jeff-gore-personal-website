@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
 import { render } from '@testing-library/react';

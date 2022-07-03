@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { serializeError } from 'serialize-error';
 
 import { Logger } from '.';

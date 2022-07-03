@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 

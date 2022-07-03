@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { render, queryByTestId, screen } from '@testing-library/react';
