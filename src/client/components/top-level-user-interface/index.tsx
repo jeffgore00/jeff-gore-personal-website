@@ -13,6 +13,7 @@ import {
   NavMenuLinkText,
 } from '../../../shared/constants';
 import { IndividualBlog } from '../../pages/individual-blog';
+import { PageNotFound } from '../../pages/page-not-found';
 
 const FontFamilies = createGlobalStyle`
   @font-face {
@@ -59,6 +60,7 @@ export function TopLevelUserInterface(): JSX.Element {
                   element={pageMap.get(pageName)}
                 />
               ))}
+              <Route path="/*" element={<PageNotFound />} />
             </Routes>
           </PageWrapper>
         </PageStylingContainer>

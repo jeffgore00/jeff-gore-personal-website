@@ -49,7 +49,7 @@ const config: WebpackConfig = {
       sendHtmlForEnabledRoutes(devServer.app, path.join(__dirname, './public'));
     },
     onAfterSetupMiddleware(devServer: WebpackDevServer) {
-      devServer.app.use(sendResourceNotFound);
+      devServer.app.use(sendResourceNotFound(path.join(__dirname, './public')));
     },
   },
   resolve: {

@@ -99,7 +99,7 @@ export const sendErrorResponse: ErrorRequestHandler = (
 
 /* APPLY CUSTOM MIDDLEWARE */
 app.use('/api', apiRouter);
-app.use(sendResourceNotFound);
+app.use(sendResourceNotFound(path.join(__dirname, publicRelativePath)));
 app.use(sendErrorResponse);
 
 export default app;

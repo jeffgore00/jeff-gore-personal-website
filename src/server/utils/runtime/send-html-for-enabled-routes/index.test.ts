@@ -2,33 +2,38 @@ import express from 'express';
 
 import { enabledPageRoutes } from '../../../../shared/constants';
 import { sendHtmlForEnabledRoutes } from '.';
-import * as sendResourceNotFoundModule from '../../../middleware/send-resource-not-found';
+import logger from '../logger';
 
 jest.mock('../../../../shared/constants', () => ({
-  enabledPageRoutes: ['/about', '/blog', '/projects'],
+  enabledPageRoutes: ['/about', '/blog', '/blog/:contentId'],
 }));
 
 const app = express();
-const req = {};
+const req: { path: string } = { path: '' };
 const res = {
   sendFile: jest.fn(),
 };
+const next = jest.fn();
 
 const getSpy = jest
   .spyOn(app, 'get')
   .mockImplementation(
-    (path: string, handler: (req: unknown, res: unknown) => void) => {
-      handler(req, res);
+    (
+      path: string,
+      handler: (req: unknown, res: unknown, next: unknown) => void,
+    ) => {
+      req.path = path.replace(
+        ':contentId',
+        '20500402-DUMMY-the-algorithms-that-still-matter',
+      );
+      handler(req, res, next);
       return app;
     },
   );
 
-const sendResourceNotFoundSpy = jest
-  .spyOn(sendResourceNotFoundModule, 'sendResourceNotFound')
-  .mockImplementation(() => null);
-
 describe('Send HTML for enabled routes', () => {
   beforeAll(() => {
+    jest.spyOn(logger, 'error').mockImplementation(() => null);
     sendHtmlForEnabledRoutes(app, '/sample-directory');
   });
 
@@ -61,21 +66,30 @@ describe('Send HTML for enabled routes', () => {
     });
 
     describe('When res.sendFile has an error', () => {
+      const sampleError = new Error('hi');
       beforeAll(() => {
         jest.clearAllMocks();
         res.sendFile.mockImplementation(
           (dir: string, callback: (err?: Error) => void) => {
-            callback(new Error('hi'));
+            callback(sampleError);
           },
         );
         sendHtmlForEnabledRoutes(app, '/sample-directory');
       });
-      it('calls sendResourceNotFound with the request and the response', () => {
-        const { calls } = sendResourceNotFoundSpy.mock;
+      it('logs the error', () => {
+        // eslint-disable-next-line @typescript-eslint/unbound-method
+        expect(logger.error).toHaveBeenCalledWith(
+          'Error sending index.html for valid page route',
+          {
+            error: sampleError,
+            pageRoute: '/blog/:contentId',
+            path: '/blog/20500402-DUMMY-the-algorithms-that-still-matter',
+          },
+        );
+      });
 
-        expect(calls[0]).toEqual([req, res]);
-        expect(calls[1]).toEqual([req, res]);
-        expect(calls[2]).toEqual([req, res]);
+      it('calls next with the error (to let the req proceed to error handling middleware)', () => {
+        expect(next).toHaveBeenCalledWith(sampleError);
       });
     });
 
@@ -89,8 +103,8 @@ describe('Send HTML for enabled routes', () => {
         );
         sendHtmlForEnabledRoutes(app, '/sample-directory');
       });
-      it('should not call sendResourceNotFound', () => {
-        expect(sendResourceNotFoundSpy).not.toHaveBeenCalled();
+      it('should not call next (since a response has already been sent)', () => {
+        expect(next).not.toHaveBeenCalled();
       });
     });
   });

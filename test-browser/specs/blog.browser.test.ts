@@ -129,4 +129,16 @@ describe('The Blogs page', () => {
       );
     });
   });
+
+  describe('When a tries to load an invalid /blogs/ URL', () => {
+    beforeAll(async () => {
+      await browser.url(`${wdioBaseUrl}/blogs/NONEXISTENT-BLOG`);
+    });
+
+    it('Displays a message that the page is not found', async () => {
+      expect(await (await $('p')).getText()).toEqual(
+        `Page "/blogs/NONEXISTENT-BLOG" not found.`,
+      );
+    });
+  });
 });

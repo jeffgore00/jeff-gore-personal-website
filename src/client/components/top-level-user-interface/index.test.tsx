@@ -11,6 +11,7 @@ import * as ErrorBoundaryModule from '../error-boundary';
 import * as HomepageModule from '../../pages/home';
 import * as BlogModule from '../../pages/blog';
 import * as IndividualBlogModule from '../../pages/individual-blog';
+import * as PageNotFoundModule from '../../pages/page-not-found';
 import { generateSpiedReactComponent } from '../../../../test-utils/generate-spied-react-component';
 import { navMenuEnabledLinks } from '../../../shared/constants';
 
@@ -61,6 +62,12 @@ generateSpiedReactComponent({
   object: IndividualBlogModule,
   method: 'IndividualBlog',
   implementation: () => <div id="individual-blog" />,
+});
+
+generateSpiedReactComponent({
+  object: PageNotFoundModule,
+  method: 'PageNotFound',
+  implementation: () => <div id="page-not-found" />,
 });
 
 describe('The <TopLevelUserInterface> component', () => {

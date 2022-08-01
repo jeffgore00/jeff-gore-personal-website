@@ -119,9 +119,9 @@ describe('URL routes', () => {
         await browser.url(`${wdioBaseUrl}${route}`);
       });
 
-      it('Displays the plain text 404 response for an unrecognized route', async () => {
-        expect(await (await $('body')).getText()).toEqual(
-          `Operation "GET ${route}" not recognized on this server.`,
+      it('Displays a message that the page is not found', async () => {
+        expect(await (await $('p')).getText()).toEqual(
+          `Page "${route}" not found.`,
         );
       });
     });
