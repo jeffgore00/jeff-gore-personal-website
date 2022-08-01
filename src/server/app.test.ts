@@ -48,7 +48,9 @@ jest.mock(
 );
 jest.mock('./routers/api', () => Router());
 jest.mock('./utils/runtime/send-html-for-enabled-routes');
-jest.mock('./middleware/send-resource-not-found');
+jest.mock('./middleware/send-resource-not-found', () => ({
+  sendResourceNotFound: () => () => {},
+}));
 
 describe('Logging', () => {
   /* This test requires isolated module loading, because the logging

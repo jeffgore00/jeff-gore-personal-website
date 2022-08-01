@@ -7,10 +7,10 @@ import app from '../src/server/app';
 import logger from '../src/server/utils/runtime/logger';
 import { enabledPageRoutes } from '../src/shared/constants';
 
+const indexHtmlPath = path.join(__dirname, '../public/index.html');
+
 ['/', ...enabledPageRoutes].forEach((pageRoute) => {
   describe(`GET ${pageRoute}`, () => {
-    const indexHtmlPath = path.join(__dirname, '../public/index.html');
-
     beforeAll(() => {
       jest.spyOn(logger, 'error').mockImplementation(() => null);
     });
@@ -73,9 +73,9 @@ import { enabledPageRoutes } from '../src/shared/constants';
         }
       });
 
-      it('responds with 404', async () => {
+      it('responds with 500', async () => {
         const response = await request(app).get(pageRoute);
-        expect(response.status).toEqual(404);
+        expect(response.status).toEqual(500);
       });
     });
   });
@@ -133,19 +133,47 @@ describe('When a requested static file is not found', () => {
   });
 });
 
-describe('When the requested HTTP operation is not recognized', () => {
-  it('responds with 404 and restates the unrecognized operation in an error message', async () => {
-    let response = await request(app).get('/puppies');
-    expect(response.status).toEqual(404);
-    expect(response.text).toEqual(
-      'Operation "GET /puppies" not recognized on this server.',
-    );
+describe('When the requested HTTP operation is not recognized and index.html exists', () => {
+  // TODO: consolidate with other HTML exists setup at top
+  /* The index.html is generated from a template on the build step and is not
+    committed to source control. Therefore this file is not guaranteed to exist
+    before the test begins.
 
-    // "GET /" is valid, but not "POST /"
-    response = await request(app).post('/');
-    expect(response.status).toEqual(404);
-    expect(response.text).toEqual(
-      'Operation "POST /" not recognized on this server.',
-    );
+    Therefore this `describe` will create a dummy HTML file and delete it after
+    the test completes to ensure a consistent test precondition. */
+  let htmlExistedPriorToTest = true;
+
+  beforeAll(() => {
+    try {
+      fs.readFileSync(indexHtmlPath);
+    } catch (err) {
+      htmlExistedPriorToTest = false;
+      fs.writeFileSync(indexHtmlPath, '<html></html>');
+    }
+  });
+
+  afterAll(() => {
+    if (!htmlExistedPriorToTest) {
+      fs.unlinkSync(indexHtmlPath);
+    }
+  });
+
+  describe('When the operation is GET', () => {
+    it('responds with 404 and index.html', async () => {
+      const response = await request(app).get('/puppies');
+      expect(response.status).toEqual(404);
+      expect(response.text).toContain('<html');
+    });
+  });
+
+  describe('When the operation is not GET', () => {
+    it('responds with 404 and text', async () => {
+      // "GET /" is valid, but not "POST /"
+      const response = await request(app).post('/');
+      expect(response.status).toEqual(404);
+      expect(response.text).toEqual(
+        'Operation "POST /" not recognized on this server.',
+      );
+    });
   });
 });

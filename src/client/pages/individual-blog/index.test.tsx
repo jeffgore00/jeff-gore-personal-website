@@ -21,6 +21,7 @@ import { generateSpiedReactComponent } from '../../../../test-utils/generate-spi
 import logger from '../../utils/logger';
 import * as LoadingLinesModule from '../../components/loading-content-lines';
 import * as useSetPageTitleModule from '../../hooks/use-set-page-title';
+import * as PageNotFoundModule from '../page-not-found';
 
 const contentId = '20500402-DUMMY-the-algorithms-that-still-matter';
 const contentApiResponse = {
@@ -42,6 +43,12 @@ jest.mock('react-router-dom', () => ({
   }),
 }));
 
+generateSpiedReactComponent({
+  object: PageNotFoundModule,
+  method: 'PageNotFound',
+  implementation: () => <div id="page-not-found" />,
+});
+
 describe('Individual Blog Page', () => {
   let infoLoggerSpy: jest.SpyInstance;
   let fetchSpy: jest.SpyInstance;
@@ -50,6 +57,7 @@ describe('Individual Blog Page', () => {
 
   const sampleResponse: unknown = {
     status: 200,
+    ok: true,
     json: () => Promise.resolve(contentApiResponse),
   };
 
