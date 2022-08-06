@@ -32,8 +32,12 @@ describe('Write Blog Preview Files', () => {
       const buildBlogPreviewsModule = require('../../runtime/blogs/build-blog-previews');
 
       consoleLogSpy = jest.spyOn(console, 'log').mockImplementation(() => null);
-      mkdirSyncSpy = jest.spyOn(nodeWrappers, 'mkdirSync');
-      writeFileSyncSpy = jest.spyOn(nodeWrappers, 'writeFileSync');
+      mkdirSyncSpy = jest
+        .spyOn(nodeWrappers, 'mkdirSync')
+        .mockImplementation(() => null);
+      writeFileSyncSpy = jest
+        .spyOn(nodeWrappers, 'writeFileSync')
+        .mockImplementation(() => null);
       buildBlogPreviewsSpy = jest
         .spyOn(buildBlogPreviewsModule, 'buildBlogPreviews')
         .mockImplementation(({ useDummyPreviews, page }) =>
