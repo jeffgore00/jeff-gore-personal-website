@@ -125,7 +125,7 @@
     "nodemon": "^2.0.19",
     "prettier": "2.3.2",
     "source-map-loader": "^4.0.0",
-    "spellchecker-cli": "4.8.0",
+    "spellchecker-cli": "^6.0.2",
     "standard-version": "9.3.0",
     "supertest": "^6.2.3",
     "ts-jest": "^29.0.0",
