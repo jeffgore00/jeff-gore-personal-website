@@ -62,7 +62,7 @@ describe('Page Wrapper', () => {
   });
 
   it('calls the useSetPageTitle hook with the enum corresponding to the pathname', () => {
-    expect(useSetPageTitle).toBeCalledWith(
+    expect(useSetPageTitle).toHaveBeenCalledWith(
       navMenuAllLinksByPathname.get(mockPathnameEnum),
     );
   });

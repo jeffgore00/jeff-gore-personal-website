@@ -22,7 +22,7 @@ describe('The health-check middleware', () => {
 
   it('responds with contents of status.json, plus the server uptime', () => {
     healthCheckMiddleware(null, response as Response, null);
-    expect(response.json).toBeCalledWith({
+    expect(response.json).toHaveBeenCalledWith({
       ...JSON.parse(healthfileContents),
       uptime: 'four hours',
     });
