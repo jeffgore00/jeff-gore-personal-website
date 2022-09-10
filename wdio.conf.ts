@@ -76,8 +76,19 @@ const { argv: parsedCommandLineArgs } = yargs(rawCommandLineArgs)
   })
   .help('info', 'Show custom WDIO flags. For standard WDIO help, use --help');
 
-const { environment, headless, screenshot, chromedriver } =
-  parsedCommandLineArgs;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore. Not worth the time getting the yargs types to agree with TS.
+const {
+  environment,
+  headless,
+  screenshot,
+  chromedriver,
+}: {
+  environment: Environment;
+  headless: string;
+  screenshot: string;
+  chromedriver: string;
+} = parsedCommandLineArgs;
 
 const environmentMap = {
   dev: 'http://localhost:8080',
