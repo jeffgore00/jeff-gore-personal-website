@@ -22,8 +22,7 @@ export function IndividualBlog(): React.ReactElement {
   const [contentReady, setContentReady] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
 
-  // FIX THIS, SHOWS LOADING ON PAGE ERRORS
-  useSetPageTitle(content.current ? content.current.title : 'Loading...');
+  useSetPageTitle(content.current && content.current.title);
 
   const { contentId } = useParams();
   useEffect(() => {
@@ -43,9 +42,8 @@ export function IndividualBlog(): React.ReactElement {
         content.current = responseBody;
         setContentReady(true);
       })
-      .catch((error) => {
-        // eslint-disable-next-line
-        void logger.error('ERROR FETCHING CONTENT WIP', { error });
+      .catch((error: Error) => {
+        void logger.error('ERROR FETCHING CONTENT', { error });
         setLoadingError(true);
       });
   }, [contentId]);

@@ -11,8 +11,12 @@ export function sendHtmlForEnabledRoutes(
     app.get(pageRoute, (req: Request, res: Response, next: NextFunction) => {
       res.sendFile(`${fileDirectory}/index.html`, (err) => {
         if (err) {
-          logger.error('Error sending index.html', { error: err });
-          next();
+          logger.error('Error sending index.html for valid page route', {
+            pageRoute,
+            path: req.path,
+            error: err,
+          });
+          next(err);
         }
       });
     });

@@ -5,11 +5,11 @@ import { sendHtmlForEnabledRoutes } from '.';
 import logger from '../logger';
 
 jest.mock('../../../../shared/constants', () => ({
-  enabledPageRoutes: ['/about', '/blog', '/projects'],
+  enabledPageRoutes: ['/about', '/blog', '/blog/:contentId'],
 }));
 
 const app = express();
-const req = {};
+const req: { path: string } = { path: '' };
 const res = {
   sendFile: jest.fn(),
 };
@@ -22,6 +22,10 @@ const getSpy = jest
       path: string,
       handler: (req: unknown, res: unknown, next: unknown) => void,
     ) => {
+      req.path = path.replace(
+        ':contentId',
+        '20500402-DUMMY-the-algorithms-that-still-matter',
+      );
       handler(req, res, next);
       return app;
     },
@@ -74,13 +78,18 @@ describe('Send HTML for enabled routes', () => {
       });
       it('logs the error', () => {
         // eslint-disable-next-line @typescript-eslint/unbound-method
-        expect(logger.error).toHaveBeenCalledWith('Error sending index.html', {
-          error: sampleError,
-        });
+        expect(logger.error).toHaveBeenCalledWith(
+          'Error sending index.html for valid page route',
+          {
+            error: sampleError,
+            pageRoute: '/blog/:contentId',
+            path: '/blog/20500402-DUMMY-the-algorithms-that-still-matter',
+          },
+        );
       });
 
-      it('calls next (to let the req proceed to error handling middleware)', () => {
-        expect(next).toHaveBeenCalledWith();
+      it('calls next with the error (to let the req proceed to error handling middleware)', () => {
+        expect(next).toHaveBeenCalledWith(sampleError);
       });
     });
 

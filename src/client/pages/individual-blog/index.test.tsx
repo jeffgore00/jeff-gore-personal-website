@@ -108,11 +108,6 @@ describe('Individual Blog Page', () => {
         component.queryByTestId(`${NUMBER_OF_LOADING_LINES}-loading-lines`),
       ).toBeTruthy();
     });
-
-    it('sets the title of the page as "Loading..."', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(useSetPageTitleSpy.mock.calls[0][0]).toEqual('Loading...');
-    });
   });
 
   describe('When the blog previews have loaded', () => {
