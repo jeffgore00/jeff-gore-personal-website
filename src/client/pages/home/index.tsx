@@ -1,17 +1,17 @@
 // External dependencies
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // Internal dependencies
-import logger from '../../utils/logger';
 import { buildBlogPreviewsMarkup } from '../../utils/build-blog-previews-markup';
-import { ShimmeringLinesInPlaceOfContentNotYetReady } from '../../components/loading-content-lines';
 import { useAdditionalParamsString } from '../../hooks/use-additional-params-string';
 import { AboutMeHeader } from './styled-components';
 
 // Types and constants
 import { SerializedPreviews } from '../../../shared/types/content-metadata';
 import { apiUrl } from '../../constants';
+import { DataDependentPageWrapper } from '../../components/data-dependent-page-wrapper';
+import logger from '../../utils/logger';
 
 export const NUMBER_OF_LOADING_LINES = 20;
 export const HOMEPAGE_RENDERED_LOG =
@@ -23,18 +23,14 @@ export const StyledHeader = styled.h3`
 `;
 
 export function Homepage(): React.ReactElement {
-  const techMarkup = useRef<JSX.Element>(null);
-  const nonTechMarkup = useRef<JSX.Element>(null);
-  const [contentReady, setContentReady] = useState(false);
-
   const additionalParamsString = useAdditionalParamsString();
   const previewsUrl = `${apiUrl}/content/blogs/previews?page=home${additionalParamsString}`;
 
-  useEffect(() => {
-    void logger.info(HOMEPAGE_RENDERED_LOG);
-    void fetch(previewsUrl)
-      .then((response) => response.json())
-      .then((responseBody: SerializedPreviews) => {
+  void logger.info(HOMEPAGE_RENDERED_LOG);
+
+  return (
+    <DataDependentPageWrapper contentUrl={previewsUrl}>
+      {(data: SerializedPreviews) => {
         void logger.info(HOMEPAGE_GOT_CONTENT_PREVIEWS_LOG);
 
         const techPreviewsMarkup = (
@@ -44,7 +40,7 @@ export function Homepage(): React.ReactElement {
               Latest From the Tech Blog
             </StyledHeader>
             {buildBlogPreviewsMarkup({
-              previews: responseBody,
+              previews: data,
               blogType: 'TECH',
               includeDate: false,
             })}
@@ -58,35 +54,23 @@ export function Homepage(): React.ReactElement {
               Latest From the Commentary Blog
             </StyledHeader>
             {buildBlogPreviewsMarkup({
-              previews: responseBody,
+              previews: data,
               blogType: 'COMMENTARY',
               includeDate: false,
             })}
           </section>
         );
-
-        techMarkup.current = techPreviewsMarkup;
-        nonTechMarkup.current = nonTechPreviewsMarkup;
-        setContentReady(true);
-      });
-  }, [previewsUrl]);
-
-  return (
-    <>
-      <AboutMeHeader>
-        Welcome to my site! I work full time as a web developer. I used to work
-        as a journalist. Peruse the <a href="/blog">blog</a>!
-      </AboutMeHeader>
-      {!contentReady ? (
-        <ShimmeringLinesInPlaceOfContentNotYetReady
-          numberOfLines={NUMBER_OF_LOADING_LINES}
-        />
-      ) : (
-        <>
-          {techMarkup.current}
-          {nonTechMarkup.current}
-        </>
-      )}
-    </>
+        return (
+          <>
+            <AboutMeHeader>
+              Welcome to my site! I work full time as a web developer. I used to
+              work as a journalist. Peruse the <a href="/blog">blog</a>!
+            </AboutMeHeader>
+            {techPreviewsMarkup}
+            {nonTechPreviewsMarkup}
+          </>
+        );
+      }}
+    </DataDependentPageWrapper>
   );
 }
