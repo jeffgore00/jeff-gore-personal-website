@@ -1,12 +1,12 @@
 version: 2.1
 orbs:
-  node: circleci/node@4.3.0
+  node: circleci/node@5.0.3
   heroku: circleci/heroku@1.2.6
 workflows:
   heroku-deploy:
     jobs:
       - node/test:
-          version: "16.16.0"
+          version: "18.12.1"
       - heroku/deploy-via-git:
           filters:
             branches:
