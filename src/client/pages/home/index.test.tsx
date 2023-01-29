@@ -13,7 +13,6 @@ import { Homepage } from '.';
 import { generateSpiedReactComponent } from '../../../../test-utils/generate-spied-react-component';
 
 // Internal dependencies to mock
-import logger from '../../utils/logger';
 import * as buildBlogPreviewsMarkupModule from '../../utils/build-blog-previews-markup';
 // import * as LoadingLinesModule from '../../components/loading-content-lines';
 import * as useAdditionalParamsStringModule from '../../hooks/use-additional-params-string';

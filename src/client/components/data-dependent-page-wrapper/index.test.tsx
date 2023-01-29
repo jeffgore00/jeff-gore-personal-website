@@ -60,7 +60,7 @@ jest
 const renderComponent = () =>
   render(
     <DataDependentPageWrapper contentUrl="http://localhost:8000">
-      {(data: any) => (
+      {(data: unknown) => (
         <div data-testid="child-element">{JSON.stringify(data)}</div>
       )}
     </DataDependentPageWrapper>,
