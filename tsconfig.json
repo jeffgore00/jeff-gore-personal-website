@@ -15,7 +15,7 @@
       "react-dom",
       "styled-components",
       "jest",
-      "webdriverio/async"
+      "@wdio/globals/types"
     ]
   },
   "include": [

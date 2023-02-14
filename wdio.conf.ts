@@ -164,7 +164,7 @@ const config: Options.Testrunner = {
     const specFilepathSegments = specs[0].split('/');
     global.specFilename = specFilepathSegments[specFilepathSegments.length - 1];
   },
-  afterTest(test, context, { passed }) {
+  async afterTest(test, context, { passed }) {
     const generateScreenshotName = (testPassed?: boolean) => {
       const [filenameNoExtension] =
         global.specFilename.split('.browser.test.ts');
@@ -192,12 +192,12 @@ const config: Options.Testrunner = {
     };
 
     if (screenshot === ScreenshotModes.failedTestsOnly && !passed) {
-      browser.saveScreenshot(
+      await browser.saveScreenshot(
         `test-result-screenshots/${generateScreenshotName()}.png`,
       );
     }
     if (screenshot === ScreenshotModes.always) {
-      browser.saveScreenshot(
+      await browser.saveScreenshot(
         `test-result-screenshots/${generateScreenshotName(passed)}.png`,
       );
     }
