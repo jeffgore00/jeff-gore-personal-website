@@ -5,8 +5,8 @@ import app from './app';
 import logger from './utils/runtime/logger';
 
 function createServer(expressApp: Application): http.Server {
-  /* Heroku magically takes care making this an HTTPS server, but
-  unsure if the same would be true for other platforms. */
+  /* When Heroku was free and this app was deployed there, Heroku magically took care making this an 
+  HTTPS server, but unsure if the same would be true for other platforms. */
   return http.createServer(expressApp);
 }
 

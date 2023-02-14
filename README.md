@@ -266,7 +266,6 @@ The definitions for these flags can be found in `wdio.conf.ts`.
 [React]: https://reactjs.org/
 [TypeScript]: https://www.typescriptlang.org/
 [CircleCI]: https://circleci.com/
-[Heroku]: https://www.heroku.com/
 [Husky]: https://www.npmjs.com/package/husky
 [ESLint]: https://eslint.org/
 [Airbnb configuration]: https://www.npmjs.com/package/eslint-config-airbnb
@@ -294,7 +293,6 @@ The definitions for these flags can be found in `wdio.conf.ts`.
 [Helmet]: https://helmetjs.github.io/
 [CORS]: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
 [Postman]: https://www.postman.com/
-[Heroku routing magic]: https://devcenter.heroku.com/articles/http-routing#routing
 [Renovate]: https://docs.renovatebot.com/
 [serialize-error]: https://www.npmjs.com/package/serialize-error
 <!-- prettier-ignore-end -->

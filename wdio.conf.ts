@@ -93,7 +93,7 @@ const {
 const environmentMap = {
   dev: 'http://localhost:8080',
   localProdlike: 'http://localhost:1337',
-  prod: 'https://jeff-gore-personal-website.herokuapp.com',
+  prod: 'TBD',
 };
 
 const baseUrl = environmentMap[environment];

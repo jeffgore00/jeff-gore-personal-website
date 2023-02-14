@@ -6,7 +6,6 @@ module.exports = [
   'WDIO',
   'Chromedriver',
   'Codecov',
-  'Heroku',
   'CircleCI',
   'Webpack-TypeScript',
   'Webpack',
