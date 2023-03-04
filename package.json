@@ -83,7 +83,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
-    "@testing-library/react": "^13.0.0",
+    "@testing-library/react": "^14.0.0",
     "@types/cors": "^2.8.10",
     "@types/express": "4.17.12",
     "@types/jasmine": "^4.0.0",
