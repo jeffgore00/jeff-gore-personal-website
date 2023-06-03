@@ -7,13 +7,18 @@ describe('Logger', () => {
   let logger: Logger;
   let consoleSpy: jest.SpyInstance;
 
+  const mockConsoleImplementation = function mockConsole(): null {
+    return null;
+  };
+
   beforeAll(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     consoleSpy = jest
       /* TS is saying _stdout doesn't exist on Console, but it does; it's what Winston uses.
       @ts-ignore. */
       // eslint-disable-next-line no-underscore-dangle, no-console
       .spyOn(console._stdout, 'write')
-      .mockImplementation(() => null);
+      .mockImplementation(mockConsoleImplementation);
   });
 
   beforeEach(() => {

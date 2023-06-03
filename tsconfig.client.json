@@ -3,9 +3,7 @@
   "compilerOptions": {
     "module": "esnext",
     "moduleResolution": "node",
-    "types": ["node", "react", "react-dom", "styled-components", "jest"],
-    "target": "es5",
-    "typeRoots": ["./node_modules", "./src/client"]
+    "target": "es5"
   },
   "include": ["src/client", "src/shared", "test-utils/components"],
   "exclude": ["**/*.test.ts", "**/*.test.tsx", "node_modules"]
