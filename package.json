@@ -10,7 +10,7 @@
     "url": "https://github.com/jeffgore00/jeff-gore-personal-website.git"
   },
   "engines": {
-    "node": "18.12.1"
+    "node": "18.16.1"
   },
   "nodemonConfig": {
     "ignore": [
