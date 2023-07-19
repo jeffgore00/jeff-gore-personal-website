@@ -1,24 +1,18 @@
 version: 2.1
 orbs:
+  browser-tools: circleci/browser-tools@1.4.5
   node: circleci/node@5.1.0
 jobs:
-  test-and-build:
+  read-wordle-page:
     docker:
-      - image: cimg/node:18.16.1
+      - image: cimg/node:18.16.1-browsers
     steps:
+      - browser-tools/install-browser-tools
       - checkout
       - node/install-packages
-      - run:
-          name: Unit and API Tests, lint, Prettier check, Spellcheck
-          command: npm t
-      - run:
-          name: Build (Client, Server, and Content)
-          command: npm run build
+      - run: npm run test:browser -- --spec test-browser/specs/ci.browser.test.ts -c
 
 workflows:
   test:
-    when:
-      condition:
-        equal: [main, << pipeline.git.branch >>]
     jobs:
-      - test-and-build
+      - read-wordle-page
