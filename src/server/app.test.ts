@@ -42,9 +42,11 @@ jest.mock('./utils/runtime/logger', () => ({
 jest.mock('morgan', () => jest.fn(() => (): void => {}));
 jest.mock(
   'helmet',
-  () => () => (request: Request, response: Response, nextFunc: NextFunction) => {
-    nextFunc();
-  },
+  () =>
+    () =>
+    (request: Request, response: Response, nextFunc: NextFunction) => {
+      nextFunc();
+    },
 );
 jest.mock('./routers/api', () => Router());
 jest.mock('./utils/runtime/send-html-for-enabled-routes');
