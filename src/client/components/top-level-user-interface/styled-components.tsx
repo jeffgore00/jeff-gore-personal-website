@@ -6,7 +6,7 @@ export const PageStylingContainer = styled.div.attrs({
   max-width: 800px;
   margin: 0 auto;
   padding: 20px 40px;
-  font-family: Helvetica, sans serif;
+  font-family: Helvetica, sans-serif;
 `;
 
 /* Possible refactor: use styled-components injectGlobal to make font-face 
