@@ -8,15 +8,14 @@
       content="Jeff Gore is a software engineer based in New York City."
     />
     <title>Jeff Gore</title>
+    <!-- bundle.js is automatically injected below by HTMLWebpackPlugin -->
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- Dependencies -->
+    <!-- External Dependencies -->
 
     <%= htmlWebpackPlugin.options.reactScript %> <%=
     htmlWebpackPlugin.options.reactDomScript %>
-
-    <!-- bundle.js is automatically injected below by HTMLWebpackPlugin -->
   </body>
 </html>
