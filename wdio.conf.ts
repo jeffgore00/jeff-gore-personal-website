@@ -1,4 +1,3 @@
-import { JasmineOpts } from '@wdio/jasmine-framework';
 import { Options } from '@wdio/types';
 import yargs from 'yargs/yargs';
 import fs from 'fs';
@@ -98,10 +97,15 @@ const environmentMap = {
 
 const baseUrl = environmentMap[environment];
 
+// Commented out for now as latest WDIO has a TypeScript issue with `JasmineOpts`
+/*
+import { JasmineOpts } from '@wdio/jasmine-framework';
+...
 const jasmineOpts: JasmineOpts = {
-  /* default is 60000, this is just to show how to provide typed Jasmine options */
+  // default is 60000, this is just to show how to provide typed Jasmine options 
   defaultTimeoutInterval: 59999,
 };
+*/
 
 const config: Options.Testrunner = {
   runner: 'local',
@@ -139,7 +143,6 @@ const config: Options.Testrunner = {
   ...(chromedriver && { services: ['chromedriver'] }),
   framework: 'jasmine',
   reporters: ['spec'],
-  jasmineOpts,
   autoCompileOpts: {
     tsNodeOpts: {
       project: 'tsconfig.wdio.json',
