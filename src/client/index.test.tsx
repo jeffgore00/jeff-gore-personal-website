@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import * as TopLevelUserInterfaceModule from './components/top-level-user-interface';
@@ -29,12 +29,14 @@ describe('root', () => {
     document.body.appendChild(root);
   });
 
-  it('injects the <TopLevelUserInterface> component into <div id="root">', async () => {
+  it('injects the <TopLevelUserInterface> component into <div id="root">, wrapped in StrictMode', async () => {
     await import('.');
     expect(reactDOMCreateRootSpy).toHaveBeenCalledWith(root);
 
     expect(reactDOMRootSpy.render).toHaveBeenCalledWith(
-      <TopLevelUserInterfaceSpy />,
+      <StrictMode>
+        <TopLevelUserInterfaceSpy />
+      </StrictMode>,
     );
   });
 });
