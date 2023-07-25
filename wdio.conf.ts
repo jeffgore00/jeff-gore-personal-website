@@ -154,7 +154,7 @@ const config: Options.Testrunner = {
       fs.mkdirSync(directoryPath);
     };
 
-    if (screenshot !== ScreenshotModes.never) {
+    if (screenshot !== ScreenshotModes.never.toString()) {
       createEmptyScreenshotDirectory();
     }
   },
@@ -191,12 +191,12 @@ const config: Options.Testrunner = {
         .join('-')}`;
     };
 
-    if (screenshot === ScreenshotModes.failedTestsOnly && !passed) {
+    if (screenshot === ScreenshotModes.failedTestsOnly.toString() && !passed) {
       await browser.saveScreenshot(
         `test-result-screenshots/${generateScreenshotName()}.png`,
       );
     }
-    if (screenshot === ScreenshotModes.always) {
+    if (screenshot === ScreenshotModes.always.toString()) {
       await browser.saveScreenshot(
         `test-result-screenshots/${generateScreenshotName(passed)}.png`,
       );

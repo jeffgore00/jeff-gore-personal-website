@@ -60,7 +60,7 @@ describe('Logger', () => {
     ): RegExp => {
       const additionalDataStr = additionalData
         ? ` <dimmed text>${Object.entries(additionalData).map(
-            ([key, value]) => `data_${key}=${value}`,
+            ([key, value]) => `data_${key}=${String(value)}`,
           )}</dimmed text>`
         : '';
       const regexStr = `<black text with ${color} background> ${logType.toUpperCase()} <\\/black text with ${color} background> <${color} text>${logMessage}${additionalDataStr}<\\/${color} text> <gray text>${dateRegexString}<\\/gray text>\\n`;
@@ -140,7 +140,7 @@ describe('Logger', () => {
     describe('When the log level is not debug', () => {
       it('logs in plain JSON the log, log level, and timestamp', () => {
         Object.values(LogType)
-          .filter((type) => type !== 'debug')
+          .filter((type) => type.toString() !== 'debug')
           .forEach((logType, index) => {
             logger[logType]('hi');
 

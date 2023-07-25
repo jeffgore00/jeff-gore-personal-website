@@ -27,7 +27,7 @@ const developmentFormatter = format.printf((log) => {
       if (typeof value === 'object') {
         groomedValue = JSON.stringify(value);
       }
-      return `data_${key}=${groomedValue}`;
+      return `data_${key}=${String(groomedValue)}`;
     },
   );
   const additionalDataStr =

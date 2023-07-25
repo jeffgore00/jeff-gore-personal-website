@@ -30,9 +30,9 @@ export const buildSingleBlogEntry = async (
 
   const htmlContent = `<h2 id="blog-title">${
     metadata.title
-  }</h2><h3 id="blog-subtitle">${
-    metadata.subtitle
-  }</h3><span id="blog-publish-date">${metadata.publishDate.toLocaleDateString(
+  }</h2><h3 id="blog-subtitle">${String(
+    metadata.subtitle,
+  )}</h3><span id="blog-publish-date">${metadata.publishDate.toLocaleDateString(
     'en-US',
     {
       timeZone: 'UTC',

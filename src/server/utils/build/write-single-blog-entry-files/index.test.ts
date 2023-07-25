@@ -29,7 +29,7 @@ describe('writeSingleBlogEntryFiles', () => {
 
       jest
         .spyOn(buildSingleBlogEntryModule, 'buildSingleBlogEntry')
-        .mockImplementation((contentId) => ({
+        .mockImplementation((contentId: string) => ({
           htmlContent: `<div>${contentId}</div>`,
         }));
 
