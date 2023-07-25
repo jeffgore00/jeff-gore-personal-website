@@ -2,9 +2,6 @@
 
 exports[`DesktopNavMenuContainer presentational component renders the wrapped content with the expected CSS styles and HTML attributes 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -34,7 +31,6 @@ exports[`NonFirstHyperlink presentational component renders the wrapped content 
 
 exports[`StyledLink presentational component renders the React Router <Link> with the expected CSS styles 1`] = `
 .c0 {
-  -webkit-text-decoration: none;
   text-decoration: none;
   color: black;
 }
@@ -44,7 +40,6 @@ exports[`StyledLink presentational component renders the React Router <Link> wit
 }
 
 .c0:hover {
-  -webkit-text-decoration: underline;
   text-decoration: underline;
   color: purple;
 }

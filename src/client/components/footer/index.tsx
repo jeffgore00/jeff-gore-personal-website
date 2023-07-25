@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { createReactWrapperForPlainElement } from '../../utils/styled-components';
 
-const FooterContainer = styled.footer.attrs({
+const FooterContainer = styled(
+  createReactWrapperForPlainElement('footer'),
+).attrs({
   'data-testid': 'footer',
 })`
   display: flex;
@@ -9,7 +12,9 @@ const FooterContainer = styled.footer.attrs({
   margin-top: 1em;
 `;
 
-const CopyrightContainer = styled.div.attrs({
+const CopyrightContainer = styled(
+  createReactWrapperForPlainElement('div'),
+).attrs({
   'data-testid': 'copyright-footer',
 })`
   display: flex;
@@ -17,7 +22,9 @@ const CopyrightContainer = styled.div.attrs({
   flex-grow: 1;
 `;
 
-const SocialMediaIconsContainer = styled.div.attrs({
+const SocialMediaIconsContainer = styled(
+  createReactWrapperForPlainElement('div'),
+).attrs({
   'data-testid': 'social-media-icons',
 })`
   display: flex;

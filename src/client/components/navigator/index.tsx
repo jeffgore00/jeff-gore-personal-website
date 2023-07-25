@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 import { DesktopNavMenu } from './desktop-menu';
 import { MobileNavMenu } from './mobile-menu';
+import { createReactWrapperForPlainElement } from '../../utils/styled-components';
 
 const DESKTOP_MEDIA_QUERY = '(min-width: 700px)';
 
-const StyledHeader = styled.h1.attrs({
+const StyledHeader = styled(createReactWrapperForPlainElement('h1')).attrs({
   'data-testid': 'name-header',
 })`
   font-family: JetBrainsMonoItalic, monospace;
@@ -36,7 +37,9 @@ function NameHeader(): React.ReactElement {
   );
 }
 
-const NavigatorContainer = styled.nav.attrs({
+const NavigatorContainer = styled(
+  createReactWrapperForPlainElement('nav'),
+).attrs({
   'data-testid': 'navigator',
 })`
   display: flex;

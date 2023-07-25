@@ -26,7 +26,7 @@ describe('BlogPreviewTitleHeading presentational component', () => {
 describe('BlogPreviewWrapper presentational component', () => {
   it('renders the wrapped content with the expected CSS styles and HTML attributes', () => {
     const { container } = render(
-      <BlogPreviewWrapper contentId="20500402-DUMMY-the-algorithms-that-still-matter">
+      <BlogPreviewWrapper $contentId="20500402-DUMMY-the-algorithms-that-still-matter">
         <div className="blog-preview-title-heading">
           The Algorithms That Still Matter
         </div>

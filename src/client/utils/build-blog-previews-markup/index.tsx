@@ -43,7 +43,7 @@ export function buildBlogPreviewsMarkup({
             });
 
           return (
-            <BlogPreviewWrapper contentId={contentId} key={contentId}>
+            <BlogPreviewWrapper $contentId={contentId} key={contentId}>
               <StyledLink to={`/blog/${contentId}`}>
                 {includeTypeHeading && (
                   <BlogPreviewTypeHeading

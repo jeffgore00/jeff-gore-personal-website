@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { createReactWrapperForPlainElement } from '../../../utils/styled-components';
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
@@ -22,9 +23,11 @@ export const StyledButton = styled.button`
   }
 `;
 
-export const LinkPanel = styled.div.attrs({
-  'data-testid': 'link-panel',
-})`
+export const LinkPanel = styled(createReactWrapperForPlainElement('div')).attrs(
+  {
+    'data-testid': 'link-panel',
+  },
+)`
   height: 3em;
   font-size: 1.5em;
   font-family: JetBrainsMonoItalic;

@@ -72,12 +72,12 @@ generateSpiedReactComponent({
   spyOnRenderMethod: true,
   implementation: ({
     children,
-    contentId,
+    $contentId,
   }: {
     children: React.ReactChild;
-    contentId: string;
+    $contentId: string;
   }) => (
-    <div id={`blog-preview-${contentId}`} className="single-blog-preview">
+    <div id={`blog-preview-${$contentId}`} className="single-blog-preview">
       {children}
     </div>
   ),

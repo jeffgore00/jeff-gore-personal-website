@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-type BlogPreviewProps = { contentId: string };
+type BlogPreviewProps = { $contentId: string };
 
-export const BlogPreviewWrapper = styled.div.attrs(
-  ({ contentId }: BlogPreviewProps) => ({
-    id: `blog-preview-${contentId}`,
+export const BlogPreviewWrapper = styled.div.attrs<BlogPreviewProps>(
+  ({ $contentId }) => ({
+    id: `blog-preview-${$contentId}`,
     className: 'single-blog-preview',
   }),
-)<BlogPreviewProps>`
+)`
   margin-bottom: 1em;
 `;
 
