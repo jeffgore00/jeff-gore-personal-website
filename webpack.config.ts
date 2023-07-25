@@ -20,8 +20,8 @@ const createReactScriptHtmlWebpackConfig = () => {
     };
   }
   const createReactScriptTags = (environment: string) => ({
-    reactScript: `<script crossorigin src="https://unpkg.com/react@18.0.0/umd/react.${environment}.js"></script>`,
-    reactDomScript: `<script crossorigin src="https://unpkg.com/react-dom@18.0.0/umd/react-dom.${environment}.js"></script>`,
+    reactScript: `<script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.${environment}.js"></script>`,
+    reactDomScript: `<script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.${environment}.js"></script>`,
   });
 
   if (process.env.NODE_ENV === 'development') {
