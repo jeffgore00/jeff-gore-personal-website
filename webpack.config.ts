@@ -4,7 +4,7 @@ import CompressionPlugin from 'compression-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { DefinePlugin, Configuration as WebpackConfig } from 'webpack';
 import createStyledComponentsTransformer from 'typescript-plugin-styled-components';
-import WebpackDevServer from 'webpack-dev-server';
+import 'webpack-dev-server';
 import morgan from 'morgan';
 
 import { sendHtmlForEnabledRoutes } from './src/server/utils/runtime/send-html-for-enabled-routes';
@@ -44,12 +44,18 @@ const config: WebpackConfig = {
     static: {
       directory: 'public',
     },
-    onBeforeSetupMiddleware(devServer: WebpackDevServer) {
-      devServer.app.use(morgan('dev'));
+    setupMiddlewares: (middlewares, devServer) => {
+      middlewares.unshift({
+        middleware: morgan('dev'),
+      });
+
       sendHtmlForEnabledRoutes(devServer.app, path.join(__dirname, './public'));
-    },
-    onAfterSetupMiddleware(devServer: WebpackDevServer) {
-      devServer.app.use(sendResourceNotFound(path.join(__dirname, './public')));
+
+      middlewares.push({
+        middleware: sendResourceNotFound(path.join(__dirname, './public')),
+      });
+
+      return middlewares;
     },
   },
   resolve: {
