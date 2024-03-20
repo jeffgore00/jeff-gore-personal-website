@@ -80,7 +80,10 @@ describe('The Blogs page', () => {
           );
           testComplete = true;
         } catch (err) {
-          if (String(err).includes('ECONNRESET')) {
+          if (
+            String(err).includes('ECONNRESET') ||
+            String(err).includes('EPIPE')
+          ) {
             // eslint-disable-next-line no-console
             console.log('Connection error, retrying');
           } else {
