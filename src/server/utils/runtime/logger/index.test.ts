@@ -14,10 +14,10 @@ describe('Logger', () => {
   beforeAll(() => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     consoleSpy = jest
-      /* TS is saying _stdout doesn't exist on Console, but it does; it's what Winston uses.
-      @ts-ignore. */
+      /* @ts-expect-error. TS is saying _stdout doesn't exist on Console, but it does; it's what Winston uses. */
       // eslint-disable-next-line no-underscore-dangle, no-console
       .spyOn(console._stdout, 'write')
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       .mockImplementation(mockConsoleImplementation);
   });
 
