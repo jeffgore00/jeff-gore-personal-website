@@ -22,7 +22,7 @@
       "content"
     ],
     "ext": "js,ts,json,tsx",
-    "exec": "node -r ts-node/register --unhandled-rejections=strict"
+    "exec": "tsx"
   },
   "scripts": {
     "build": "npm run build:client && npm run build:server && npm run build:content",
@@ -53,8 +53,8 @@
     "test:full:local": "npm run test:browser -- -c --headless && npm test",
     "test:browser:prod": "npm run test:browser -- -c --headless -e prod",
     "type-check": "tsc --noEmit --project tsconfig.json --skipLibCheck",
-    "write-single-blog-entry-files": "node -r ts-node/register src/server/utils/build/write-single-blog-entry-files/index.ts",
-    "write-blog-preview-files": "node -r ts-node/register src/server/utils/build/write-blog-preview-files/index.ts",
+    "write-single-blog-entry-files": "tsx src/server/utils/build/write-single-blog-entry-files/index.ts",
+    "write-blog-preview-files": "tsx src/server/utils/build/write-blog-preview-files/index.ts",
     "postinstall": "husky install",
     "posttest:unit-and-api": "if [ \"$CI\" = \"true\" ]; then npm run send-codecov-report; fi",
     "pretest:browser": "tsc wdio.conf.ts --typeRoots ./node_modules/@types/wdio --resolveJsonModule --esModuleInterop"
@@ -75,7 +75,6 @@
     "react-router-dom": "^6.2.1",
     "serialize-error": "8.1.0",
     "styled-components": "^6.0.5",
-    "ts-node": "^10.8.0",
     "typescript": "^5.1.3",
     "winston": "3.3.3"
   },
@@ -128,6 +127,7 @@
     "supertest": "^6.2.3",
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.3.0",
+    "tsx": "^4.7.1",
     "typescript-plugin-styled-components": "^3.0.0",
     "wdio-chromedriver-service": "^8.1.1",
     "webpack": "^5.76.0",

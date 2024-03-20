@@ -14,7 +14,7 @@ export const HEALTHFILE_EDIT_ERROR_MESSAGE = 'Health file edit failed: ';
 As part of a production build, we want to alter the file in `dist`, not in `src`.
 This file is intended for use as an npm script argument e.g.
 
-(build server) && node -r ts-node/register src/server/utils/edit-server-status-file.ts
+(build server) && tsx src/server/utils/edit-server-status-file.ts
 */
 try {
   const serverStatus = getServerStatus();
