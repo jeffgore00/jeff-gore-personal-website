@@ -1,6 +1,7 @@
 {
   "name": "jeff-gore-personal-website",
   "version": "0.1.0",
+  "type": "module",
   "description": "Jeff Gore's personal website.",
   "homepage": "(none currently)",
   "author": "Jeff Gore",
