@@ -131,7 +131,7 @@
     "ts-loader": "^9.3.0",
     "typescript-plugin-styled-components": "^3.0.0",
     "wdio-chromedriver-service": "^8.1.1",
-    "webpack": "^5.76.0",
+    "webpack": "^5.94.0",
     "webpack-bundle-analyzer": "4.4.2",
     "webpack-cli": "^5.0.0",
     "webpack-dev-server": "^5.0.2",
